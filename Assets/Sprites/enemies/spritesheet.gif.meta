@@ -1,0 +1,682 @@
+fileFormatVersion: 2
+guid: 333bc00af262c3145a8ff5879d02e632
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: characters_58
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 306
+        width: 16
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4aebb4706af4d1469f6d8710f795078
+      internalID: -211936723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_59
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 306
+        width: 16
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b98a465809400e46a59943a8d63099a
+      internalID: 2008399840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_60
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 306
+        width: 14
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdfe3733d80fd2e4cae07a9a201b7ba1
+      internalID: 284726671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_61
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 306
+        width: 16
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccb775c584c993642aeed4289fd82926
+      internalID: -597546857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_62
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 306
+        width: 16
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75c4725731b98a949a93f52844c30077
+      internalID: -1336079431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_63
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 306
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b73d9db88c81694bafe5dfa7f8d2c38
+      internalID: -1535574436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_64
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 306
+        width: 14
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b8ac308cdfac4c4b85dac9a1ab515dd
+      internalID: 1581685522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_65
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 306
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39fa88edd6b59a14cac0511f69ce7190
+      internalID: -2041061648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_66
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 306
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34d1f346033c6eb4994cc45c702e1abc
+      internalID: 971367757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_67
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 306
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2beeaf521841b6478575899ddfc6bd3
+      internalID: -317252305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_68
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 306
+        width: 14
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 478d6ba6774b4ea43bea0e0ec5ab8994
+      internalID: 1345411880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_69
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 306
+        width: 16
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56cab543f225df746ab335e14e546c32
+      internalID: 2103690676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_70
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 306
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81744ef01ccfee145bf7f63a860be7a4
+      internalID: -740774856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: characters_71
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 306
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdbfe9a755f035741b8e84ecbf058c9b
+      internalID: -933545473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      characters_0: 2010947083
+      characters_1: 775839252
+      characters_10: -1821579236
+      characters_100: 1738102649
+      characters_101: 511127260
+      characters_102: -1123478131
+      characters_103: 1099053481
+      characters_104: 1341675218
+      characters_105: 896972179
+      characters_106: 1351990795
+      characters_107: -1939121250
+      characters_108: -27660340
+      characters_109: -1341429277
+      characters_11: 2141005476
+      characters_110: 1171442704
+      characters_111: 1735695839
+      characters_112: 1621047661
+      characters_113: 933297622
+      characters_114: 1934570242
+      characters_115: 1052451287
+      characters_116: -985412645
+      characters_117: -590880031
+      characters_118: 888237120
+      characters_119: 974891945
+      characters_12: 285572
+      characters_120: -1117577664
+      characters_121: -233828926
+      characters_122: 591004415
+      characters_123: 195141782
+      characters_124: 1565613110
+      characters_125: -1004159900
+      characters_126: 564281970
+      characters_127: -1486776599
+      characters_128: 1146311760
+      characters_129: -437924337
+      characters_13: -1008614318
+      characters_130: -1200062902
+      characters_131: 1087829994
+      characters_132: 2040804477
+      characters_133: -1283013831
+      characters_134: 334118240
+      characters_135: -1382569385
+      characters_136: -116929193
+      characters_137: -1613089812
+      characters_138: 1240339663
+      characters_139: 670569294
+      characters_14: 753785562
+      characters_140: 755834370
+      characters_141: -512383124
+      characters_142: -340675219
+      characters_143: -799631527
+      characters_144: 592588395
+      characters_145: -1269774074
+      characters_146: 1749942291
+      characters_147: -523305739
+      characters_148: -1410114954
+      characters_149: 401931125
+      characters_15: -697827376
+      characters_150: -441845313
+      characters_151: 1210019940
+      characters_152: 1344361583
+      characters_153: 1905677677
+      characters_154: 391632958
+      characters_155: 807459446
+      characters_156: 1486093333
+      characters_157: -1638215962
+      characters_158: -2109944012
+      characters_159: -1861183282
+      characters_16: 2034561738
+      characters_160: -1715475952
+      characters_161: -1962980549
+      characters_162: -1187103095
+      characters_163: 429072118
+      characters_164: 1774874174
+      characters_165: 85766592
+      characters_166: 72989219
+      characters_167: -420803938
+      characters_168: -964181252
+      characters_169: -1170132837
+      characters_17: 60357320
+      characters_170: -1721675322
+      characters_171: 1261098899
+      characters_172: -401343743
+      characters_173: 2105413205
+      characters_174: -896309040
+      characters_175: 281195318
+      characters_176: 1286306887
+      characters_177: -178215972
+      characters_178: -1598978743
+      characters_179: 512437432
+      characters_18: 611900695
+      characters_180: 402985676
+      characters_181: 177710740
+      characters_182: 152668940
+      characters_183: -835665068
+      characters_184: 2005421210
+      characters_185: 1939562471
+      characters_186: 1092455215
+      characters_187: -1640189207
+      characters_188: -1294460574
+      characters_189: -1681308182
+      characters_19: -1927798284
+      characters_190: 55810804
+      characters_191: 282138579
+      characters_192: -1359169323
+      characters_193: -358802908
+      characters_194: -451387828
+      characters_195: 2095534263
+      characters_196: -993497985
+      characters_197: 1200506465
+      characters_198: 1369600536
+      characters_199: 1663613896
+      characters_2: -103929528
+      characters_20: -1601836668
+      characters_200: 1037268221
+      characters_201: 578916518
+      characters_202: -1303135446
+      characters_203: -783531285
+      characters_204: 1727910636
+      characters_205: 575498106
+      characters_206: -1474994769
+      characters_207: -523794079
+      characters_208: -1992368673
+      characters_209: 1480655600
+      characters_21: -1277289516
+      characters_210: 2012260397
+      characters_211: -1452878624
+      characters_212: -1403673911
+      characters_213: 1917624059
+      characters_214: -1981551753
+      characters_215: -1440397449
+      characters_216: -1821941639
+      characters_217: 4696989
+      characters_218: 902937407
+      characters_219: -1084628958
+      characters_22: 639114819
+      characters_220: 729336217
+      characters_221: -476267114
+      characters_222: -1634075986
+      characters_223: -262051459
+      characters_224: -1012356012
+      characters_225: -1314389682
+      characters_226: -1139407938
+      characters_227: 2107655894
+      characters_228: -270054887
+      characters_229: -22544630
+      characters_23: -468422701
+      characters_230: 1140099513
+      characters_231: 26354379
+      characters_232: -109095494
+      characters_233: -1194920159
+      characters_234: 1000643699
+      characters_235: 1452638
+      characters_236: 1892290214
+      characters_237: 1727440402
+      characters_238: 2122903240
+      characters_239: -1119302500
+      characters_24: -1498663811
+      characters_240: 1870877163
+      characters_241: 1248886090
+      characters_242: 1242900948
+      characters_243: -515759203
+      characters_244: -529205496
+      characters_245: 680685756
+      characters_246: -743158179
+      characters_247: 1545228712
+      characters_248: -2079232465
+      characters_249: -1888609151
+      characters_25: -856451873
+      characters_250: 1318494669
+      characters_251: 364985692
+      characters_252: -1539998344
+      characters_253: 852898227
+      characters_254: -1777228270
+      characters_255: -986296333
+      characters_256: -765813227
+      characters_257: 530620517
+      characters_258: -922258952
+      characters_259: -73539380
+      characters_26: 31716629
+      characters_260: -1083258006
+      characters_261: 649093948
+      characters_262: 951933875
+      characters_263: -1603028044
+      characters_264: 1046373294
+      characters_27: -968832164
+      characters_28: -1954988467
+      characters_29: 1939533226
+      characters_3: 1126414867
+      characters_30: -1599937219
+      characters_31: 277471932
+      characters_32: -202018639
+      characters_33: 937908544
+      characters_34: 854670402
+      characters_35: 110590848
+      characters_36: -1763154050
+      characters_37: 26639256
+      characters_38: 679708606
+      characters_39: -2007535124
+      characters_4: -680110931
+      characters_40: -756674470
+      characters_41: -172806650
+      characters_42: 576815405
+      characters_43: 540717949
+      characters_44: 1729940708
+      characters_45: -961919687
+      characters_46: -1915976039
+      characters_47: 922823162
+      characters_48: 1363475881
+      characters_49: 1881286449
+      characters_5: -1399885809
+      characters_50: -1122699976
+      characters_51: -787009579
+      characters_52: 861865793
+      characters_53: 189921520
+      characters_54: 123760865
+      characters_55: -336085079
+      characters_56: 70654287
+      characters_57: 245360723
+      characters_58: -211936723
+      characters_59: 2008399840
+      characters_6: -1354048783
+      characters_60: 284726671
+      characters_61: -597546857
+      characters_62: -1336079431
+      characters_63: -1535574436
+      characters_64: 1581685522
+      characters_65: -2041061648
+      characters_66: 971367757
+      characters_67: -317252305
+      characters_68: 1345411880
+      characters_69: 2103690676
+      characters_7: 2046813814
+      characters_70: -740774856
+      characters_71: -933545473
+      characters_72: -995984298
+      characters_73: 635164979
+      characters_74: 615425312
+      characters_75: -621656834
+      characters_76: -1647601913
+      characters_77: 1438520378
+      characters_78: 971815849
+      characters_79: -1882658221
+      characters_8: -1866484865
+      characters_80: -575117373
+      characters_81: -1052526784
+      characters_82: 1436665609
+      characters_83: 2138013276
+      characters_84: 366595536
+      characters_85: 937349850
+      characters_86: -453455451
+      characters_87: -952643545
+      characters_88: 564084610
+      characters_89: 385124331
+      characters_9: 929003389
+      characters_90: -1302020969
+      characters_91: -955920363
+      characters_92: -2037008383
+      characters_93: 243062490
+      characters_94: -715498061
+      characters_95: 778718728
+      characters_96: 1286899204
+      characters_97: 1892532516
+      characters_98: -98124259
+      characters_99: 1584669029
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
