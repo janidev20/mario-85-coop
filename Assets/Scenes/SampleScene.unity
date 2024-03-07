@@ -328,9 +328,9 @@ GameObject:
   m_Component:
   - component: {fileID: 922622356}
   - component: {fileID: 922622357}
-  - component: {fileID: 922622358}
   - component: {fileID: 922622359}
   - component: {fileID: 922622360}
+  - component: {fileID: 922622361}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -367,25 +367,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0000012317023, y: -0.005778993}
-  m_Size: {x: 1.0883839, y: 2.0420997}
+  m_Offset: {x: 0.0000012317023, y: -0.047799133}
+  m_Size: {x: 1.0883839, y: 2.5967655}
   m_Direction: 0
---- !u!114 &922622358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922622355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e60d886be65b6e4e98842981de92b27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 7
-  _moveSlide: 0
-  _jumpForce: 0
-  _gravity: 0
 --- !u!114 &922622359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,7 +465,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -489,6 +473,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &922622361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922622355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873d6909ab7f55f4a85ecfde6d31513e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxSpeed: 13
+  _minSpeed: 0
+  _moveSpeed: 7
+  _currentSpeed: 0
+  _SprintMultiplier: 0.25
+  _slideAtSpeed: 0
+  _slideTimer: 0
+  _slideTimerEnabled: 0
+  _slideAmount: 0
+  isSprinting: 0
+  spriteRenderer: {fileID: 1577205060}
 --- !u!1 &1577205058
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +522,7 @@ Transform:
   m_GameObject: {fileID: 1577205058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.024063919}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7.7617, y: 7.7617, z: 7.7617}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 922622356}
@@ -562,7 +569,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 1676591788, guid: 196c9fc6587eeed46ac5140ecaa05c61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
