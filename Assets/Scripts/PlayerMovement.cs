@@ -9,60 +9,70 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     Rigidbody2D rb;
 
-    [Header("Player stats")]
-
-    [SerializeField] private float _maxSpeed = 20;
-    [SerializeField] private float _minSpeed;
-
+    [Header("Player Movement")]
     [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _currentSpeed; // For changing speed
-    [SerializeField] private float _SprintMultiplier = 0.015f; // For changing speed
+    [SerializeField] private float sprintSpeed;
+    [SerializeField] private float walkSpeed;
 
-    [SerializeField] private float _slideAtSpeed; // The specfic moving speed to start sliding method at
-    [SerializeField] private float _slideTimer;
-    [SerializeField] private bool _slideTimerEnabled;
-    [SerializeField] private float _slideAmount;
+    [SerializeField] private float _maxVelocity = 8;
 
+    [SerializeField] private float _maxSprintVelocity = 16;
 
-    [SerializeField] private bool isSprinting;
+    [SerializeField] private float _sqrMaxVelocity;
 
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private bool _isSprinting;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        _minSpeed = _moveSpeed;
-    }
 
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     private void FixedUpdate()
     {
+        SetMaxVelocity(maxVelocity: _maxVelocity);
         Movement();
-        Flip();
+
+    }
+
+    void SetMaxVelocity(float maxVelocity)
+    {
+        maxVelocity = _maxVelocity;
+        _sqrMaxVelocity = maxVelocity * maxVelocity;
     }
 
     void Movement()
     {
-        Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
+        // Clamping the rigidbody velocity
+        Vector2 velocity = rb.velocity;
 
-
-
-        rb.velocity = movement.normalized * Time.fixedDeltaTime * _moveSpeed;
-
-        //Sprinting
-        isSprinting = false ? true : Input.GetKey(KeyCode.X);
-    }
-
-    void Flip()
-    {
-        float inputX = Input.GetAxis("Horizontal");
-
-        if (inputX > 0)
+        if (velocity.sqrMagnitude > _sqrMaxVelocity)
         {
-            spriteRenderer.flipX = true;
-        } else if (inputX < 0)
+            rb.velocity = velocity.normalized * _maxVelocity;
+        }
+
+        // Movement Mechanic
+        float inputX = Input.GetAxisRaw("Horizontal");
+
+        Vector2 movementRB = new Vector2(inputX * _moveSpeed * Time.deltaTime, transform.position.y);
+
+        rb.AddForce(movementRB, ForceMode2D.Force);
+
+        // Sprinting
+
+        _isSprinting = false ? true : Input.GetKey(KeyCode.Y);
+
+        if (_isSprinting)
         {
-            spriteRenderer.flipX = false;
+            _maxVelocity = 16;
+            _moveSpeed = sprintSpeed;
+        }
+        else
+        {
+            _maxVelocity = 8;
+            _moveSpeed = walkSpeed;
         }
     }
+
+
 }
