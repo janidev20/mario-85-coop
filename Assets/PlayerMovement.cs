@@ -5,95 +5,163 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Horizontal Movement")]
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float moveSpeed;
+    public float moveSpeed = 10f;
+    public float sprintSpeed = 16f;
+    public float defaultSpeed;
+    public Vector2 direction;
+    private bool facingRight = true;
+    private bool isSprinting => Input.GetKey(KeyCode.X);
 
-    [SerializeField] private float maxVelocity;
-    [SerializeField] [HideInInspector] private float sqrMaxVelocity;
+    [Header("Vertical Movement")]
+    public float jumpSpeed = 15f;
+    public float jumpDelay = 0.25f;
+    private float jumpTimer;
 
-    [Header("Raycasting")]
+    [Header("Components")]
+    public Rigidbody2D rb;
+    public Animator animator;
+    public LayerMask groundLayer;
+    public GameObject characterHolder;
 
-    [SerializeField] private float jumpForce;
+    [Header("Physics")]
+    public float maxSpeed = 7f;
+    public float maxSprintSpeed = 12f;
+    public float maxDefaultSpeed;
+    public float linearDrag = 4f;
+    public float gravity = 1f;
+    public float fallMultiplier = 5f;
 
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private Transform feetPos;
-    [SerializeField] private float checkRadius;
-    [SerializeField] LayerMask groundMask;
+    [Header("Collision")]
+    public bool onGround = false;
+    public float groundLength = 0.6f;
+    public Vector3 colliderOffset;
 
-    [SerializeField] private float jumpTimeCounter;
-    [SerializeField] private float jumpTime;
-    [SerializeField] private bool isJumping;
-
-    private void Awake()
+    private void Start()
     {
-        SetMaxVelocity(maxVelocity);
         rb = GetComponent<Rigidbody2D>();
+        defaultSpeed = moveSpeed;
+        maxDefaultSpeed = maxSpeed;
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        Jump();
-    }
+        bool wasOnGround = onGround;
+        onGround = Physics2D.Raycast(transform.position + colliderOffset, Vector2.down, groundLength, groundLayer) || Physics2D.Raycast(transform.position - colliderOffset, Vector2.down, groundLength, groundLayer);
 
-    private void FixedUpdate()
-    {
-       
-
-        // clamp speed
-
-        Vector2 velocity = rb.velocity;
-
-        velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-
-        if (velocity.sqrMagnitude > sqrMaxVelocity)
+        if (!wasOnGround && onGround)
         {
-            rb.velocity = velocity.normalized * maxVelocity;
+            StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
         }
 
-        // movement logic
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            jumpTimer = Time.time + jumpDelay;
+        }
+        animator.SetBool("onGround", onGround);
+        direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, rb.velocity.y);
-
-        rb.AddForce(movement, ForceMode2D.Force);
-
+        if (isSprinting)
+        {
+            moveSpeed = sprintSpeed;
+            maxSpeed = maxSprintSpeed;
+        } else
+        {
+            moveSpeed = defaultSpeed;
+            maxSpeed = maxDefaultSpeed;
+        }
     }
+    void FixedUpdate()
+    {
+        moveCharacter(direction.x);
+        if (jumpTimer > Time.time && onGround)
+        {
+            Jump();
+        }
 
+        modifyPhysics();
+    }
+    void moveCharacter(float horizontal)
+    {
+        rb.AddForce(Vector2.right * horizontal * moveSpeed);
+
+        if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
+        {
+            Flip();
+        }
+        if (Mathf.Abs(rb.velocity.x) > maxSpeed)
+        {
+            rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
+        }
+        animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("vertical", rb.velocity.y);
+    }
     void Jump()
     {
-        Vector2 velocity = rb.velocity;
-        
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, groundMask);
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+        jumpTimer = 0;
+        StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+    }
+    void modifyPhysics()
+    {
+        bool changingDirections = (direction.x > 0 && rb.velocity.x < 0) || (direction.x < 0 && rb.velocity.x > 0);
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.Z))
+        if (onGround)
         {
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            velocity.y += 1 * jumpForce;
-            rb.velocity += velocity;
+            if (Mathf.Abs(direction.x) < 0.4f || changingDirections)
+            {
+                rb.drag = linearDrag;
+            }
+            else
+            {
+                rb.drag = 0f;
+            }
+            rb.gravityScale = 0;
         }
-
-        if (Input.GetKey(KeyCode.Z) && isJumping == true)
+        else
         {
-            if (jumpTimeCounter > 0)
+            rb.gravityScale = gravity;
+            rb.drag = linearDrag * 0.15f;
+            if (rb.velocity.y < 0)
             {
-                velocity.y += 1 * jumpForce;
-                rb.velocity += velocity;
-                jumpTimeCounter -= Time.deltaTime;
-            } else
+                rb.gravityScale = gravity * fallMultiplier;
+            }
+            else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Z))
             {
-                isJumping = false;
+                rb.gravityScale = gravity * (fallMultiplier / 2);
             }
         }
-
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-            isJumping = false;
-        }
     }
-
-    void SetMaxVelocity(float _maxVelocity)
+    void Flip()
     {
-        _maxVelocity = maxVelocity;
-        sqrMaxVelocity = _maxVelocity * _maxVelocity;
+        facingRight = !facingRight;
+        transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
+    }
+    IEnumerator JumpSqueeze(float xSqueeze, float ySqueeze, float seconds)
+    {
+        Vector3 originalSize = Vector3.one;
+        Vector3 newSize = new Vector3(xSqueeze, ySqueeze, originalSize.z);
+        float t = 0f;
+        while (t <= 1.0)
+        {
+            t += Time.deltaTime / seconds;
+            characterHolder.transform.localScale = Vector3.Lerp(originalSize, newSize, t);
+            yield return null;
+        }
+        t = 0f;
+        while (t <= 1.0)
+        {
+            t += Time.deltaTime / seconds;
+            characterHolder.transform.localScale = Vector3.Lerp(newSize, originalSize, t);
+            yield return null;
+        }
+
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position + colliderOffset, transform.position + colliderOffset + Vector3.down * groundLength);
+        Gizmos.DrawLine(transform.position - colliderOffset, transform.position - colliderOffset + Vector3.down * groundLength);
     }
 }
