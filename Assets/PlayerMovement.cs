@@ -36,6 +36,14 @@ public class PlayerMovement : MonoBehaviour
     public float groundLength = 0.6f;
     public Vector3 colliderOffset;
 
+    [Header("Animator Messages")]
+    public bool isRunning;
+    public bool isJumping;
+    public bool isSliding;
+    public bool justStartedRunning;
+    public float runTimer;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,6 +54,48 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Animation
+
+        if (direction.x != 0)
+        {
+            isRunning = true;
+        }
+        else
+        {
+            isRunning = false;
+        }
+
+            if (!onGround)
+        {
+            isJumping = true;
+        }
+        else
+        {
+            isJumping = false;
+        }
+
+            if (isRunning)
+        {
+
+            runTimer += Time.deltaTime;
+
+            if (runTimer > 1.5f && rb.velocity.magnitude < 5.1f)
+            {
+
+                isSliding = true;
+            }
+            else
+            {
+                isSliding = false;
+            }
+        } else
+        {
+            isSliding = false;
+        }
+          
+       
+           
+
         bool wasOnGround = onGround;
         onGround = Physics2D.Raycast(transform.position + colliderOffset, Vector2.down, groundLength, groundLayer) || Physics2D.Raycast(transform.position - colliderOffset, Vector2.down, groundLength, groundLayer);
 
