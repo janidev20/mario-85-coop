@@ -40,9 +40,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isRunning;
     public bool isJumping;
     public bool isSliding;
-    public bool justStartedRunning;
-    public float runTimer;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource jumpSrc;
+    [SerializeField] private AudioClip jumpClip;
 
     private void Start()
     {
@@ -54,45 +55,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Animation
-
-        if (direction.x != 0)
-        {
-            isRunning = true;
-        }
-        else
-        {
-            isRunning = false;
-        }
-
-            if (!onGround)
-        {
-            isJumping = true;
-        }
-        else
-        {
-            isJumping = false;
-        }
-
-            if (isRunning)
-        {
-
-            runTimer += Time.deltaTime;
-
-            if (runTimer > 1.5f && rb.velocity.magnitude < 5.1f)
-            {
-
-                isSliding = true;
-            }
-            else
-            {
-                isSliding = false;
-            }
-        } else
-        {
-            isSliding = false;
-        }
-          
        
            
 
@@ -120,6 +82,30 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = defaultSpeed;
             maxSpeed = maxDefaultSpeed;
         }
+
+        if (direction != Vector2.zero)
+        {
+
+            isRunning = true;
+        }
+        else
+        {
+            StartCoroutine("waitForRun", 0);
+        }
+
+       
+
+        bool changingDirections = (direction.x > 0 && rb.velocity.x < -0.3f) || (direction.x < 0 && rb.velocity.x > 0.3f);
+
+        if (changingDirections || changingDirections && isRunning == false)
+        {
+            isSliding = true;
+        }
+        else
+        {
+            isSliding = false;
+        }
+
     }
     void FixedUpdate()
     {
@@ -127,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
         if (jumpTimer > Time.time && onGround)
         {
             Jump();
+            jumpSrc.PlayOneShot(jumpClip);
         }
 
         modifyPhysics();
@@ -138,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
         if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
         {
             Flip();
-        }
+        } 
         if (Mathf.Abs(rb.velocity.x) > maxSpeed)
         {
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
@@ -168,11 +155,13 @@ public class PlayerMovement : MonoBehaviour
                 rb.drag = 0f;
             }
             rb.gravityScale = 0;
+            isJumping = false;
         }
         else
         {
             rb.gravityScale = gravity;
             rb.drag = linearDrag * 0.15f;
+            isJumping = true;
             if (rb.velocity.y < 0)
             {
                 rb.gravityScale = gravity * fallMultiplier;
@@ -182,6 +171,8 @@ public class PlayerMovement : MonoBehaviour
                 rb.gravityScale = gravity * (fallMultiplier / 2);
             }
         }
+
+       
     }
     void Flip()
     {
@@ -213,5 +204,12 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position + colliderOffset, transform.position + colliderOffset + Vector3.down * groundLength);
         Gizmos.DrawLine(transform.position - colliderOffset, transform.position - colliderOffset + Vector3.down * groundLength);
+    }
+
+    IEnumerator waitForRun()
+    {
+            yield return new WaitForSeconds(0.2f);
+            isRunning = false;
+
     }
 }
