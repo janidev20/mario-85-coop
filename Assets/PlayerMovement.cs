@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             maxSpeed = maxDefaultSpeed;
         }
 
-        if (direction != Vector2.zero)
+        if (direction.x != 0)
         {
 
             isRunning = true;
