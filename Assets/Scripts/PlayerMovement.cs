@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public LayerMask groundLayer;
     public GameObject characterHolder;
-    public CapsuleCollider2D collider;
+    public BoxCollider2D collider;
 
     [Header("Physics")]
     public float maxSpeed = 7f;
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Collision")]
     public bool onGround = false;
-    public float groundLength = 0.6f;
+    public float circleRadius = 0.15f;
     public Vector3 colliderOffset;
 
     [Header("Character Animator")]
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isRunning;
     public bool isJumping;
     public bool isSliding;
-    public bool isCrouching => Input.GetKey(KeyCode.DownArrow);
+    public bool isCrouching => Input.GetKey(KeyCode.DownArrow) && onGround && Input.GetAxis("Horizontal") <= 0.9f && Input.GetAxis("Horizontal") >= -0.9f;
 
 
     [Header("Audio")]
@@ -60,15 +60,17 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         bool wasOnGround = onGround;
-        onGround = Physics2D.Raycast(transform.position + colliderOffset, Vector2.down, groundLength, groundLayer) || Physics2D.Raycast(transform.position - colliderOffset, Vector2.down, groundLength, groundLayer);
+        onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
 
         if (!wasOnGround && onGround)
         {
             StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
+        if (Input.GetKeyDown(KeyCode.Y) || Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
         {
             jumpTimer = Time.time + jumpDelay;
         }
@@ -90,14 +92,16 @@ public class PlayerMovement : MonoBehaviour
         if (isCrouching)
         {
             moveSpeed = 0;
-            collider.offset = new Vector2(0, -0.5f);
-            collider.size = new Vector2(1f, 0f);
+            collider.offset = new Vector2(0.008428961f, -0.4910533f);
+            collider.size = new Vector2(0.7583675f, 1.012235f);
         }
         else
         {
-            collider.offset = new Vector2(0, 0f);
-            collider.size = new Vector2(1f, 2f);
+            collider.offset = new Vector2(0.008428961f, -0.193269f);
+            collider.size = new Vector2(0.7583675f, 1.607804f);
         }
+       
+
 
 
         if (direction.x != 0)
@@ -177,6 +181,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void moveCharacter(float horizontal)
     {
+
         rb.AddForce(Vector2.right * horizontal * moveSpeed);
 
         if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
@@ -259,8 +264,8 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + colliderOffset, transform.position + colliderOffset + Vector3.down * groundLength);
-        Gizmos.DrawLine(transform.position - colliderOffset, transform.position - colliderOffset + Vector3.down * groundLength);
+        Gizmos.DrawSphere(transform.position + colliderOffset, circleRadius);
+        Gizmos.DrawSphere(transform.position - colliderOffset, circleRadius);
     }
 
     IEnumerator waitForRun()
@@ -269,4 +274,5 @@ public class PlayerMovement : MonoBehaviour
             isRunning = false;
 
     }
+
 }
