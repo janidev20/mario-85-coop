@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float defaultSpeed;
     public Vector2 direction;
     private bool facingRight = true;
-    private bool isSprinting => Input.GetKey(KeyCode.X);
+    public bool isSprinting => Input.GetKey(KeyCode.X);
 
     [Header("Vertical Movement")]
     public float jumpSpeedMX = 15f, jumpSpeedPC = 12.5f, jumpSpeedFH = 10f; //the jump force based on what character the player is
@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public LayerMask groundLayer;
     public GameObject characterHolder;
+    public CapsuleCollider2D collider;
 
     [Header("Physics")]
     public float maxSpeed = 7f;
@@ -42,11 +43,12 @@ public class PlayerMovement : MonoBehaviour
     public bool isRunning;
     public bool isJumping;
     public bool isSliding;
+    public bool isCrouching => Input.GetKey(KeyCode.DownArrow);
 
 
     [Header("Audio")]
     [SerializeField] private AudioSource jumpSrc;
-    [SerializeField] private AudioClip mxJump, pcJump, fhJump;
+    [SerializeField] private AudioClip mxJump, pcJump, fhJump, wahooJump;
 
     private void Start()
     {
@@ -66,12 +68,14 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
         {
             jumpTimer = Time.time + jumpDelay;
         }
         animator.SetBool("onGround", onGround);
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        
 
         if (isSprinting)
         {
@@ -82,6 +86,19 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = defaultSpeed;
             maxSpeed = maxDefaultSpeed;
         }
+
+        if (isCrouching)
+        {
+            moveSpeed = 0;
+            collider.offset = new Vector2(0, -0.5f);
+            collider.size = new Vector2(1f, 0f);
+        }
+        else
+        {
+            collider.offset = new Vector2(0, 0f);
+            collider.size = new Vector2(1f, 2f);
+        }
+
 
         if (direction.x != 0)
         {
@@ -110,6 +127,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
+
+        if (isSliding)
+        {
+            linearDrag = 1.75f;
+        } else
+        {
+            linearDrag = 5;
+        }
     }
     void FixedUpdate()
     {
@@ -121,6 +146,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (AnimationScript.isMX)
                 {
+                    // WAHOO JUMP
+                    if (Input.GetKey(KeyCode.V))
+                    {
+                        jumpSpeed = jumpSpeedMX * 1.7f;
+                        Jump();
+                        jumpSrc.PlayOneShot(wahooJump);
+                    } else
+
                     jumpSpeed = jumpSpeedMX;
                     Jump();
                     jumpSrc.PlayOneShot(mxJump);

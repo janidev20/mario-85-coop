@@ -78,6 +78,14 @@ public class PlayerAnimation : MonoBehaviour
         {
             playerAnimator.SetBool("isSliding", false);
         }
+
+        if (plyMovement.isCrouching)
+        {
+            playerAnimator.SetBool("isCrouching", true); 
+        } else
+        {
+            playerAnimator.SetBool("isCrouching", false);
+        }
     }
 
     void CharacterMethod()
