@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerAnimation))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Horizontal Movement")]
@@ -91,14 +95,45 @@ public class PlayerMovement : MonoBehaviour
 
         if (isCrouching)
         {
-            moveSpeed = 0;
-            collider.offset = new Vector2(0.008428961f, -0.4910533f);
-            collider.size = new Vector2(0.7583675f, 1.012235f);
+
+            // Changing Collider size based on Current Form (MX, FH, PCrawler)
+            if (AnimationScript.isFH)
+            {
+                moveSpeed = 0;
+                collider.offset = new Vector2(0.008428961f, -0.4910533f);
+                collider.size = new Vector2(0.7583675f, 1.012235f);
+            } else if (AnimationScript.isPCrawler)
+            {
+                moveSpeed = 0;
+                collider.offset = new Vector2(0.04976797f, -0.480615f);
+                collider.size = new Vector2(0.9978762f, 1.017434f);
+            } else if (AnimationScript.isMX)
+            {
+                moveSpeed = 0;
+                collider.offset = new Vector2(0.002098083f, 0.005180478f);
+                collider.size = new Vector2(1.848396f, 1.999141f);
+            }
+
         }
         else
         {
-            collider.offset = new Vector2(0.008428961f, -0.193269f);
-            collider.size = new Vector2(0.7583675f, 1.607804f);
+           
+
+            if (AnimationScript.isFH)
+            {
+                collider.offset = new Vector2(-0.0009236336f, -0.19319f);
+                collider.size = new Vector2(0.7995176f, 1.649438f);
+            }
+            else if (AnimationScript.isPCrawler)
+            {
+                collider.offset = new Vector2(0.04976797f, -0.238775f);
+                collider.size = new Vector2(0.9978762f, 1.501114f);
+            }
+            else if (AnimationScript.isMX)
+            {
+                collider.offset = new Vector2(0.002098083f, 0.3298979f);
+                collider.size = new Vector2(1.848396f, 2.648576f);
+            }
         }
        
 
@@ -114,11 +149,12 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine("waitForRun", 0);
         }
 
-       
+       // If the transform animation is not playing, then  we can move
         if (!AnimationScript.isTransforming)
         {
         bool changingDirections = (direction.x > 0 && rb.velocity.x < -0.3f) || (direction.x < 0 && rb.velocity.x > 0.3f);
 
+       // Sliding Animator Bool
         if (changingDirections || changingDirections && isRunning == false)
         {
             isSliding = true;
@@ -132,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
 
+        // If sliding, increase linear drag
         if (isSliding)
         {
             linearDrag = 1.75f;
@@ -265,7 +302,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(transform.position + colliderOffset, circleRadius);
-        Gizmos.DrawSphere(transform.position - colliderOffset, circleRadius);
     }
 
     IEnumerator waitForRun()
