@@ -87,6 +87,14 @@ public class PlayerAnimation : MonoBehaviour
         {
             playerAnimator.SetBool("isCrouching", false);
         }
+
+        if (plyMovement.isWahooJumping)
+        {
+            playerAnimator.SetBool("isWahooJumping", true);
+        } else
+        {
+            playerAnimator.SetBool("isWahooJumping", false);
+        }
     }
 
     void CharacterMethod()

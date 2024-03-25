@@ -19,8 +19,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Vertical Movement")]
     public float jumpSpeedMX = 15f, jumpSpeedPC = 12.5f, jumpSpeedFH = 10f; //the jump force based on what character the player is
     public float jumpSpeed;
-    public float jumpDelay = 0.25f;
-    private float jumpTimer;
+   [SerializeField] private float jumpStartTime;
+   [SerializeField] private float jumpTime;
+    private bool _isJumping = false;
 
     [Header("Components")]
     public Rigidbody2D rb;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerAnimation AnimationScript;
     public bool isRunning;
     public bool isJumping;
+    public bool isWahooJumping;
     public bool isSliding;
     public bool isCrouching => Input.GetKey(KeyCode.DownArrow) && onGround && Input.GetAxis("Horizontal") <= 0.9f && Input.GetAxis("Horizontal") >= -0.9f;
 
@@ -74,10 +76,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
         }
 
-        if (Input.GetKeyDown(KeyCode.Y) || Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
-        {
-            jumpTimer = Time.time + jumpDelay;
-        }
+        Jump();
         animator.SetBool("onGround", onGround);
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -113,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
                 collider.offset = new Vector2(0.002098083f, 0.005180478f);
                 collider.size = new Vector2(1.848396f, 1.999141f);
             }
-
+            
         }
         else
         {
@@ -183,39 +182,42 @@ public class PlayerMovement : MonoBehaviour
         {
 
             moveCharacter(direction.x);
-            if (jumpTimer > Time.time && onGround)
-            {
-                if (AnimationScript.isMX)
-                {
+
+            // OLD JUMP METHOD //
+
+           // if (jumpTimer > Time.time && onGround)
+           // {
+             //   if (AnimationScript.isMX)
+             //   {
                     // WAHOO JUMP
-                    if (Input.GetKey(KeyCode.V))
-                    {
-                        jumpSpeed = jumpSpeedMX * 1.7f;
-                        Jump();
-                        jumpSrc.PlayOneShot(wahooJump);
-                    } else
+               //     if (Input.GetKey(KeyCode.V))
+               //     {
+               //         jumpSpeed = jumpSpeedMX * 1.7f;
+              //          Jump();
+              //          jumpSrc.PlayOneShot(wahooJump);
+              //      } else
 
-                    jumpSpeed = jumpSpeedMX;
-                    Jump();
-                    jumpSrc.PlayOneShot(mxJump);
-                } else if (AnimationScript.isPCrawler)
-                {
-                    jumpSpeed = jumpSpeedPC;
-                    Jump();
-                    jumpSrc.PlayOneShot(pcJump);
-                } else if (AnimationScript.isFH)
-                {
-                    jumpSpeed = jumpSpeedFH;
-                    Jump();
-                    jumpSrc.PlayOneShot(fhJump);
-                }
+              //      jumpSpeed = jumpSpeedMX;
+             //       Jump();
+             //       jumpSrc.PlayOneShot(mxJump);
+             //   } else if (AnimationScript.isPCrawler)
+            //    {
+             //      jumpSpeed = jumpSpeedPC;
+             //      Jump();
+             //      jumpSrc.PlayOneShot(pcJump);
+             //  } else if (AnimationScript.isFH)
+             //  {
+             //      jumpSpeed = jumpSpeedFH;
+             //      Jump();
+             //      jumpSrc.PlayOneShot(fhJump);
+             //  }
 
-            }
+           // }
 
-            modifyPhysics();
+          modifyPhysics();
 
-        }
-    }
+       }
+      }
     void moveCharacter(float horizontal)
     {
 
@@ -234,10 +236,81 @@ public class PlayerMovement : MonoBehaviour
     }
     void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, 0);
-        rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-        jumpTimer = 0;
-        StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+        // OLD JUMP METHOD //
+        //rb.velocity = new Vector2(rb.velocity.x, 0);
+        //rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+        //jumpTimer = 0;
+        //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+    
+        if (onGround && Input.GetKeyDown(KeyCode.Y))
+        {
+            if (AnimationScript.isMX)
+            {
+                _isJumping = true;
+                jumpTime = jumpStartTime;
+                /////////////////////////////////
+                jumpSpeed = jumpSpeedMX;
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                jumpSrc.PlayOneShot(mxJump);
+                /////////////////////////////////
+                StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+            }
+            else if (AnimationScript.isFH)
+            {
+                _isJumping = true;
+                jumpTime = jumpStartTime;
+                /////////////////////////////////
+                jumpSpeed = jumpSpeedFH;
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                jumpSrc.PlayOneShot(fhJump);
+                /////////////////////////////////
+                StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+            } else if (AnimationScript.isPCrawler)
+            {
+                _isJumping = true;
+                jumpTime = jumpStartTime;
+                /////////////////////////////////
+                jumpSpeed = jumpSpeedPC;
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                jumpSrc.PlayOneShot(pcJump);
+                /////////////////////////////////
+                StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+            }
+        } 
+
+        if (onGround && Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
+        {
+            _isJumping = true;
+            /////////////////////////////////
+            jumpSpeed = jumpSpeedMX * 2.5f;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+            jumpSrc.PlayOneShot(wahooJump);
+            /////////////////////////////////
+            StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+        }
+
+        if (Input.GetKey(KeyCode.Y) && _isJumping == true || Input.GetKey(KeyCode.V) && AnimationScript.isMX && _isJumping == true)
+        {
+            if (jumpTime > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                jumpTime -= Time.deltaTime;
+            }
+            else
+            {
+                _isJumping = false;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Y) || Input.GetKeyUp(KeyCode.V) && AnimationScript.isMX)
+        {
+            _isJumping = false;
+        }
     }
     void modifyPhysics()
     {
@@ -254,13 +327,15 @@ public class PlayerMovement : MonoBehaviour
                 rb.drag = 0f;
             }
             rb.gravityScale = 0;
-            isJumping = false;
+           isJumping = false;
+           isWahooJumping = false;
         }
         else
         {
             rb.gravityScale = gravity;
             rb.drag = linearDrag * 0.15f;
             isJumping = true;
+
             if (rb.velocity.y < 0)
             {
                 rb.gravityScale = gravity * fallMultiplier;

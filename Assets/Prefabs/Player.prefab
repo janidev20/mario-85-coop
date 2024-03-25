@@ -655,14 +655,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  sprintSpeed: 10
+  sprintSpeed: 15
   defaultSpeed: 0
   direction: {x: 0, y: 0}
-  jumpSpeedMX: 12.5
-  jumpSpeedPC: 10.5
-  jumpSpeedFH: 10
-  jumpSpeed: 11
-  jumpDelay: 0.25
+  jumpSpeedMX: 12
+  jumpSpeedPC: 9
+  jumpSpeedFH: 8
+  jumpSpeed: 0
+  jumpStartTime: 0.25
+  jumpTime: 0
   rb: {fileID: 7052932058575745003}
   animator: {fileID: 7052932059062441313}
   groundLayer:
@@ -682,6 +683,7 @@ MonoBehaviour:
   AnimationScript: {fileID: 7052932058575745000}
   isRunning: 0
   isJumping: 0
+  isWahooJumping: 0
   isSliding: 0
   jumpSrc: {fileID: 7052932058575745001}
   mxJump: {fileID: 8300000, guid: 2f3e9fe60a626cd4bb4df6c45eef357a, type: 3}
