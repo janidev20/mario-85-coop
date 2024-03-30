@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(PlayerAnimation))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [Header("Horizontal Movement")]
     public float moveSpeed = 10f;
@@ -49,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping;
     public bool isWahooJumping;
     public bool isSliding;
-    public bool isCrouching => Input.GetKey(KeyCode.DownArrow) && onGround && Input.GetAxis("Horizontal") <= 0.9f && Input.GetAxis("Horizontal") >= -0.9f;
+    public bool isCrouching => Input.GetKey(KeyCode.DownArrow) && onGround && Input.GetAxis("Horizontal") <= 0.9f && Input.GetAxis("Horizontal") >= -0.9f || Input.GetKey(KeyCode.S) && onGround && Input.GetAxis("Horizontal") <= 0.9f && Input.GetAxis("Horizontal") >= -0.9f;
 
 
     [Header("Audio")]
@@ -63,20 +64,21 @@ public class PlayerMovement : MonoBehaviour
         maxDefaultSpeed = maxSpeed;
     }
 
+
     // Update is called once per frame
     void Update()
     {
-
+        if (!IsOwner) return;
 
         bool wasOnGround = onGround;
         onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
 
+        Jump();
         if (!wasOnGround && onGround)
         {
             StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
         }
 
-        Jump();
         animator.SetBool("onGround", onGround);
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -220,13 +222,13 @@ public class PlayerMovement : MonoBehaviour
       }
     void moveCharacter(float horizontal)
     {
-
-        rb.AddForce(Vector2.right * horizontal * moveSpeed);
-
         if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
         {
             Flip();
         } 
+
+        rb.AddForce(Vector2.right * horizontal * moveSpeed);
+
         if (Mathf.Abs(rb.velocity.x) > maxSpeed)
         {
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
@@ -241,8 +243,11 @@ public class PlayerMovement : MonoBehaviour
         //rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
         //jumpTimer = 0;
         //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
-    
-        if (onGround && Input.GetKeyDown(KeyCode.Y))
+    if (!AnimationScript.isTransforming)
+        {
+
+        
+        if (onGround && Input.GetKeyDown(KeyCode.Y) || onGround && Input.GetKeyDown(KeyCode.Z))
         {
             if (AnimationScript.isMX)
             {
@@ -293,7 +298,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
         }
 
-        if (Input.GetKey(KeyCode.Y) && _isJumping == true || Input.GetKey(KeyCode.V) && AnimationScript.isMX && _isJumping == true)
+        if (Input.GetKey(KeyCode.Y) && _isJumping == true || Input.GetKey(KeyCode.Z) && _isJumping == true || Input.GetKey(KeyCode.V) && AnimationScript.isMX && _isJumping == true)
         {
             if (jumpTime > 0)
             {
@@ -307,9 +312,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Y) || Input.GetKeyUp(KeyCode.V) && AnimationScript.isMX)
+        if (Input.GetKeyUp(KeyCode.Y) || Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.V) && AnimationScript.isMX)
         {
             _isJumping = false;
+        }
         }
     }
     void modifyPhysics()

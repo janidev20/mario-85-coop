@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : NetworkBehaviour
 {
     [SerializeField] PlayerMovement plyMovement;
     [SerializeField] Animator playerAnimator;
@@ -28,6 +29,11 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
+        if (!IsOwner)
+        {
+            return;
+        }
+
         if (coolDownTimer < coolDownAmount)
         {
             coolDownTimer += Time.deltaTime;

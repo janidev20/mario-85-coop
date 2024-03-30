@@ -9,6 +9,11 @@ public class VolumeManager : MonoBehaviour
     [SerializeField] AudioSource bgMusic;
     private bool musicEnabled = true;
 
+    private void Start()
+    {
+        AudioListener.volume = 0.25f;
+    }
+
     private void Update()
     {
         volume = AudioListener.volume;
