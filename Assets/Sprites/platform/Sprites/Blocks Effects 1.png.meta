@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,7 +103,1036 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Blocks Effects 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 500
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3afc28ed282c0ca40bcca3f0d70a18cd
+      internalID: 1122671104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_1
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 502
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8796e4e444756f47865906867080eff
+      internalID: 1709416709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_2
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 484
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46d0ea42aac1c794a8d6fd1eecc4d12b
+      internalID: 783472626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_3
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 466
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc738fd7887dfe740a0599c52cd15cd7
+      internalID: -1715454165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_4
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 500
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1359e6751dbd75148b10937a6b45f3de
+      internalID: -1542945278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_5
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 500
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad22972da26947945aa76fb52b851840
+      internalID: -1387089045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_6
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 500
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa831163af77e7a4286ef64723bd9333
+      internalID: 998508713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_7
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 500
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ea82e722237ec24088e2939167e83cc
+      internalID: -988581517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_8
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 482
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29056016552064a468780daaed82e6ea
+      internalID: -1861461777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_9
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 464
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b7f13899f1bcf648bead5d227b226f0
+      internalID: -1598752988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_10
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 473
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4771f3e943ea1e04792f51e21e3c0712
+      internalID: 12863802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_11
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 473
+        width: 4
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29f1e1fdaae4897468e5771a236c642e
+      internalID: 1126935740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_12
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 473
+        width: 1
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94831558e697b24458efe16c61c08127
+      internalID: 884251076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_13
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 473
+        width: 4
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2866a26e79c0a474980988d7f941ab4f
+      internalID: 650660799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_14
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 462
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b20ae5305c2bf34b8311ae7ffc164ec
+      internalID: 636413176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_15
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 462
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7822b1fce21bcd498ecaa4926b75296
+      internalID: -405989052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_16
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 462
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63c2ae81caf993418e80b8877d6d848
+      internalID: -1620595761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_17
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 462
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4614cb9e284e7d64e9a0b05797405b85
+      internalID: 1791603321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_18
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 448
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 663e7c4c3e3040741be7503782df3978
+      internalID: -865524656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_19
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 445
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48fa8c1bed5558b40a72fe8350910cda
+      internalID: -736366369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_20
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 444
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bd6f42e74670a346bdc5b17575ebe81
+      internalID: 600283351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_21
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 490
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a2e6bfb7dee63547a58fc44eead2345
+      internalID: -131773256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_22
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 480
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82c6b30edaccb4b4ca9a7440feb62c0f
+      internalID: 824168582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_23
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 470
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcd61f4b1edc04b4da21aa8517a811e1
+      internalID: -1621821926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_24
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 460
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c12191d095700b04581919b9df777b99
+      internalID: -945678375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_25
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 450
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93ac1bb3bd1abcd4c8fc958ba8d3ce20
+      internalID: 1942789800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_26
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 490
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d39730f6e35fa745b94d5c253f5d589
+      internalID: 2036588768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_27
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 480
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebc3ef3b287d7b0469318d0c859b54aa
+      internalID: 1940589570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_28
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 470
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fba77dbf1db35b04a86fbe68878f4541
+      internalID: -822282936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_29
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 460
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2011c27da2ad3149a8b7cf083f2de1c
+      internalID: 1349136218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_30
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 450
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88ecc8a013486ad4193d8d534fabfc90
+      internalID: 333424880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_31
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 441
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af739e5e72f42014aa382666efca0843
+      internalID: -1955856383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_32
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 418
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c761c939a7cea2a4788ca0dd0ee5c6d5
+      internalID: -1583106171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_33
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 418
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36ee7922149721e4cbd943258f70e314
+      internalID: -476366862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_34
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 452
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a20ad1824a05b564ca2df4661e34a8d6
+      internalID: -1135190501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_35
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 452
+        width: 24
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df3d17076869d6649b862f63bfdaa6a3
+      internalID: 1592319897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_36
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 452
+        width: 32
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9e29c99f71d2c547ac4bb4e69887844
+      internalID: 1033406080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_37
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 452
+        width: 48
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75c367ea770bab846a4fb5c5b1a9d893
+      internalID: 1874157529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_38
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 442
+        width: 32
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a97ed601d9467e549b07c7ef1a8b83f7
+      internalID: -1626150829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_39
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 442
+        width: 48
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb2a3fe0925ca59408d39c3e783d3cfd
+      internalID: -2078155199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_40
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 364
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9928c1a3e4c2d2489f5278b5ffcdfe4
+      internalID: 907503210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_41
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 342
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c8ea6baf96c9e14da8583524ddca1b7
+      internalID: -1649688431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_42
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 342
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8a552c827c5d5746bd7519252d7016c
+      internalID: -157344890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_43
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 334
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 475178c435500e247a9ff9a1810e2b74
+      internalID: 1159980132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_44
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 380
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4886e4ddbbecf954b836e0330a0ec5d9
+      internalID: 400955528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_45
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 386
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02adce84e51f45a4fa0c63989d27b485
+      internalID: -1252697364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_46
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 304
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02ee51359658a8744bf271c45514af46
+      internalID: -82352424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_47
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 153
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd99aab460f676e439dcccfae311677d
+      internalID: -1718129184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blocks Effects 1_48
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 153
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b421e421bd6c6941a1b42e6c46a58eb
+      internalID: 2041701052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -114,7 +1143,56 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Blocks Effects 1_0: 1122671104
+      Blocks Effects 1_1: 1709416709
+      Blocks Effects 1_10: 998508713
+      Blocks Effects 1_11: -799808392
+      Blocks Effects 1_12: -988581517
+      Blocks Effects 1_13: -1861461777
+      Blocks Effects 1_14: -1598752988
+      Blocks Effects 1_15: 12863802
+      Blocks Effects 1_16: 1126935740
+      Blocks Effects 1_17: 609313251
+      Blocks Effects 1_18: 884251076
+      Blocks Effects 1_19: 650660799
+      Blocks Effects 1_2: -962214472
+      Blocks Effects 1_20: 636413176
+      Blocks Effects 1_21: -405989052
+      Blocks Effects 1_22: -1620595761
+      Blocks Effects 1_23: 1791603321
+      Blocks Effects 1_24: -865524656
+      Blocks Effects 1_25: -736366369
+      Blocks Effects 1_26: 600283351
+      Blocks Effects 1_27: -131773256
+      Blocks Effects 1_28: 824168582
+      Blocks Effects 1_29: -1621821926
+      Blocks Effects 1_3: -218497106
+      Blocks Effects 1_30: -945678375
+      Blocks Effects 1_31: 1942789800
+      Blocks Effects 1_32: 2036588768
+      Blocks Effects 1_33: 1009331727
+      Blocks Effects 1_34: 1940589570
+      Blocks Effects 1_35: -822282936
+      Blocks Effects 1_36: 1349136218
+      Blocks Effects 1_37: 333424880
+      Blocks Effects 1_38: -1955856383
+      Blocks Effects 1_39: -1583106171
+      Blocks Effects 1_4: 783472626
+      Blocks Effects 1_40: 1962105345
+      Blocks Effects 1_41: -476366862
+      Blocks Effects 1_42: -1177659407
+      Blocks Effects 1_43: -1135190501
+      Blocks Effects 1_44: 1592319897
+      Blocks Effects 1_45: -2113892817
+      Blocks Effects 1_46: 189881253
+      Blocks Effects 1_47: 1033406080
+      Blocks Effects 1_48: 1874157529
+      Blocks Effects 1_5: 92489609
+      Blocks Effects 1_6: -1715454165
+      Blocks Effects 1_7: 1720335576
+      Blocks Effects 1_8: -1542945278
+      Blocks Effects 1_9: -1387089045
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
