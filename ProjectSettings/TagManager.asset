@@ -9,6 +9,9 @@ TagManager:
   - Ground
   - Enemy
   - camTrigger
+  - FireFlower
+  - Star
+  - Mushroom
   layers:
   - Default
   - TransparentFX
