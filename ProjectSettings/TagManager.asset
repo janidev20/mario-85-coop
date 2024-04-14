@@ -12,6 +12,8 @@ TagManager:
   - FireFlower
   - Star
   - Mushroom
+  - Destroyer
+  - Breakable
   layers:
   - Default
   - TransparentFX

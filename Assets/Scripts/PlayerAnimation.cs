@@ -61,6 +61,16 @@ public class PlayerAnimation : MonoBehaviour
             playerAnimator.SetBool("isRunning", false);
         }
 
+        if (plyMovement.isMoving)
+        {
+            playerAnimator.SetBool("isMoving", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isMoving", false);
+        }
+
+
         if (plyMovement.isJumping)
         {
 

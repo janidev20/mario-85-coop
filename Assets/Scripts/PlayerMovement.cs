@@ -21,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpSpeed;
    [SerializeField] private float jumpStartTime;
    [SerializeField] private float jumpTime;
-    private bool _isJumping = false;
+   [SerializeField] [HideInInspector] private bool _isJumping = false;
+    private bool _isWahooJumping;
 
     [Header("Components")]
     public Rigidbody2D rb;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Character Animator")]
     [SerializeField] private PlayerAnimation AnimationScript;
     public bool isRunning;
+    public bool isMoving;
     public bool isJumping;
     public bool isWahooJumping;
     public bool isSliding;
@@ -66,7 +68,24 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Speed change
+        if (AnimationScript.isMX)
+        {
+            maxSpeed = 6;
+            maxSprintSpeed = 8;
+        } else if (AnimationScript.isPCrawler)
+        {
+            maxSpeed = 5.25f;
+            maxSprintSpeed = 7.25f;
+        } else if (AnimationScript.isFH)
+        {
+            maxSpeed = 4;
+            maxSprintSpeed = 6;
 
+        }
+
+
+        isRunning = isSprinting;
 
         bool wasOnGround = onGround;
         onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
@@ -77,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Jump();
+        WahooJump();
         animator.SetBool("onGround", onGround);
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -141,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
         if (direction.x != 0)
         {
 
-            isRunning = true;
+            isMoving = true;
         }
         else
         {
@@ -154,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
         bool changingDirections = (direction.x > 0 && rb.velocity.x < -0.3f) || (direction.x < 0 && rb.velocity.x > 0.3f);
 
        // Sliding Animator Bool
-        if (changingDirections || changingDirections && isRunning == false)
+        if (changingDirections || changingDirections && isMoving == false)
         {
             isSliding = true;
         }
@@ -223,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(Vector2.right * horizontal * moveSpeed);
 
-        if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
+        if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight) && onGround)
         {
             Flip();
         } 
@@ -244,6 +264,7 @@ public class PlayerMovement : MonoBehaviour
     
         if (onGround && Input.GetKeyDown(KeyCode.Y))
         {
+            _isWahooJumping = false;
             if (AnimationScript.isMX)
             {
                 _isJumping = true;
@@ -281,19 +302,7 @@ public class PlayerMovement : MonoBehaviour
             }
         } 
 
-        if (onGround && Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
-        {
-            _isJumping = true;
-            /////////////////////////////////
-            jumpSpeed = jumpSpeedMX * 2.5f;
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-            jumpSrc.PlayOneShot(wahooJump);
-            /////////////////////////////////
-            StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
-        }
-
-        if (Input.GetKey(KeyCode.Y) && _isJumping == true || Input.GetKey(KeyCode.V) && AnimationScript.isMX && _isJumping == true)
+        if (Input.GetKey(KeyCode.Y) && _isJumping == true)
         {
             if (jumpTime > 0)
             {
@@ -307,11 +316,53 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Y) || Input.GetKeyUp(KeyCode.V) && AnimationScript.isMX)
+        if (Input.GetKeyUp(KeyCode.Y))
         {
             _isJumping = false;
         }
     }
+
+    void WahooJump()
+    {
+        // OLD JUMP METHOD //
+        //rb.velocity = new Vector2(rb.velocity.x, 0);
+        //rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+        //jumpTimer = 0;
+        //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+
+        if (onGround && Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
+        {
+            _isJumping = true;
+            _isWahooJumping = true;
+            /////////////////////////////////
+            jumpSpeed = jumpSpeedMX * 2.95f;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+            jumpSrc.PlayOneShot(wahooJump);
+            /////////////////////////////////
+            StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+        }
+
+        if (Input.GetKey(KeyCode.V) && AnimationScript.isMX && _isJumping == true)
+        {
+            if (jumpTime > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                jumpTime -= Time.deltaTime;
+            }
+            else
+            {
+                _isJumping = false;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.V) && AnimationScript.isMX)
+        {
+            _isJumping = false;
+        }
+    }
+
     void modifyPhysics()
     {
         bool changingDirections = (direction.x > 0 && rb.velocity.x < 0) || (direction.x < 0 && rb.velocity.x > 0);
@@ -334,7 +385,15 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale = gravity;
             rb.drag = linearDrag * 0.15f;
-            isJumping = true;
+
+            if (_isWahooJumping)
+            {
+                isWahooJumping = true;
+            } else
+            {
+                isJumping = true;
+            }
+            
 
             if (rb.velocity.y < 0)
             {
@@ -382,7 +441,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator waitForRun()
     {
             yield return new WaitForSeconds(0.2f);
-            isRunning = false;
+            isMoving = false;
 
     }
 

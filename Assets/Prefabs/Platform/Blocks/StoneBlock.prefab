@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1887286812800900185}
   m_Layer: 0
   m_Name: StoneBlock
-  m_TagString: Untagged
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -601415187, guid: c8e4e29b3cc0a02458c46bd7feb50801, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -269,8 +269,22 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 8294782987068716688}
+    m_ColliderPaths:
+    - - X: 3086760
+        Y: 3066615
+      - X: -3086760
+        Y: 3066615
+      - X: -3086760
+        Y: 2944486
+      - X: 3086760
+        Y: 2944486
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 0.3086467, y: 0.2944486}
+      - {x: 0.3086467, y: 0.30666152}
+      - {x: -0.308676, y: 0.3066322}
+      - {x: -0.3086467, y: 0.2944486}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005

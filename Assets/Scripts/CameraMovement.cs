@@ -10,6 +10,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
+        // Camera follows the X position of the player. 
         camera.position = new Vector3(player.position.x, camera.position.y, camera.position.z);
     }
 }
