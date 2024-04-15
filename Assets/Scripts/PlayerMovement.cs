@@ -121,37 +121,37 @@ public class PlayerMovement : MonoBehaviour
                 moveSpeed = 0;
                 collider.offset = new Vector2(0.008428961f, -0.4910533f);
                 collider.size = new Vector2(0.7583675f, 1.012235f);
-            } else if (AnimationScript.isPCrawler)
+            } else if (AnimationScript.isPCrawler || AnimationScript.isFH)
             {
                 moveSpeed = 0;
                 collider.offset = new Vector2(0.04976797f, -0.480615f);
                 collider.size = new Vector2(0.9978762f, 1.017434f);
-            } else if (AnimationScript.isMX)
-            {
-                moveSpeed = 0;
-                collider.offset = new Vector2(0.002098083f, 0.005180478f);
-                collider.size = new Vector2(1.848396f, 1.999141f);
-            }
+          //  } else if (AnimationScript.isMX)
+          //  {
+            //    moveSpeed = 0;
+         //       collider.offset = new Vector2(-0.001805902f, -0.04933187f);
+          //      collider.size = new Vector2(1.844248f, 1.994027f);
+          }
             
         }
         else
         {
            
 
-            if (AnimationScript.isFH)
-            {
-                collider.offset = new Vector2(-0.0009236336f, -0.19319f);
-                collider.size = new Vector2(0.7995176f, 1.649438f);
-            }
-            else if (AnimationScript.isPCrawler)
+       //     if (AnimationScript.isFH)
+       //     {
+        //        collider.offset = new Vector2(0.0118157f, -0.2317408f);
+       //         collider.size = new Vector2(0.836907f, 1.629209f);
+       //     }
+            if (AnimationScript.isPCrawler || AnimationScript.isFH)
             {
                 collider.offset = new Vector2(0.04976797f, -0.238775f);
                 collider.size = new Vector2(0.9978762f, 1.501114f);
             }
             else if (AnimationScript.isMX)
             {
-                collider.offset = new Vector2(0.002098083f, 0.3298979f);
-                collider.size = new Vector2(1.848396f, 2.648576f);
+                collider.offset = new Vector2(-0.001805902f, 0.2736198f);
+                collider.size = new Vector2(1.844248f, 2.63993f);
             }
         }
        
@@ -243,9 +243,17 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(Vector2.right * horizontal * moveSpeed);
 
-        if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight) && onGround)
+        if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
         {
-            Flip();
+            
+
+            if (onGround && AnimationScript.isFH)
+            {
+                Flip();
+            } else if (!AnimationScript.isFH)
+            {
+                Flip();
+            } 
         } 
         if (Mathf.Abs(rb.velocity.x) > maxSpeed)
         {
