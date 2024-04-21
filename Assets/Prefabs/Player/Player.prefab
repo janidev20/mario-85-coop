@@ -874,6 +874,7 @@ MonoBehaviour:
   sprintSpeed: 4.4
   defaultSpeed: 0
   direction: {x: 0, y: 0}
+  isSprinting: 0
   jumpSpeedMX: 9.5
   jumpSpeedPC: 7.75
   jumpSpeedFH: 7.5
@@ -886,6 +887,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  voidLayer:
+    serializedVersion: 2
+    m_Bits: 128
   characterHolder: {fileID: 7052932057964129203}
   collider: {fileID: 7052932058575744997}
   maxSpeed: 4
@@ -895,11 +899,14 @@ MonoBehaviour:
   gravity: 1.6
   fallMultiplier: 3.03
   onGround: 0
-  circleRadius: 0.41
-  colliderOffset: {x: 0, y: -0.93, z: 0}
+  onVoid: 0
+  headCollided: 0
+  circleRadius: 0.29
+  colliderOffset: {x: 0, y: -0.69, z: 0}
   AnimationScript: {fileID: 7052932058575745000}
   isRunning: 0
   isMoving: 0
+  isFalling: 0
   isJumping: 0
   isWahooJumping: 0
   isSliding: 0

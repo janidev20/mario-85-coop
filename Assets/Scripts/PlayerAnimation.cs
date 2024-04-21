@@ -105,6 +105,16 @@ public class PlayerAnimation : MonoBehaviour
         {
             playerAnimator.SetBool("isWahooJumping", false);
         }
+
+        if (plyMovement.isFalling)
+        {
+            playerAnimator.SetBool("isFalling", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isFalling", false);
+        }
+
     }
 
     void CharacterMethod()

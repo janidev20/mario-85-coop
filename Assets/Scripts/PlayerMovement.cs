@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float defaultSpeed;
     public Vector2 direction;
     private bool facingRight = true;
-    public bool isSprinting => Input.GetKey(KeyCode.X);
+    public bool isSprinting;
 
     [Header("Vertical Movement")]
     public float jumpSpeedMX = 15f, jumpSpeedPC = 12.5f, jumpSpeedFH = 10f; //the jump force based on what character the player is
@@ -23,11 +23,13 @@ public class PlayerMovement : MonoBehaviour
    [SerializeField] private float jumpTime;
    [SerializeField] [HideInInspector] private bool _isJumping = false;
     private bool _isWahooJumping;
+    private bool _isFalling;
 
     [Header("Components")]
     public Rigidbody2D rb;
     public Animator animator;
     public LayerMask groundLayer;
+    public LayerMask voidLayer;
     public GameObject characterHolder;
     public BoxCollider2D collider;
 
@@ -41,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Collision")]
     public bool onGround = false;
+    public bool onVoid = false;
+    public bool headCollided;
     public float circleRadius = 0.15f;
     public Vector3 colliderOffset;
 
@@ -48,10 +52,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerAnimation AnimationScript;
     public bool isRunning;
     public bool isMoving;
+    public bool isFalling;
     public bool isJumping;
     public bool isWahooJumping;
     public bool isSliding;
-    public bool isCrouching => Input.GetKey(KeyCode.DownArrow) && onGround && Input.GetAxis("Horizontal") <= 0.9f && Input.GetAxis("Horizontal") >= -0.9f;
+    public bool isCrouching => Input.GetKey(KeyCode.DownArrow) && onGround && Input.GetAxis("Horizontal") <= 0.9f && Input.GetAxis("Horizontal") >= -0.9f; // Is Crouchig Boolean depending on input and smoothing input. The horizontal input thingys here are crucial to smooth movement.
 
 
     [Header("Audio")]
@@ -68,40 +73,65 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (onGround)
+        {
+            if (Input.GetKey(KeyCode.X))
+            {
+                isSprinting = true;
+            } else
+            {
+                isSprinting = false;
+            }
+        }
+
         // Speed change
         if (AnimationScript.isMX)
         {
             maxSpeed = 6;
             maxSprintSpeed = 8;
-        } else if (AnimationScript.isPCrawler)
+        } 
+        else if (AnimationScript.isPCrawler)
         {
             maxSpeed = 5.25f;
             maxSprintSpeed = 7.25f;
-        } else if (AnimationScript.isFH)
+        }
+        else if (AnimationScript.isFH)
         {
             maxSpeed = 4;
             maxSprintSpeed = 6;
-
+    
         }
-
-
+        //animation boolean
         isRunning = isSprinting;
 
         bool wasOnGround = onGround;
         onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
+        onVoid = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, voidLayer);
+        headCollided = Physics2D.OverlapCircle(transform.position - colliderOffset, circleRadius, groundLayer); // This is to indicate if mario's head bumped into something
 
+        if (headCollided) // If it did, 
+        {
+            jumpTime = 0; // stop jumping. 
+        }
+
+        // start the Jump squeeze couroutine method
         if (!wasOnGround && onGround)
         {
             StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
         }
 
-        Jump();
-        WahooJump();
+        // The default and WahooJump used as 2 seperate methods. Y input is in Jump() and V input is in WahooJump() ONLY. 
+        if (!AnimationScript.isTransforming)
+        {
+            Jump();
+            WahooJump();
+        }
+        // honestly idk what this exactly does but might wanna keep this who knows.
         animator.SetBool("onGround", onGround);
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         
-
+        // If is sprinting, change current movement speed
         if (isSprinting)
         {
             moveSpeed = sprintSpeed;
@@ -116,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             // Changing Collider size based on Current Form (MX, FH, PCrawler)
+            // Comment 2 : I HONESTLY HAVE NO FUCKING IDEA WHAT I DID HERE BUT IT SEEMS TO WORK, DO NOT TOUCH IT!!!!!
             if (AnimationScript.isFH)
             {
                 moveSpeed = 0;
@@ -198,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!AnimationScript.isTransforming)
+        if (!AnimationScript.isTransforming) // if the player is in 'Transforming' state, disable movement input.
         {
 
             moveCharacter(direction.x);
@@ -238,6 +269,8 @@ public class PlayerMovement : MonoBehaviour
 
        }
       }
+
+    // Movement Logic
     void moveCharacter(float horizontal)
     {
 
@@ -246,7 +279,7 @@ public class PlayerMovement : MonoBehaviour
         if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
         {
             
-
+            // Flip() only when on ground, and is FH (False Hero).
             if (onGround && AnimationScript.isFH)
             {
                 Flip();
@@ -338,7 +371,8 @@ public class PlayerMovement : MonoBehaviour
         //jumpTimer = 0;
         //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
 
-        if (onGround && Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
+
+        if (onVoid && Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
         {
             _isJumping = true;
             _isWahooJumping = true;
@@ -347,9 +381,14 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
             jumpSrc.PlayOneShot(wahooJump);
+            jumpSrc.PlayOneShot(mxJump);
             /////////////////////////////////
             StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
         }
+        else 
+
+
+
 
         if (Input.GetKey(KeyCode.V) && AnimationScript.isMX && _isJumping == true)
         {
@@ -369,14 +408,22 @@ public class PlayerMovement : MonoBehaviour
         {
             _isJumping = false;
         }
+
+        
     }
 
+    // No idea what this does, but it is crucial to the player movement.
     void modifyPhysics()
     {
         bool changingDirections = (direction.x > 0 && rb.velocity.x < 0) || (direction.x < 0 && rb.velocity.x > 0);
 
         if (onGround)
         {
+            if (jumpTime <= 0.015f)
+            {
+                jumpTime = 0;
+            }
+
             if (Mathf.Abs(direction.x) < 0.4f || changingDirections)
             {
                 rb.drag = linearDrag;
@@ -386,20 +433,30 @@ public class PlayerMovement : MonoBehaviour
                 rb.drag = 0f;
             }
             rb.gravityScale = 0;
+
            isJumping = false;
            isWahooJumping = false;
+           isFalling = false;
         }
         else
         {
+            _isFalling = true;
+           
+
+
             rb.gravityScale = gravity;
             rb.drag = linearDrag * 0.15f;
+
 
             if (_isWahooJumping)
             {
                 isWahooJumping = true;
-            } else
+            } else if (_isJumping)
             {
                 isJumping = true;
+            } else if (_isFalling)
+            {
+                isFalling = true;
             }
             
 
@@ -415,11 +472,15 @@ public class PlayerMovement : MonoBehaviour
 
        
     }
+
+    // Flips the player sprite when changing Directions.
     void Flip()
     {
         facingRight = !facingRight;
         transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
     }
+
+    // No idea what it does, must be changing size when jumping, just leave it.
     IEnumerator JumpSqueeze(float xSqueeze, float ySqueeze, float seconds)
     {
         Vector3 originalSize = Vector3.one;
