@@ -73,6 +73,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isMoving && isCrouching) // Can't move if crouching
+            return;
+
         if (onGround)
         {
             if (Input.GetKey(KeyCode.X))
@@ -84,12 +87,12 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // Speed change
-        if (AnimationScript.isMX)
+        if (AnimationScript.isMX)  // Speed change
         {
             maxSpeed = 6;
             maxSprintSpeed = 8;
-        } 
+        }
+
         else if (AnimationScript.isPCrawler)
         {
             maxSpeed = 5.25f;
@@ -273,27 +276,31 @@ public class PlayerMovement : MonoBehaviour
     // Movement Logic
     void moveCharacter(float horizontal)
     {
-
-        rb.AddForce(Vector2.right * horizontal * moveSpeed);
-
-        if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
+        if (!isCrouching)
         {
-            
-            // Flip() only when on ground, and is FH (False Hero).
-            if (onGround && AnimationScript.isFH)
+
+            rb.AddForce(Vector2.right * horizontal * moveSpeed);
+
+            if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
             {
-                Flip();
-            } else if (!AnimationScript.isFH)
+
+                // Flip() only when on ground, and is FH (False Hero).
+                if (onGround && AnimationScript.isFH)
+                {
+                    Flip();
+                }
+                else if (!AnimationScript.isFH)
+                {
+                    Flip();
+                }
+            }
+            if (Mathf.Abs(rb.velocity.x) > maxSpeed)
             {
-                Flip();
-            } 
-        } 
-        if (Mathf.Abs(rb.velocity.x) > maxSpeed)
-        {
-            rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
+                rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
+            }
+            animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
+            animator.SetFloat("vertical", rb.velocity.y);
         }
-        animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
-        animator.SetFloat("vertical", rb.velocity.y);
     }
     void Jump()
     {
