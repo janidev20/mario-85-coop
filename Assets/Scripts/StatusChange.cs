@@ -41,6 +41,9 @@ public class StatusChange : MonoBehaviour
     {
         while (AnimationScript.isPCrawler)
         {
+            text.color = Color.red;
+            
+
                 yield return new WaitForSeconds(0.5f);
 
                 text.text = "S̸T̶A̶T̸U̵S̵ : DISGUISE CORR̴U̴P̷T̵E̸D̶";
@@ -73,6 +76,8 @@ public class StatusChange : MonoBehaviour
     {
         while (AnimationScript.isFH)
         {
+            text.color = Color.white;
+
                 yield return new WaitForSeconds(0.5f);
 
 
