@@ -28,6 +28,9 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.isPaused)
+            return;
+
         if (coolDownTimer < coolDownAmount)
         {
             coolDownTimer += Time.deltaTime;
@@ -119,21 +122,21 @@ public class PlayerAnimation : MonoBehaviour
 
     void CharacterMethod()
     {
-        if (Input.GetKeyDown(KeyCode.F3) && isPCrawler)
+        if (Input.GetKeyDown(KeyCode.T) && isPCrawler)
         {
             isMX = true;
             isPCrawler = false;
             isFH = false;
             coolDownTimer = 0; // Resets the coolDownTimer
         }
-        else if (Input.GetKeyDown(KeyCode.F2) && isFH)
+        else if (Input.GetKeyDown(KeyCode.T) && isFH)
         {
             isPCrawler = true;
             isMX = false;
             isFH = false;
             coolDownTimer = 0; // Resets the coolDownTimer
         }
-        else if (Input.GetKeyDown(KeyCode.F1) && !isFH)
+        else if (Input.GetKeyDown(KeyCode.T) && isMX)
         {
             isFH = true;
             isMX = false;

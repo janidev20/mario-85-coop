@@ -1,39 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Audio;
+using TMPro;
 
 public class VolumeManager : MonoBehaviour
 {
+    [SerializeField] private AudioMixer myMixer;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider SFXSlider;
 
-    [SerializeField] private float volume;
-    [SerializeField] AudioSource bgMusic;
-    private bool musicEnabled = true;
+    [SerializeField] private TextMeshProUGUI musicVolumeTitle, SFXVolumeTitle;
+
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("musicVolume"))
+        {
+            LoadVolume();
+        } else
+        {
+            SetMusicVolume();
+            SetSFXVolume();
+        }
+    }
 
     private void Update()
     {
-        volume = AudioListener.volume;
+        musicVolumeTitle.text = musicSlider.value + "%";
+        SFXVolumeTitle.text = SFXSlider.value + "%";
+    }
 
-        if (Input.GetKeyDown(KeyCode.Minus) && volume >= 0.0f || Input.GetKeyDown(KeyCode.KeypadMinus) && volume >= 0.0f)
-        {
-            AudioListener.volume -= 0.25f;
-        } 
+    public void SetMusicVolume()
+    {
+        float volume = musicSlider.value;
+        myMixer.SetFloat("music", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("musicVolume", volume);
+    }
 
-        if (Input.GetKeyDown(KeyCode.Plus) && volume <= 1.0f || Input.GetKeyDown(KeyCode.KeypadPlus) && volume <= 1.0f)
-        {
-            AudioListener.volume += 0.25f;
-        }
+    public void SetSFXVolume()
+    {
+        float volume = SFXSlider.value;
+        myMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+    }
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            musicEnabled = !musicEnabled;
-        }
+    private void LoadVolume()
+    {
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume");
 
-        if (musicEnabled)
-        {
-            bgMusic.enabled = true;
-        } else
-        {
-            bgMusic.enabled = false;
-        }
+        SetMusicVolume();
+        SetSFXVolume();
     }
 }

@@ -73,165 +73,186 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isMoving && isCrouching) // Can't move if crouching
-            return;
-
-        if (onGround)
+        if (GameManager.isPaused)
         {
-            if (Input.GetKey(KeyCode.X))
-            {
-                isSprinting = true;
-            } else
-            {
-                isSprinting = false;
-            }
-        }
-
-        if (AnimationScript.isMX)  // Speed change
-        {
-            maxSpeed = 6;
-            maxSprintSpeed = 8;
-        }
-
-        else if (AnimationScript.isPCrawler)
-        {
-            maxSpeed = 5.25f;
-            maxSprintSpeed = 7.25f;
-        }
-        else if (AnimationScript.isFH)
-        {
-            maxSpeed = 4;
-            maxSprintSpeed = 6;
-    
-        }
-        //animation boolean
-        isRunning = isSprinting;
-
-        bool wasOnGround = onGround;
-        onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
-        onVoid = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, voidLayer);
-        headCollided = Physics2D.OverlapCircle(transform.position - colliderOffset, circleRadius, groundLayer); // This is to indicate if mario's head bumped into something
-
-        if (headCollided) // If it did, 
-        {
-            jumpTime = 0; // stop jumping. 
-        }
-
-        // start the Jump squeeze couroutine method
-        if (!wasOnGround && onGround)
-        {
-            StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
-        }
-
-        // The default and WahooJump used as 2 seperate methods. Y input is in Jump() and V input is in WahooJump() ONLY. 
-        if (!AnimationScript.isTransforming)
-        {
-            Jump();
-            WahooJump();
-        }
-        // honestly idk what this exactly does but might wanna keep this who knows.
-        animator.SetBool("onGround", onGround);
-        direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        
-        // If is sprinting, change current movement speed
-        if (isSprinting)
-        {
-            moveSpeed = sprintSpeed;
-            maxSpeed = maxSprintSpeed;
-        } else
-        {
-            moveSpeed = defaultSpeed;
-            maxSpeed = maxDefaultSpeed;
-        }
-
-        if (isCrouching)
-        {
-
-            // Changing Collider size based on Current Form (MX, FH, PCrawler)
-            // Comment 2 : I HONESTLY HAVE NO FUCKING IDEA WHAT I DID HERE BUT IT SEEMS TO WORK, DO NOT TOUCH IT!!!!!
-            if (AnimationScript.isFH)
-            {
-                moveSpeed = 0;
-                collider.offset = new Vector2(0.008428961f, -0.4910533f);
-                collider.size = new Vector2(0.7583675f, 1.012235f);
-            } else if (AnimationScript.isPCrawler || AnimationScript.isFH)
-            {
-                moveSpeed = 0;
-                collider.offset = new Vector2(0.04976797f, -0.480615f);
-                collider.size = new Vector2(0.9978762f, 1.017434f);
-          //  } else if (AnimationScript.isMX)
-          //  {
-            //    moveSpeed = 0;
-         //       collider.offset = new Vector2(-0.001805902f, -0.04933187f);
-          //      collider.size = new Vector2(1.844248f, 1.994027f);
-          }
-            
+            moveSpeed = 0;
+            maxSpeed = 0;
+            maxSprintSpeed = 0;
+            rb.velocity = Vector3.zero;
         }
         else
-        {
-           
 
-       //     if (AnimationScript.isFH)
-       //     {
-        //        collider.offset = new Vector2(0.0118157f, -0.2317408f);
-       //         collider.size = new Vector2(0.836907f, 1.629209f);
-       //     }
-            if (AnimationScript.isPCrawler || AnimationScript.isFH)
+        if (!GameManager.isPaused)
+        {
+
+            if (!isMoving && isCrouching) // Can't move if crouching
+                return;
+
+            if (onGround)
             {
-                collider.offset = new Vector2(0.04976797f, -0.238775f);
-                collider.size = new Vector2(0.9978762f, 1.501114f);
+                if (Input.GetKey(KeyCode.X))
+                {
+                    isSprinting = true;
+                }
+                else
+                {
+                    isSprinting = false;
+                }
             }
-            else if (AnimationScript.isMX)
+
+            if (AnimationScript.isMX)  // Speed change
             {
-                collider.offset = new Vector2(-0.001805902f, 0.2736198f);
-                collider.size = new Vector2(1.844248f, 2.63993f);
+                maxSpeed = 6;
+                maxSprintSpeed = 8;
             }
-        }
-       
+
+            else if (AnimationScript.isPCrawler)
+            {
+                maxSpeed = 5.25f;
+                maxSprintSpeed = 7.25f;
+            }
+            else if (AnimationScript.isFH)
+            {
+                maxSpeed = 4;
+                maxSprintSpeed = 6;
+
+            }
+            //animation boolean
+            isRunning = isSprinting;
+
+            bool wasOnGround = onGround;
+            onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
+            onVoid = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, voidLayer);
+            headCollided = Physics2D.OverlapCircle(transform.position - colliderOffset, circleRadius, groundLayer); // This is to indicate if mario's head bumped into something
+
+            if (headCollided) // If it did, 
+            {
+                jumpTime = 0; // stop jumping. 
+            }
+
+            // start the Jump squeeze couroutine method
+            if (!wasOnGround && onGround)
+            {
+                StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
+            }
+
+            // The default and WahooJump used as 2 seperate methods. Y input is in Jump() and V input is in WahooJump() ONLY. 
+            if (!AnimationScript.isTransforming)
+            {
+                Jump();
+                WahooJump();
+            }
+            // honestly idk what this exactly does but might wanna keep this who knows.
+            animator.SetBool("onGround", onGround);
+            direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+
+            // If is sprinting, change current movement speed
+            if (isSprinting)
+            {
+                moveSpeed = sprintSpeed;
+                maxSpeed = maxSprintSpeed;
+            }
+            else
+            {
+                moveSpeed = defaultSpeed;
+                maxSpeed = maxDefaultSpeed;
+            }
+
+            if (isCrouching)
+            {
+
+                // Changing Collider size based on Current Form (MX, FH, PCrawler)
+                // Comment 2 : I HONESTLY HAVE NO FUCKING IDEA WHAT I DID HERE BUT IT SEEMS TO WORK, DO NOT TOUCH IT!!!!!
+                if (AnimationScript.isFH)
+                {
+                    moveSpeed = 0;
+                    collider.offset = new Vector2(0.008428961f, -0.4910533f);
+                    collider.size = new Vector2(0.7583675f, 1.012235f);
+                }
+                else if (AnimationScript.isPCrawler || AnimationScript.isFH)
+                {
+                    moveSpeed = 0;
+                    collider.offset = new Vector2(0.04976797f, -0.480615f);
+                    collider.size = new Vector2(0.9978762f, 1.017434f);
+                    //  } else if (AnimationScript.isMX)
+                    //  {
+                    //    moveSpeed = 0;
+                    //       collider.offset = new Vector2(-0.001805902f, -0.04933187f);
+                    //      collider.size = new Vector2(1.844248f, 1.994027f);
+                }
+
+            }
+            else
+            {
+
+
+                //     if (AnimationScript.isFH)
+                //     {
+                //        collider.offset = new Vector2(0.0118157f, -0.2317408f);
+                //         collider.size = new Vector2(0.836907f, 1.629209f);
+                //     }
+                if (AnimationScript.isPCrawler || AnimationScript.isFH)
+                {
+                    collider.offset = new Vector2(0.04976797f, -0.238775f);
+                    collider.size = new Vector2(0.9978762f, 1.501114f);
+                }
+                else if (AnimationScript.isMX)
+                {
+                    collider.offset = new Vector2(-0.001805902f, 0.2736198f);
+                    collider.size = new Vector2(1.844248f, 2.63993f);
+                }
+            }
 
 
 
-        if (direction.x != 0)
-        {
 
-            isMoving = true;
-        }
-        else
-        {
-            StartCoroutine("waitForRun", 0);
-        }
+            if (direction.x != 0)
+            {
 
-       // If the transform animation is not playing, then  we can move
-        if (!AnimationScript.isTransforming)
-        {
-        bool changingDirections = (direction.x > 0 && rb.velocity.x < -0.3f) || (direction.x < 0 && rb.velocity.x > 0.3f);
+                isMoving = true;
+            }
+            else
+            {
+                StartCoroutine("waitForRun", 0);
+            }
 
-       // Sliding Animator Bool
-        if (changingDirections || changingDirections && isMoving == false)
-        {
-            isSliding = true;
-        }
-        else
-        {
-            isSliding = false;
-        }
-        } else
-        {
-            rb.velocity = Vector2.zero;
-        }
+            // If the transform animation is not playing, then  we can move
+            if (!AnimationScript.isTransforming)
+            {
+                bool changingDirections = (direction.x > 0 && rb.velocity.x < -0.3f) || (direction.x < 0 && rb.velocity.x > 0.3f);
 
-        // If sliding, increase linear drag
-        if (isSliding)
-        {
-            linearDrag = 1.75f;
-        } else
-        {
-            linearDrag = 5;
+                // Sliding Animator Bool
+                if (changingDirections || changingDirections && isMoving == false)
+                {
+                    isSliding = true;
+                }
+                else
+                {
+                    isSliding = false;
+                }
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+            }
+
+            // If sliding, increase linear drag
+            if (isSliding)
+            {
+                linearDrag = 1.75f;
+            }
+            else
+            {
+                linearDrag = 5;
+            }
         }
     }
     void FixedUpdate()
     {
+        if (GameManager.isPaused)
+            return;
+
         if (!AnimationScript.isTransforming) // if the player is in 'Transforming' state, disable movement input.
         {
 

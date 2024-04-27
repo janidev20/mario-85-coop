@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UI;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
     // PLAY MENU
     [Header("Play Menu")]
     [Space(1)]
-    [SerializeField] private RectTransform MenuHolder;
+    [SerializeField] private RectTransform PlayHolder;
 
     Vector3 testingPos = new Vector2(1931, 0);
     Vector3 storyPos = new Vector2(0, 0);
@@ -22,52 +25,56 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private GameObject LoadFade;
 
-    [Header("Main Menu")]
-    [Space(1)]
-
-    [SerializeField] GameObject MainMenu;
-    [SerializeField] GameObject PlayMenu;
+   
 
     private void Start()
     {
-       // MainMenu.SetActive(true);
-       // PlayMenu.SetActive(false);
-
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         // PLAY MENU
         isTestingMode = false;
         isStoryMode = true;
         isFunMode = false;
         isSandboxMode = false;
+
+     
     }
 
     private void FixedUpdate()
     {
 
         // PLAY MENU
-        if (isFunMode)
-        {
-            MenuHolder.localPosition = Vector3.Lerp(MenuHolder.localPosition, funPos, .1f);
-        }
+        PlayMenu();
 
-        else if (isStoryMode)
-        {
-            MenuHolder.localPosition = Vector3.Lerp(MenuHolder.localPosition, storyPos, .1f);
-        }
+        // SETTINGS MENU
 
-       else if (isSandboxMode)
-        {
-            MenuHolder.localPosition = Vector3.Lerp(MenuHolder.localPosition, sandboxPos, .1f);
-        }
-
-       else if (isTestingMode)
-        {
-            MenuHolder.localPosition = Vector3.Lerp(MenuHolder.localPosition, testingPos, .1f);
-        }
     }
 
     // -1931 swipe amount
     // PLAY MENU
+    public void PlayMenu()
+    {
+        if (isFunMode)
+        {
+            PlayHolder.localPosition = Vector3.Lerp(PlayHolder.localPosition, funPos, .1f);
+        }
+
+        else if (isStoryMode)
+        {
+            PlayHolder.localPosition = Vector3.Lerp(PlayHolder.localPosition, storyPos, .1f);
+        }
+
+        else if (isSandboxMode)
+        {
+            PlayHolder.localPosition = Vector3.Lerp(PlayHolder.localPosition, sandboxPos, .1f);
+        }
+
+        else if (isTestingMode)
+        {
+            PlayHolder.localPosition = Vector3.Lerp(PlayHolder.localPosition, testingPos, .1f);
+        }
+    }
     public void SwapRight()
     {
         if (isTestingMode)
@@ -153,6 +160,10 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("LoadingScene");
     }
 
+
+
+
+    //QUIT Button Function
     public void QuitGame()
     {
         Application.Quit();

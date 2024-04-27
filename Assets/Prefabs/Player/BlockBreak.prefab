@@ -116,7 +116,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5199904260986803238}
   - component: {fileID: 5199904260986803233}
-  - component: {fileID: 7787732851152055850}
   m_Layer: 0
   m_Name: BlockBreak
   m_TagString: Untagged
@@ -149,7 +148,7 @@ AudioSource:
   m_GameObject: {fileID: 5199904260986803239}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3812930246104492735, guid: d9e41f72a879d7d44b6bc84eb55d38fb, type: 2}
   m_audioClip: {fileID: 8300000, guid: 49398e1f28ea3ef4797b960e0fd8962b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -236,15 +235,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7787732851152055850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5199904260986803239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d48357275aaca124ab88e978d115132b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
