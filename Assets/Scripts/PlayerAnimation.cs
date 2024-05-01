@@ -28,8 +28,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.isPaused)
-            return;
 
         if (coolDownTimer < coolDownAmount)
         {

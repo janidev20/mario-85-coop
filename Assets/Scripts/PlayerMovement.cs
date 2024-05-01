@@ -73,18 +73,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.isPaused)
-        {
-            moveSpeed = 0;
-            maxSpeed = 0;
-            maxSprintSpeed = 0;
-            rb.velocity = Vector3.zero;
-        }
-        else
-
-        if (!GameManager.isPaused)
-        {
-
             if (!isMoving && isCrouching) // Can't move if crouching
                 return;
 
@@ -246,12 +234,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 linearDrag = 5;
             }
-        }
     }
     void FixedUpdate()
     {
-        if (GameManager.isPaused)
-            return;
 
         if (!AnimationScript.isTransforming) // if the player is in 'Transforming' state, disable movement input.
         {
@@ -331,7 +316,7 @@ public class PlayerMovement : MonoBehaviour
         //jumpTimer = 0;
         //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
     
-        if (onGround && Input.GetKeyDown(KeyCode.Y))
+        if (onGround && Input.GetKeyDown(KeyCode.Y) && !onVoid || onGround && Input.GetKeyDown(KeyCode.Z) && !onVoid)
         {
             _isWahooJumping = false;
             if (AnimationScript.isMX)
@@ -371,7 +356,7 @@ public class PlayerMovement : MonoBehaviour
             }
         } 
 
-        if (Input.GetKey(KeyCode.Y) && _isJumping == true)
+        if (Input.GetKey(KeyCode.Y) && _isJumping == true || Input.GetKey(KeyCode.Z) && _isJumping == true)
         {
             if (jumpTime > 0)
             {
@@ -385,7 +370,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Y))
+        if (Input.GetKeyUp(KeyCode.Y) || Input.GetKeyUp(KeyCode.Z))
         {
             _isJumping = false;
         }

@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Void Stuff")]
+    [Header("Player/Void Stuff")]
     [Space(1)]
     [SerializeField] private PlayerMovement plyMoveScript;
     [SerializeField] private PlayerAnimation plyAnimScript;
+    [SerializeField] private Rigidbody2D plyRB;
     [SerializeField] private GameObject VoidWarningTXT;
+    [SerializeField] private Vector2 previousVelocity;
+
 
     [Header("Pause Menu")]
     [Space(1)]
@@ -44,7 +47,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if (!isPaused) 
+        if (!isPaused)
         {
             DeathHandler();
         }
@@ -52,10 +55,20 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
             Pause();
-        } 
+        }
 
-        if (isPaused) 
+        if (isPaused)
+        {
+            plyRB.isKinematic = true; // disables physics on ply rigidbody
+            plyMoveScript.enabled = false;
+            plyAnimScript.enabled = false;
             return;
+        }
+        else
+            plyRB.isKinematic = false; // enables physics on ply rigidbody 
+        plyMoveScript.enabled = true;
+        plyAnimScript.enabled = true;
+
 
 
         if (plyMoveScript.onVoid)
