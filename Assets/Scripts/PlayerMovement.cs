@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                StartCoroutine("waitForRun", 0);
+                isMoving = false;
             }
 
             // If the transform animation is not playing, then  we can move
@@ -467,7 +467,7 @@ public class PlayerMovement : MonoBehaviour
             } else if (_isJumping)
             {
                 isJumping = true;
-            } else if (_isFalling)
+            } else
             {
                 isFalling = true;
             }
@@ -518,13 +518,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(transform.position + colliderOffset, circleRadius);
-    }
-
-    IEnumerator waitForRun()
-    {
-            yield return new WaitForSeconds(0.2f);
-            isMoving = false;
-
     }
 
 }

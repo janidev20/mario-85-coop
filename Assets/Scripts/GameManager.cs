@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Space(1)]
     [SerializeField] private PlayerMovement plyMoveScript;
     [SerializeField] private PlayerAnimation plyAnimScript;
+    [SerializeField] private CameraMovement cameraScript;
     [SerializeField] private Rigidbody2D plyRB;
     [SerializeField] private GameObject VoidWarningTXT;
     [SerializeField] private Vector2 previousVelocity;
@@ -57,15 +59,18 @@ public class GameManager : MonoBehaviour
             Pause();
         }
 
+        
+
         if (isPaused)
         {
-            plyRB.isKinematic = true; // disables physics on ply rigidbody
+            plyRB.constraints = RigidbodyConstraints2D.FreezePosition; 
             plyMoveScript.enabled = false;
             plyAnimScript.enabled = false;
             return;
         }
         else
-            plyRB.isKinematic = false; // enables physics on ply rigidbody 
+        plyRB.constraints &= ~RigidbodyConstraints2D.FreezePosition;
+        plyRB.constraints = RigidbodyConstraints2D.FreezeRotation;
         plyMoveScript.enabled = true;
         plyAnimScript.enabled = true;
 
@@ -135,6 +140,7 @@ public class GameManager : MonoBehaviour
     IEnumerator DeathSequence()
     {
         isPaused = true;
+        cameraScript.enabled = false;
 
         foreach (AudioSource AudioObject in InGameSounds)
         {
