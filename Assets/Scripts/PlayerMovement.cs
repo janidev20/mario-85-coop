@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Vertical Movement")]
     public float jumpSpeedMX = 15f, jumpSpeedPC = 12.5f, jumpSpeedFH = 10f; //the jump force based on what character the player is
     public float jumpSpeed;
+    public float jumpCoolDown = 0.35f;
    [SerializeField] private float jumpStartTime;
    [SerializeField] private float jumpTime;
    [SerializeField] [HideInInspector] private bool _isJumping = false;
@@ -127,9 +128,12 @@ public class PlayerMovement : MonoBehaviour
             // The default and WahooJump used as 2 seperate methods. Y input is in Jump() and V input is in WahooJump() ONLY. 
             if (!AnimationScript.isTransforming)
             {
+          
                 Jump();
-                WahooJump();
-            }
+                WahooJump();        
+            
+           }
+
             // honestly idk what this exactly does but might wanna keep this who knows.
             animator.SetBool("onGround", onGround);
             direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -315,48 +319,42 @@ public class PlayerMovement : MonoBehaviour
         //rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
         //jumpTimer = 0;
         //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
-    
-        if (onGround && Input.GetKeyDown(KeyCode.Y) && !onVoid || onGround && Input.GetKeyDown(KeyCode.Z) && !onVoid)
-        {
-            _isWahooJumping = false;
-            if (AnimationScript.isMX)
-            {
-                _isJumping = true;
-                jumpTime = jumpStartTime;
-                /////////////////////////////////
-                jumpSpeed = jumpSpeedMX;
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-                jumpSrc.PlayOneShot(mxJump);
-                /////////////////////////////////
-                StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
-            }
-            else if (AnimationScript.isFH)
-            {
-                _isJumping = true;
-                jumpTime = jumpStartTime;
-                /////////////////////////////////
-                jumpSpeed = jumpSpeedFH;
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-                jumpSrc.PlayOneShot(fhJump);
-                /////////////////////////////////
-                StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
-            } else if (AnimationScript.isPCrawler)
-            {
-                _isJumping = true;
-                jumpTime = jumpStartTime;
-                /////////////////////////////////
-                jumpSpeed = jumpSpeedPC;
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-                jumpSrc.PlayOneShot(pcJump);
-                /////////////////////////////////
-                StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
-            }
-        } 
 
-        if (Input.GetKey(KeyCode.Y) && _isJumping == true || Input.GetKey(KeyCode.Z) && _isJumping == true)
+            if (onGround && Input.GetKeyDown(KeyCode.Y) && !onVoid)
+            {
+                _isWahooJumping = false;
+                _isJumping = true;
+                jumpTime = jumpStartTime;
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+            if (AnimationScript.isMX)
+                {
+         
+                    /////////////////////////////////
+                    jumpSpeed = jumpSpeedMX;
+                    jumpSrc.PlayOneShot(mxJump);
+                    /////////////////////////////////
+                }
+                else if (AnimationScript.isFH)
+                {
+                    /////////////////////////////////
+                    jumpSpeed = jumpSpeedFH;
+                    jumpSrc.PlayOneShot(fhJump);
+                    /////////////////////////////////
+                }
+                else if (AnimationScript.isPCrawler)
+                {
+                    /////////////////////////////////
+                    jumpSpeed = jumpSpeedPC;
+                    jumpSrc.PlayOneShot(pcJump);
+                    /////////////////////////////////
+                }
+            }
+
+
+
+            if (Input.GetKey(KeyCode.Y) && _isJumping == true)
         {
             if (jumpTime > 0)
             {
@@ -370,9 +368,16 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Y) || Input.GetKeyUp(KeyCode.Z))
+        // DO NOT FUCKING TOUCH THIS TOOK ME HOURS TO FIX
+        if (Input.GetKeyUp(KeyCode.Y))
         {
             _isJumping = false;
+            jumpTime = 0;
+        }
+        
+        if (!onGround)
+        {
+            _isJumping = true;
         }
     }
 
