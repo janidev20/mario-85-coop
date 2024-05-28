@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
 
     public void DeathHandler()
     {
-        if (plyMoveScript.onVoid && !plyAnimScript.isMX)
+        if (plyMoveScript.onVoid && plyAnimScript.isFH)
         {
             StartCoroutine(DeathSequence());
         }

@@ -131,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
           
                 Jump();
                 WahooJump();        
-            
            }
 
             // honestly idk what this exactly does but might wanna keep this who knows.
@@ -210,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // If the transform animation is not playing, then  we can move
-            if (!AnimationScript.isTransforming)
+            if (!AnimationScript.isTransforming || AnimationScript.isTransforming && onVoid)
             {
                 bool changingDirections = (direction.x > 0 && rb.velocity.x < -0.3f) || (direction.x < 0 && rb.velocity.x > 0.3f);
 

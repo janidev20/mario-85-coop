@@ -120,7 +120,7 @@ public class PlayerAnimation : MonoBehaviour
 
     void CharacterMethod()
     {
-        if (Input.GetKeyDown(KeyCode.T) && isPCrawler)
+        if (Input.GetKeyDown(KeyCode.T) && isPCrawler || plyMovement.onVoid && isPCrawler)
         {
             isMX = true;
             isPCrawler = false;
