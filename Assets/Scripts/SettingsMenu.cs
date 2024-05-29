@@ -8,7 +8,6 @@ using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
-    // SETTINGS MENU
     [Header("Settings Menu")]
     [Space(1)]
     [SerializeField] private RectTransform SettingsHolder;
@@ -125,6 +124,7 @@ public class SettingsMenu : MonoBehaviour
     }
 
     [Tooltip("Game - 0, Graphics - 1, Audio - 2")]
+    // If we click on a different Settings Menu point, change that button we clicked on, to underlined style.
     public void ChangeStroke(int strokeObject)
     {
         // Object values :
@@ -150,9 +150,9 @@ public class SettingsMenu : MonoBehaviour
             GraphicsButton.fontStyle &= ~FontStyles.Underline;
             AudioButton.fontStyle = TMPro.FontStyles.Underline;
         }
-    }
+    } 
 
-    //GRAPHICS
+    //GRAPHICS//
     public void AOSet(bool is_ao)
     {
         isAO = is_ao;
@@ -187,7 +187,7 @@ public class SettingsMenu : MonoBehaviour
         retroLook.active = isRL;
     }
 
-    //GAME
+    //GAME//
     public void FullScreen(bool is_fullscene)
     {
         isFS = is_fullscene;
@@ -208,10 +208,6 @@ public class SettingsMenu : MonoBehaviour
             {
                 QualitySettings.vSyncCount = 0;
             }
-
-
-
-
     }
 
 }

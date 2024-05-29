@@ -8,7 +8,6 @@ using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-    // PLAY MENU
     [Header("Play Menu")]
     [Space(1)]
     [SerializeField] private RectTransform PlayHolder;
@@ -25,14 +24,12 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private GameObject LoadFade;
 
-   
 
     private void Start()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        // PLAY MENU
         isTestingMode = false;
         isStoryMode = true;
         isFunMode = false;
@@ -46,13 +43,10 @@ public class MenuManager : MonoBehaviour
 
         // PLAY MENU
         PlayMenu();
-
-        // SETTINGS MENU
-
     }
 
     // -1931 swipe amount
-    // PLAY MENU
+    // The functions that build up the Play Menu
     public void PlayMenu()
     {
         if (isFunMode)
@@ -129,7 +123,8 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void StartUNAV()
+    // 'Coming soon' text on the gamemodes that are not yet available (UNAVAILABLE)
+    public void StartUNAV() 
     {
         if (canInteract)
         StartCoroutine(Unavailable());
@@ -146,6 +141,7 @@ public class MenuManager : MonoBehaviour
         canInteract = true;
     }
 
+    // Load the Testing Gamemode
     public void LoadTestingMode()
     {
         StartCoroutine(STRTLoadFade());
@@ -159,9 +155,6 @@ public class MenuManager : MonoBehaviour
 
         SceneManager.LoadScene("LoadingScene");
     }
-
-
-
 
     //QUIT Button Function
     public void QuitGame()

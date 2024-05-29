@@ -7,13 +7,14 @@ using TMPro;
 public class LoadingSceneTips : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI tipTxt;
-    int randomNumber;
+    int randomNumber; // For choosing a random tip
 
     private void Start()
     {
         randomNumber = Random.Range(0, 6);
     }
 
+    // The collection of the pro tips showed in the Loading Screen.
     private void Update()
     {
         if (randomNumber == 0)

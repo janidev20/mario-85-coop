@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Rigidbody2D plyRB;
     [SerializeField] private GameObject VoidWarningTXT;
     [SerializeField] private Vector2 previousVelocity;
+    private bool isDead;
 
 
     [Header("Pause Menu")]
@@ -22,12 +23,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject FadeIn;
     [SerializeField] private AudioSource[] InGameSounds;
 
+
     [Header("Global Audio Source")]
     [SerializeField] private AudioSource SFXSource;
     [SerializeField] private AudioSource AmbientSource;
     [SerializeField] private AudioClip UnPauseSFX, DeathSound, ScaryAmbient, HappyAmbient;
 
-    public bool isHappy = true;
+    public bool isHappy = true; // For music change (TEMPORARY)
     public static bool isPaused = false;
 
     private void Start()
@@ -60,21 +62,15 @@ public class GameManager : MonoBehaviour
 
         
 
-        if (isPaused)
+        if (isPaused) // If paused freeze time,
         {
-            plyRB.constraints = RigidbodyConstraints2D.FreezePosition; 
-            plyMoveScript.enabled = false;
-            plyAnimScript.enabled = false;
-            return;
+            Time.timeScale = 0;
         }
-        else
-        plyRB.constraints &= ~RigidbodyConstraints2D.FreezePosition;
-        plyRB.constraints = RigidbodyConstraints2D.FreezeRotation;
-        plyMoveScript.enabled = true;
-        plyAnimScript.enabled = true;
+        else // if unpaused, unfreeze time.
+            Time.timeScale = 1;
 
 
-
+        // Method for the Text : "Press 'V' to jump"
         if (plyMoveScript.onVoid)
         {
             if (plyAnimScript.isMX)
@@ -119,6 +115,7 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         PauseMenu.SetActive(true);
 
+      
        foreach (AudioSource AudioObject in InGameSounds)
         {
             AudioObject.enabled = false;
@@ -130,15 +127,21 @@ public class GameManager : MonoBehaviour
 
     public void DeathHandler()
     {
-        if (plyMoveScript.onVoid && plyAnimScript.isFH)
+        if (plyMoveScript.onVoid && plyAnimScript.isFH && !isDead)
         {
             StartCoroutine(DeathSequence());
+            isDead = true;
         }
     }
 
     IEnumerator DeathSequence()
     {
-        isPaused = true;
+
+        // Disable Player and Camera Movement
+         plyRB.constraints = RigidbodyConstraints2D.FreezePosition; 
+         plyMoveScript.enabled = false;
+         plyAnimScript.enabled = false;
+
         cameraScript.enabled = false;
 
         foreach (AudioSource AudioObject in InGameSounds)
@@ -155,11 +158,13 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.55f);
 
+        // Basically reload the Scene
         SceneManager.LoadScene("Test Scene");
     }
 
     public void UnPause()
     {
+
         SFXSource.PlayOneShot(UnPauseSFX);
 
         isPaused = false;
@@ -182,7 +187,8 @@ public class GameManager : MonoBehaviour
     IEnumerator _quitToMenu()
     {
         FadeOut.SetActive(true);
-
+        isPaused = false; // This is to unfreeze the time, otherwise it won't change to 'MainMenu' Scene
+    
         yield return new WaitForSeconds(2.1f);
 
         SceneManager.LoadScene("MainMenu");

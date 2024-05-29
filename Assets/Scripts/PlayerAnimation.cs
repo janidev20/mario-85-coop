@@ -120,28 +120,34 @@ public class PlayerAnimation : MonoBehaviour
 
     void CharacterMethod()
     {
-        if (Input.GetKeyDown(KeyCode.T) && isPCrawler || plyMovement.onVoid && isPCrawler)
+        if (!GameManager.isPaused)
         {
-            isMX = true;
-            isPCrawler = false;
-            isFH = false;
-            coolDownTimer = 0; // Resets the coolDownTimer
-        }
-        else if (Input.GetKeyDown(KeyCode.T) && isFH)
-        {
-            isPCrawler = true;
-            isMX = false;
-            isFH = false;
-            coolDownTimer = 0; // Resets the coolDownTimer
-        }
-        else if (Input.GetKeyDown(KeyCode.T) && isMX)
-        {
-            isFH = true;
-            isMX = false;
-            isPCrawler = false;
-            FScrAnimator.gameObject.SetActive(false);
-            FScrAnimator.gameObject.SetActive(true);
-            coolDownTimer = 0; // Resets the coolDownTimer
+
+                if (isPCrawler && Input.GetKeyDown(KeyCode.T) || plyMovement.onVoid && isPCrawler) // Will also initiate if we're in the void as PCrawler
+                {
+                    isMX = true;
+                    isPCrawler = false;
+                    isFH = false;
+                    coolDownTimer = 0; // Resets the coolDownTimer
+                }
+                else if (isFH && Input.GetKeyDown(KeyCode.T))
+                {
+                    isPCrawler = true;
+                    isMX = false;
+                    isFH = false;
+                    coolDownTimer = 0; // Resets the coolDownTimer
+                }
+                else if (isMX && Input.GetKeyDown(KeyCode.T))
+                {
+                    isFH = true;
+                    isMX = false;
+                    isPCrawler = false;
+                    FScrAnimator.gameObject.SetActive(false);
+                    FScrAnimator.gameObject.SetActive(true);
+                    coolDownTimer = 0; // Resets the coolDownTimer
+                }
+            
+        
         }
 
 
