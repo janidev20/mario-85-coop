@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Horizontal Movement")]
     public float moveSpeed = 10f;
-    public float sprintSpeed = 16f;
+    public float sprintSpeed = 20f;
     public float defaultSpeed;
     public Vector2 direction;
     private bool facingRight = true;
@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Vertical Movement")]
     public float jumpSpeedMX = 15f, jumpSpeedPC = 12.5f, jumpSpeedFH = 10f; //the jump force based on what character the player is
     public float jumpSpeed;
-    public float jumpCoolDown = 0.35f;
+    public float jumpCoolDown = 0.1f;
    [SerializeField] private float jumpStartTime;
    [SerializeField] private float jumpTime;
    [SerializeField] [HideInInspector] private bool _isJumping = false;
@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     public bool headCollided;
     public float circleRadius = 0.15f;
     public Vector3 colliderOffset;
+    public Vector3 headColliderOffset;
 
     [Header("Character Animator")]
     [SerializeField] private PlayerAnimation AnimationScript;
@@ -115,8 +116,8 @@ public class PlayerMovement : MonoBehaviour
             onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
             onVoid = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, voidLayer);
             
-            // Head Bump Detection (When mario hits something with his head/hand)
-            headCollided = Physics2D.OverlapCircle(transform.position - colliderOffset, circleRadius, groundLayer); // This is to indicate if mario's head bumped into something
+            // Head Bump Detection (When mario hits something with his head)
+            headCollided = Physics2D.OverlapCircle(transform.position - headColliderOffset, circleRadius - 0, groundLayer); // This is to indicate if mario's head bumped into something
 
             if (headCollided) // If it did, 
             {
@@ -230,6 +231,10 @@ public class PlayerMovement : MonoBehaviour
             // If sliding, increase linear drag
             if (isSliding)
             {
+            if (isRunning)
+            {
+                linearDrag = 0.1f;
+            } else
                 linearDrag = 1.75f;
             }
             else
@@ -325,6 +330,14 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     _isJumping = false;
+                }
+
+                if (isSprinting && isMoving)
+                {
+                    jumpSpeedFH = 8.35f;
+                } else
+                {
+                jumpSpeedFH = 7.75f;
                 }
             }
 
@@ -456,7 +469,7 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
     }
 
-    // No idea what it does, something with jumping, just leave it.
+    // Makes the 'CharacterHolder' Object literally squeeze when jumping and landing.
     IEnumerator JumpSqueeze(float xSqueeze, float ySqueeze, float seconds)
     {
         Vector3 originalSize = Vector3.one;
