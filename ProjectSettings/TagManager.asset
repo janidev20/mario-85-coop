@@ -15,6 +15,7 @@ TagManager:
   - Destroyer
   - Breakable
   - Interactable
+  - QM
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - UI
   - PP
   - whatIsVoid
-  - 
+  - QM
   - 
   - 
   - 

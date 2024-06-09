@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 170482140535285665}
   m_Layer: 3
   m_Name: GroundDetect  (1)
-  m_TagString: Interactable
+  m_TagString: QM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

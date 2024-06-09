@@ -135,6 +135,8 @@ public class PlayerAnimation : MonoBehaviour
                     isPCrawler = true;
                     isMX = false;
                     isFH = false;
+                    FScrAnimator.gameObject.SetActive(false);
+                    FScrAnimator.gameObject.SetActive(true);
                     coolDownTimer = 0; // Resets the coolDownTimer
                 }
                 else if (isMX && Input.GetKeyDown(KeyCode.T))
