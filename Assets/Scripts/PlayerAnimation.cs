@@ -116,6 +116,14 @@ public class PlayerAnimation : MonoBehaviour
             playerAnimator.SetBool("isFalling", false);
         }
 
+        if (plyMovement.isLanding)
+        {
+            playerAnimator.SetBool("isLanding", true);
+        } else
+        {
+            playerAnimator.SetBool("isLanding", false);
+        }
+
     }
 
     void CharacterMethod()

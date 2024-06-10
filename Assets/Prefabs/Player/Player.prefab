@@ -1591,11 +1591,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plyMovement: {fileID: 1933805374467724533}
   playerAnimator: {fileID: 0}
-  MXAnimator: {fileID: 7052932059062441313}
+  MXAnimator: {fileID: 3040556548959707240}
   PCAnimator: {fileID: 4150876021690946191}
   FHAnimator: {fileID: 7052932057708084701}
   FScrAnimator: {fileID: 7052932057402105693}
-  MX_Body: {fileID: 7052932059062441316}
+  MX_Body: {fileID: 6405323278198410968}
   PCrawler_Body: {fileID: 8331764816002827665}
   isFH_Body: {fileID: 7052932057708084672}
   isMX: 0
