@@ -102,11 +102,14 @@ public class PlayerMovement : MonoBehaviour
 
             }
 
-            if (AnimationScript.isMX)
+            else if (AnimationScript.isMX && !AnimationScript.isTransforming)
             {
-                collider.offset = new Vector2(-0.001805902f, 0.2736198f);
-                collider.size = new Vector2(1.844248f, 2.63993f);
+                transform.position = transform.position;
+                // collider.offset = new Vector2(0.004046202f, 0.747394f);
+                // collider.size = new Vector2(2.041561f, 3.244714f);
 
+                collider.offset = new Vector2(0.004046202f, 0.6428025f);
+                collider.size = new Vector2(2.041561f, 3.453897f);
             }
         }
 
@@ -131,8 +134,8 @@ public class PlayerMovement : MonoBehaviour
             // Speed change
             if (AnimationScript.isMX)  
             {
-                maxSpeed = 6;
-                maxSprintSpeed = 9;
+                maxSpeed = 5.55f;
+                maxSprintSpeed = 6.85f;
             }
 
             else if (AnimationScript.isPCrawler)
