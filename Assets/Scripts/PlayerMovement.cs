@@ -44,10 +44,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [HideInInspector] private float fallMultiplier = 5f;
 
     [Header("Collision")]
-    [SerializeField] private Vector3 colliderOffset;
+    [SerializeField] private Vector3 colliderOffset, colliderOffsetMX;
     [SerializeField] private Vector3 headColliderOffset;
     [SerializeField] private float circleRadius = 0.15f;
-    [SerializeField] [HideInInspector] private float circleRadiusFH = 0.15f, circleRadiusPCrawler = 0.15f, circleRadiusMX = 0.56f;
+    [SerializeField] [HideInInspector] private float circleRadiusFH = 0.15f, circleRadiusPCrawler = 0.15f, circleRadiusMX = 0.79f;
     public bool onGround = false;
     public bool onVoid = false;
     public bool headCollided;
@@ -134,8 +134,8 @@ public class PlayerMovement : MonoBehaviour
             // Speed change
             if (AnimationScript.isMX)  
             {
-                maxSpeed = 5.55f;
-                maxSprintSpeed = 6.85f;
+                maxSpeed = 5.25f;
+                maxSprintSpeed = 6.5f;
             }
 
             else if (AnimationScript.isPCrawler)
@@ -155,8 +155,12 @@ public class PlayerMovement : MonoBehaviour
 
             // Ground Detection
             bool wasOnGround = onGround;
-            onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
             onVoid = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, voidLayer);
+            if (AnimationScript.isMX) 
+            {
+            onGround = Physics2D.OverlapCircle(transform.position + colliderOffsetMX, circleRadius, groundLayer);
+            } else
+            onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
             
             // Head Bump Detection (When mario hits something with his head)
             headCollided = Physics2D.OverlapCircle(transform.position - headColliderOffset, circleRadius - 0, groundLayer); // This is to indicate if mario's head bumped into something
@@ -192,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
-                        moveSpeed = sprintSpeed * 0.43f;
+                        moveSpeed = sprintSpeed * 0.35f;
                         maxSpeed = maxSprintSpeedBIG;
                     } 
 
@@ -411,7 +415,7 @@ public class PlayerMovement : MonoBehaviour
             _isJumping = true;
             _isWahooJumping = true;
             /////////////////////////////////
-            jumpSpeed = jumpSpeedMX * 2.95f;
+            jumpSpeed = jumpSpeedMX * 2.85f;
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
             jumpSrc.PlayOneShot(wahooJump);

@@ -1557,7 +1557,7 @@ MonoBehaviour:
   fallMultiplier: 3.03
   colliderOffset: {x: 0, y: -0.69, z: 0}
   headColliderOffset: {x: 0, y: -0.44, z: 0}
-  circleRadius: 0.15
+  circleRadius: 0.2
   circleRadiusFH: 0.15
   circleRadiusPCrawler: 0.15
   circleRadiusMX: 0.56
