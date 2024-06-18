@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isSprinting;
 
     [Header("Vertical Movement")]
-    [SerializeField] private float jumpSpeedMX = 15f, jumpSpeedPC = 12.5f, jumpSpeedFH = 10f; //the jump force based on what character the player is
+    [SerializeField] private float jumpSpeedMX = 13.35f, jumpSpeedPC = 12.5f, jumpSpeedFH = 10f; //the jump force based on what character the player is
     [SerializeField] [HideInInspector] private bool _isJumping = false;
     [SerializeField] [HideInInspector] private float jumpStartTime;
     [SerializeField] [HideInInspector] private float jumpTime;
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 colliderOffset, colliderOffsetMX;
     [SerializeField] private Vector3 headColliderOffset;
     [SerializeField] private float circleRadius = 0.15f;
-    [SerializeField] [HideInInspector] private float circleRadiusFH = 0.15f, circleRadiusPCrawler = 0.15f, circleRadiusMX = 0.79f;
+    [SerializeField] [HideInInspector] private float circleRadiusFH = 0.15f, circleRadiusPCrawler = 0.15f, circleRadiusMX = 0.8f;
     public bool onGround = false;
     public bool onVoid = false;
     public bool headCollided;
@@ -79,12 +79,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        if (isCrouching)
+        if (isCrouching && !AnimationScript.isPCrawler)
         {
 
             // Changing Collider size based on Current Form (MX, FH, PCrawler)
 
-            if (AnimationScript.isPCrawler || AnimationScript.isFH)
+            if (AnimationScript.isFH)
             {
                 moveSpeed = 0;
                 collider.offset = new Vector2(0.0118157f, -0.4482942f);
@@ -95,14 +95,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (AnimationScript.isPCrawler || AnimationScript.isFH)
+            if (AnimationScript.isFH)
             {
                 collider.offset = new Vector2(0.004783392f, -0.229393f);
                 collider.size = new Vector2(0.6538078f, 1.624514f);
 
             }
 
-            else if (AnimationScript.isMX && !AnimationScript.isTransforming)
+            else if (AnimationScript.isMX)
             {
                 transform.position = transform.position;
                 // collider.offset = new Vector2(0.004046202f, 0.747394f);
@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.X))
                 {
-                    StartCoroutine(SpeedUpMethod());
+
                     isSprinting = true;
                 }
                 else
@@ -135,18 +135,18 @@ public class PlayerMovement : MonoBehaviour
             if (AnimationScript.isMX)  
             {
                 maxSpeed = 5.25f;
-                maxSprintSpeed = 6.5f;
+                maxSprintSpeed = 7.55f;
             }
 
             else if (AnimationScript.isPCrawler)
             {
                 maxSpeed = 5.25f;
-                maxSprintSpeed = 6.5f;
+                maxSprintSpeed = 7.55f;
             }
             else if (AnimationScript.isFH)
             {
                 maxSpeed = 4;
-                maxSprintSpeed = 6;
+                maxSprintSpeed = 6.56f;
 
             }
 
@@ -187,30 +187,21 @@ public class PlayerMovement : MonoBehaviour
             // Change movement speed depending on Sprinting Boolean
             if (isSprinting)
             {
-                if (speedUp)
-                {
-                    if (AnimationScript.isFH)
-                    {
-                        moveSpeed = sprintSpeed * 0.43f;
-                        maxSpeed = maxSprintSpeed;
-                    }
-                    else
-                    {
-                        moveSpeed = sprintSpeed * 0.35f;
-                        maxSpeed = maxSprintSpeedBIG;
-                    } 
-
-                } else
-                {
-                    
-                        moveSpeed = sprintSpeed;
-                }
-            }
-            else
+                maxSpeed = maxSprintSpeed;
+            if (moveSpeed != sprintSpeed && !isSliding && !AnimationScript.isMX)
             {
-                speedUp = false;
-                moveSpeed = defaultSpeed;
+                moveSpeed += 0.02f;
+            }
+
+            }
+            else if (!isSprinting)
+            {
                 maxSpeed = maxDefaultSpeed;
+            
+                if (moveSpeed != defaultSpeed && !isSliding && !AnimationScript.isMX)
+                {
+                    moveSpeed -= 0.02f;
+                }
             }
 
            
@@ -254,9 +245,9 @@ public class PlayerMovement : MonoBehaviour
             {
             if (isRunning || isCrouching)
             {
-                linearDrag = 1.0f;
+                linearDrag = 0.75f;
             } else
-                linearDrag = 1.75f;
+                linearDrag = 1.6f;
             }
             else
             {
@@ -379,7 +370,7 @@ public class PlayerMovement : MonoBehaviour
                     jumpSpeedFH = 8.35f;
                 } else
                 {
-                jumpSpeedFH = 7.75f;
+                    jumpSpeedFH = 7.75f;
                 }
             }
 
@@ -415,9 +406,9 @@ public class PlayerMovement : MonoBehaviour
             _isJumping = true;
             _isWahooJumping = true;
             /////////////////////////////////
-            jumpSpeed = jumpSpeedMX * 2.85f;
+            jumpSpeed = jumpSpeedMX;
             rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * (jumpSpeed * 2.7f), ForceMode2D.Impulse);
             jumpSrc.PlayOneShot(wahooJump);
             jumpSrc.PlayOneShot(mxJump);
             /////////////////////////////////
@@ -430,7 +421,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _isFalling = false;
                 rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up * (jumpSpeed * 2.7f), ForceMode2D.Impulse);
                 jumpTime -= Time.deltaTime;
             }
 
@@ -445,7 +436,7 @@ public class PlayerMovement : MonoBehaviour
             _isJumping = false;
         }
 
-        if (_isWahooJumping && rb.velocity.y <= 0)
+        if (_isWahooJumping && rb.velocity.y <= -2)
         {
             isLanding = true;
         }
@@ -518,40 +509,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
        
-    }
-
-    // 'Speeding up overtime' Function : After a specific time has passed while running, enable the speedUp boolean (which makes it possible to increase maxSprintSpeed in upper codelines.) 
-    IEnumerator SpeedUpMethod()
-    {
-        if (AnimationScript.isFH)
-        {
-
-            if (isRunning) { 
-            yield return new WaitForSeconds(1f);
-
-            speedUp = true;
-            }
-        }
-
-        if (AnimationScript.isPCrawler)
-        {
-            if (isRunning)
-            {
-                yield return new WaitForSeconds(1f);
-
-                speedUp = true;
-            }
-        }
-
-        if (AnimationScript.isMX)
-        {
-            if (isRunning)
-            {
-                yield return new WaitForSeconds(1f);
-
-                speedUp = true;
-            }
-        }
     }
 
     // Flips the player sprite when changing Directions.
