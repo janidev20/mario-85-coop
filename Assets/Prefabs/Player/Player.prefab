@@ -1524,8 +1524,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprintSpeed: 12
   defaultSpeed: 0
+  slideSpeed: 7
   direction: {x: 0, y: 0}
-  moveSpeed: 3.67
+  moveSpeed: 4.15
   speedUp: 0
   facingRight: 1
   isSprinting: 0
@@ -1550,13 +1551,12 @@ MonoBehaviour:
   collider: {fileID: 7052932058575744997}
   maxSpeed: 4
   maxSprintSpeed: 6
-  maxSprintSpeedBIG: 12.15
   maxDefaultSpeed: 4
   linearDrag: 5
   gravity: 1.6
   fallMultiplier: 3.03
   colliderOffset: {x: 0, y: -0.69, z: 0}
-  colliderOffsetMX: {x: 0, y: -0.32, z: 0}
+  colliderOffsetMX: {x: 0, y: -0.82, z: 0}
   headColliderOffset: {x: 0, y: -0.44, z: 0}
   circleRadius: 0.79
   circleRadiusFH: 0.15
@@ -1575,7 +1575,7 @@ MonoBehaviour:
   isSliding: 0
   jumpSrc: {fileID: 7052932058575745001}
   mxJump: {fileID: 8300000, guid: 2f3e9fe60a626cd4bb4df6c45eef357a, type: 3}
-  pcJump: {fileID: 8300000, guid: 63214f49264bd474a8347bf57ffe4904, type: 3}
+  pcJump: {fileID: 8300000, guid: 2f3e9fe60a626cd4bb4df6c45eef357a, type: 3}
   fhJump: {fileID: 8300000, guid: 4dc5ff126c284fb45a659cb3b1e41120, type: 3}
   wahooJump: {fileID: 8300000, guid: 9f15c0002d24bd94ca1b957f6fecb3d7, type: 3}
 --- !u!114 &7052932058575745000
