@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask voidLayer;
     [SerializeField] private GameObject characterHolder;
     [SerializeField] private BoxCollider2D collider;
+    [SerializeField] private BoxCollider2D fallDetect;
 
 
     [Header("Physics")]
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 headColliderOffset;
     [SerializeField] private float circleRadius = 0.15f;
     [SerializeField] [HideInInspector] private float circleRadiusFH = 0.15f, circleRadiusPCrawler = 0.15f, circleRadiusMX = 0.8f;
+    [SerializeField] private float fallDetectLength = 2f;
     public bool onGround = false;
     public bool onVoid = false;
     public bool headCollided;
@@ -534,5 +536,4 @@ public class PlayerMovement : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(transform.position + colliderOffset, circleRadius);
         }
-    
 }
