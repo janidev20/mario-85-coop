@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAnimation))]
 public class PlayerMovement : MonoBehaviour
 {
+
     [Header("Horizontal Movement")]
     [SerializeField] private float sprintSpeed = 20f;
     [SerializeField] private float defaultSpeed;

@@ -2,13 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Lucas AI")]
+    [SerializeField] LucasController LC;
+
     [Header("Scene Stuff, Events")]
     public static bool isStoryMode;
     public static bool cutScenePlaying;
+    [SerializeField] GameObject PressTText;
 
+    [Header("Dialogue")]
+    [SerializeField] GameObject DialogueBox;
+    [SerializeField] TextMeshProUGUI DialogueText;
+    [SerializeField] AudioClip fhd1, fhd2, fhd3, fhd4, fhd5, Laughter;
+    [SerializeField] GameObject MarioDisplay, MarioName;
+    [SerializeField] string[] DialogueContent;
 
     [Header("Player/Void Stuff")]
     [Space(1)]
@@ -33,15 +45,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource SFXSource;
     [SerializeField] private AudioSource AmbientSource;
     [SerializeField] private AudioClip UnPauseSFX, DeathSound, ScaryAmbient, HappyAmbient;
+    [SerializeField] private AudioClip DialogueNext, DialogueSpeak;
 
     public bool isHappy = true; // For music change (TEMPORARY)
     public static bool isPaused = false;
 
     private void Start()
     {
+
+        cutScenePlaying = true;
+
         FadeIn.SetActive(true);
         FadeOut.SetActive(false);
         isPaused = false;
+        Intro();
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -49,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
+        
 
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -91,6 +108,70 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Intro()
+    {
+        if (cutScenePlaying) { 
+        plyMoveScript.enabled = false;
+        AmbientSource.enabled = false;
+
+        StartCoroutine(DialogueBegin());
+        }
+    }
+
+    IEnumerator DialogueBegin()
+    {
+        yield return new WaitForSeconds(3f);
+
+        DialogueBox.SetActive(true);
+
+        yield return new WaitForSeconds(1.5f);
+
+        MarioName.SetActive(true);
+        MarioDisplay.SetActive(true);
+
+        yield return new WaitForSeconds(1.2f);
+
+        DialogueText.text = "Hey there, Champ!";
+        SFXSource.PlayOneShot(fhd1);
+        SFXSource.PlayOneShot(DialogueSpeak);
+
+        yield return new WaitForSeconds(2.5f);
+
+        DialogueText.text = "Thanks for coming!";
+        SFXSource.PlayOneShot(fhd2);
+        SFXSource.PlayOneShot(DialogueSpeak);
+
+        yield return new WaitForSeconds(2);
+
+        DialogueText.text = "I left ya a little something at the beginning";
+        SFXSource.PlayOneShot(fhd3);
+        SFXSource.PlayOneShot(DialogueSpeak);
+
+        yield return new WaitForSeconds(3);
+
+        DialogueText.text = "I left ya a little something at the beginning, you wanna go take a look?";
+        SFXSource.PlayOneShot(fhd4);
+        SFXSource.PlayOneShot(DialogueSpeak);
+
+        yield return new WaitForSeconds(3);
+
+        DialogueText.text = "It's a big surprise!";
+        SFXSource.PlayOneShot(fhd5);
+        SFXSource.PlayOneShot(DialogueSpeak);
+
+        yield return new WaitForSeconds(2.5f);
+
+
+        LC.canMove = true;
+
+        yield return new WaitForSeconds(2.5f);
+
+        SFXSource.PlayOneShot(DialogueSpeak);
+        SFXSource.PlayOneShot(Laughter);
+        DialogueBox.SetActive(false);
+        cutScenePlaying = false;
+    }
+
     void ChangeMusic()
     {
         isHappy = !isHappy;
@@ -109,7 +190,7 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
+    
     IEnumerator VoidWarning()
     {
         yield return new WaitForSeconds(1.75f);
