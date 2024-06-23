@@ -7,7 +7,7 @@ public class VoiceManager : MonoBehaviour
     [SerializeField] private AudioClip[] FHVoices, PipeCrawlerVoices, MXVoices, WahooJumpSound, FallSound;
     [SerializeField] private AudioSource SRC;
     [SerializeField] private bool canPlay = true;
-    [SerializeField] private bool canPlayFall = true;
+    [SerializeField] private bool canPlayEvent = true;
 
 
     public void RandomFH()
@@ -48,36 +48,46 @@ public class VoiceManager : MonoBehaviour
 
     public void Fall()
     {
-        if (canPlayFall)
+        if (canPlayEvent)
         {
             SRC.clip = FallSound[Random.Range(0, FallSound.Length)];
 
             SRC.Play();
-            canPlayFall = false;
-            StartCoroutine(VoiceCoolDown(1.5f));
+            canPlayEvent = false;
+            StartCoroutine(EventCoolDown(1.5f));
         }
     }
 
     public void WahooJump()
     {
-        if (canPlay)
+        if (canPlayEvent)
         {
             SRC.clip = WahooJumpSound[Random.Range(0, WahooJumpSound.Length)];
 
             SRC.Play();
-            canPlay = false;
-            StartCoroutine(VoiceCoolDown(3));
+            canPlayEvent = false;
+            StartCoroutine(EventCoolDown(1));
         }
+    }
+
+    // Used for WahooJump and Fall
+    IEnumerator EventCoolDown(float time)
+    {
+        canPlayEvent = false;
+
+        yield return new WaitForSeconds(time);
+
+        canPlayEvent = true;
     }
 
     IEnumerator VoiceCoolDown(float time)
     {
         canPlay = false;
-        canPlayFall = false;
+        
 
         yield return new WaitForSeconds(time);
 
         canPlay = true;
-        canPlayFall = true;
+   
     }
 }

@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Scene Stuff, Events")]
+    public static bool isStoryMode;
+    public static bool cutScenePlaying;
+
+
     [Header("Player/Void Stuff")]
     [Space(1)]
     [SerializeField] private PlayerMovement plyMoveScript;
@@ -44,6 +49,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
+
         if (Input.GetKeyDown(KeyCode.M))
         {
             ChangeMusic();
