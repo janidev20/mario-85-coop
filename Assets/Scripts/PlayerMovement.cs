@@ -68,8 +68,9 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Audio")]
+    [SerializeField] private VoiceManager VM;
     [SerializeField] private AudioSource jumpSrc;
-    [SerializeField] private AudioClip mxJump, pcJump, fhJump, wahooJump;
+    [SerializeField] private AudioClip mxJump, pcJump, fhJump;
 
     private void Start()
     {
@@ -279,6 +280,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 circleRadius = circleRadiusMX;
             }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (AnimationScript.isFH)
+                {
+                    VM.RandomFH();
+                } else if (AnimationScript.isPCrawler)
+                {
+                    VM.RandomPC();
+                } else
+                {
+                    VM.RandomMX();
+                }
+            }   
         }
         void FixedUpdate()
         {
@@ -322,6 +337,7 @@ public class PlayerMovement : MonoBehaviour
             //jumpTimer = 0;
             //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
 
+               
             if (!onGround)
             {
                 _isFalling = true;
@@ -417,8 +433,10 @@ public class PlayerMovement : MonoBehaviour
                 jumpSpeed = jumpSpeedMX;
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(Vector2.up * (jumpSpeed * 2.8f), ForceMode2D.Impulse);
-                jumpSrc.PlayOneShot(wahooJump);
+                VM.WahooJump();
                 jumpSrc.PlayOneShot(mxJump);
+                 
+            
                 /////////////////////////////////
                 StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
             }
@@ -478,6 +496,8 @@ public class PlayerMovement : MonoBehaviour
                 rb.drag = linearDrag * 0.15f;
 
 
+               
+
                 if (_isWahooJumping)
                 {
                     isWahooJumping = true;
@@ -489,8 +509,12 @@ public class PlayerMovement : MonoBehaviour
                     isFalling = true;
                 }
 
+            if (isFalling && !isJumping && AnimationScript.isPCrawler)
+            {
+                VM.Fall();
+            }
 
-                if (rb.velocity.y < 0)
+            if (rb.velocity.y < 0)
                 {
                     rb.gravityScale = gravity * fallMultiplier;
                 }
