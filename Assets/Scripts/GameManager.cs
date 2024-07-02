@@ -52,13 +52,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
-        cutScenePlaying = true;
-
         FadeIn.SetActive(true);
         FadeOut.SetActive(false);
         isPaused = false;
-        Intro();
+
+        if (isStoryMode) { 
+            cutScenePlaying = true;
+            Intro();
+        }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -66,7 +67,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if (SceneManager.GetActiveScene().name == "StoryMode")
+            {
+               isStoryMode = true;
+            } else
+            {
+                isStoryMode = false;
+            }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
