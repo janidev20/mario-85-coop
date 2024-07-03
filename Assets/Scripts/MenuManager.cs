@@ -18,6 +18,7 @@ public class MenuManager : MonoBehaviour
     Vector3 sandboxPos = new Vector2(-3862, 0);
 
     [SerializeField] private bool isTestingMode, isStoryMode, isFunMode, isSandboxMode;
+    [SerializeField] public static bool StoryChoose = false, TestChoose = false;
 
     [SerializeField] private GameObject UnavailableTXT;
     private bool canInteract = true;
@@ -145,6 +146,13 @@ public class MenuManager : MonoBehaviour
     public void LoadTestingMode()
     {
         StartCoroutine(STRTLoadFade());
+        TestChoose = true;
+    }
+
+    public void LoadStoryMode()
+    {
+        StartCoroutine(STRTLoadFade());
+        StoryChoose = true;
     }
 
     public IEnumerator STRTLoadFade()
@@ -153,6 +161,7 @@ public class MenuManager : MonoBehaviour
 
         yield return new WaitForSeconds(3.25f);
 
+        DontDestroyOnLoad(this);
         SceneManager.LoadScene("LoadingScene");
     }
 

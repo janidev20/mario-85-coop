@@ -20,13 +20,19 @@ public class LoadingSceneManager : MonoBehaviour
 
     IEnumerator LoadGame()
     {
-
         yield return new WaitForSeconds(9f);
 
         LoadFade.SetActive(true);
 
         yield return new WaitForSeconds(2.5f);
-
-        SceneManager.LoadScene("Test Scene");
+        
+        if (MenuManager.StoryChoose)
+        {
+            SceneManager.LoadScene("StoryMode");
+        }
+        else
+        {
+            SceneManager.LoadScene("Test Scene");
+        }
     }
 }

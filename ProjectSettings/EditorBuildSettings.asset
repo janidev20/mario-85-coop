@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: 0fe7b2c4419db5148b16d5c6f8542f05
   - enabled: 1
+    path: Assets/Scenes/StoryMode.unity
+    guid: 3bc44e410cb3d724599d2da41358744f
+  - enabled: 1
     path: Assets/Scenes/Test Scene.unity
     guid: c8908cea58c159a449fabccc486af48d
   m_configObjects:

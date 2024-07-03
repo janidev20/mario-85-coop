@@ -56,24 +56,27 @@ public class GameManager : MonoBehaviour
         FadeOut.SetActive(false);
         isPaused = false;
 
+        if (SceneManager.GetActiveScene().name == "StoryMode")
+        {
+            isStoryMode = true;
+        }
+        else
+        {
+            isStoryMode = false;
+        }
+
         if (isStoryMode) { 
             cutScenePlaying = true;
-            Intro();
         }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Intro();
     }
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "StoryMode")
-            {
-               isStoryMode = true;
-            } else
-            {
-                isStoryMode = false;
-            }
+        
 
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -173,10 +176,23 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2.5f);
 
+        StartCoroutine(plyAnimScript.ForceTransform());
         SFXSource.PlayOneShot(DialogueSpeak);
         SFXSource.PlayOneShot(Laughter);
         DialogueBox.SetActive(false);
         cutScenePlaying = false;
+
+        yield return new WaitForSeconds(1.5f);
+
+        FadeOut.SetActive(false);
+        FadeOut.SetActive(true);
+
+        yield return new WaitForSeconds(2.25f);
+
+        SceneManager.LoadScene("Test Scene");
+
+        FadeIn.SetActive(false);
+        FadeIn.SetActive(true);
     }
 
     void ChangeMusic()

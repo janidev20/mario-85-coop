@@ -16,6 +16,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private float coolDownAmount = 2.5f;
 
     [SerializeField] private float transformTime = 0.85f;
+    [SerializeField] public bool forceTransform = false; // used at story mode intro
     [SerializeField] public bool isTransforming; // If the transform animation is playing (based on time calculation)
 
     private void Awake()
@@ -138,8 +139,9 @@ public class PlayerAnimation : MonoBehaviour
                     isFH = false;
                     coolDownTimer = 0; // Resets the coolDownTimer
                 }
-                else if (isFH && Input.GetKeyDown(KeyCode.T))
+                else if (isFH && Input.GetKeyDown(KeyCode.T) || forceTransform)
                 {
+                    forceTransform = false;
                     isPCrawler = true;
                     isMX = false;
                     isFH = false;
@@ -188,7 +190,13 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
-  
+    public IEnumerator ForceTransform()
+    {
+       
+            forceTransform = true;
+        
+        yield return new WaitForEndOfFrame();
+    }
 
 
 }
