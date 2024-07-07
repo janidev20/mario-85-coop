@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         FadeOut.SetActive(false);
         isPaused = false;
 
-        if (SceneManager.GetActiveScene().name == "StoryMode")
+        if (SceneManager.GetActiveScene().name == "StoryMode Intro")
         {
             isStoryMode = true;
         }

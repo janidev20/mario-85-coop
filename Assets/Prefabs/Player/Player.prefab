@@ -1597,14 +1597,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprintSpeed: 12
   defaultSpeed: 0
-  slideSpeed: 7
+  slideSpeed: 15
   direction: {x: 0, y: 0}
   moveSpeed: 4.15
   speedUp: 0
   facingRight: 1
   isSprinting: 0
   jumpSpeedMX: 9
-  jumpSpeedPC: 8.5
+  jumpSpeedPC: 8.75
   jumpSpeedFH: 7.75
   _isJumping: 0
   jumpStartTime: 0.15
@@ -1680,6 +1680,7 @@ MonoBehaviour:
   coolDownTimer: 0
   coolDownAmount: 2.5
   transformTime: 1
+  forceTransform: 0
   isTransforming: 0
 --- !u!114 &7052932058575744999
 MonoBehaviour:

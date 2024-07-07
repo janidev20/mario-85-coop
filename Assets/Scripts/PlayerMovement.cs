@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float defaultSpeed;
     [SerializeField] private float slideSpeed;
     [SerializeField] private Vector2 direction;
-    [SerializeField] [HideInInspector] private float moveSpeed = 10f;
+    [SerializeField] [HideInInspector] private float moveSpeed = 12f;
     [SerializeField] [HideInInspector] private bool speedUp = false;
     [SerializeField] [HideInInspector] private bool facingRight = true;
     public bool isSprinting;
@@ -255,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (isRunning || isCrouching)
                 {
-                    linearDrag = 0.75f;
+                    linearDrag = 2f;
                 } else
                     linearDrag = 1.6f;
             }
