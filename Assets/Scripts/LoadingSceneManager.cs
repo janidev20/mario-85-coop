@@ -28,7 +28,7 @@ public class LoadingSceneManager : MonoBehaviour
         
         if (MenuManager.StoryChoose)
         {
-            SceneManager.LoadScene("StoryMode Intro");
+            SceneManager.LoadScene("StoryModeIntro");
         }
         else
         {

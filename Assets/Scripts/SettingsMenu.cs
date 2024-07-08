@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 
-
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class SettingsMenu : MonoBehaviour
 {
     [Header("Settings Menu")]

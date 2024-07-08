@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7049339890638152107}
   - component: {fileID: 438925102313377490}
   - component: {fileID: 3430817562852504998}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BrickBlock
   m_TagString: Breakable
   m_Icon: {fileID: 0}

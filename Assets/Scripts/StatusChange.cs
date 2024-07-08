@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using TMPro;
 
+[RequireComponent(typeof(PlayerAnimation))]
 public class StatusChange : MonoBehaviour
 {
     [SerializeField] PlayerAnimation AnimationScript;

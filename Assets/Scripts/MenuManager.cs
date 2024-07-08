@@ -28,6 +28,8 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
+      
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
@@ -37,6 +39,14 @@ public class MenuManager : MonoBehaviour
         isSandboxMode = false;
 
      
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "StoryModeIntro")
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void FixedUpdate()

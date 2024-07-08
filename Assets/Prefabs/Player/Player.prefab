@@ -262,7 +262,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.4941714, y: -0.6958419}
+  m_Offset: {x: -1.4941714, y: -0.78739345}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -273,7 +273,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.15058649, y: 2.678398}
+  m_Size: {x: 0.1505866, y: 2.861501}
   m_EdgeRadius: 0
 --- !u!114 &5259425355778999236
 MonoBehaviour:
@@ -1595,11 +1595,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170d76d921716094a9ad3e08d7d2e94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprintSpeed: 12
-  defaultSpeed: 0
   slideSpeed: 15
   direction: {x: 0, y: 0}
   moveSpeed: 4.15
+  sprintSpeed: 12
+  defaultSpeed: 0
   speedUp: 0
   facingRight: 1
   isSprinting: 0
@@ -1626,17 +1626,20 @@ MonoBehaviour:
   maxSpeed: 4
   maxSprintSpeed: 6
   maxDefaultSpeed: 4
+  maxSpeedFH: 4
+  maxSpeedBigger: 5.25
+  maxSprintSpeedFH: 6.56
+  maxSprintSpeedBigger: 7.55
   linearDrag: 5
   gravity: 1.6
   fallMultiplier: 3.03
+  circleRadius: 0.79
   colliderOffset: {x: 0, y: -0.69, z: 0}
   colliderOffsetMX: {x: 0, y: -0.82, z: 0}
   headColliderOffset: {x: 0, y: -0.44, z: 0}
-  circleRadius: 0.79
   circleRadiusFH: 0.15
   circleRadiusPCrawler: 0.15
   circleRadiusMX: 0.56
-  fallDetectLength: 0.3
   onGround: 1
   onVoid: 0
   headCollided: 0

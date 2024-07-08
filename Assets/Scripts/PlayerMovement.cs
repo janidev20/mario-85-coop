@@ -10,11 +10,10 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [Header("Horizontal Movement")]
-    [SerializeField] private float sprintSpeed = 20f;
-    [SerializeField] private float defaultSpeed;
     [SerializeField] private float slideSpeed;
     [SerializeField] private Vector2 direction;
-    [SerializeField] [HideInInspector] private float moveSpeed = 12f;
+    [SerializeField] [HideInInspector] private float moveSpeed = 30f; // The acceleration speed.
+    [SerializeField] [HideInInspector] private float defaultSpeed; // used for moveSpeed or smth idk.
     [SerializeField] [HideInInspector] private bool speedUp = false;
     [SerializeField] [HideInInspector] private bool facingRight = true;
     public bool isSprinting;
@@ -39,19 +38,23 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Physics")]
-    [SerializeField] private float maxSpeed = 7f;
-    [SerializeField] [HideInInspector] private float maxSprintSpeed = 12f;
-    [SerializeField] [HideInInspector] private float maxDefaultSpeed;
+    /// Max speed values
+    [SerializeField] [HideInInspector] private float maxSpeed;              // (this will be changed according to what we are (FH, Pcrawelr , MX)
+    [SerializeField] [HideInInspector] private float maxSprintSpeed = 12f;  // (this will be changed according to what we are (FH, Pcrawelr , MX)
+    [SerializeField] [HideInInspector] private float maxDefaultSpeed;       // (this will be changed according to what we are (FH, Pcrawelr , MX)
+    [SerializeField] private float maxSpeedFH = 4f, maxSpeedBigger = 5.25f;
+    [SerializeField] private float maxSprintSpeedFH = 6.56f, maxSprintSpeedBigger = 7.55f;
+    /// </Max speed values>
+  
     [SerializeField] [HideInInspector] private float linearDrag = 4f;
     [SerializeField] [HideInInspector] private float gravity = 1f;
     [SerializeField] [HideInInspector] private float fallMultiplier = 5f;
 
     [Header("Collision")]
+    [SerializeField] [HideInInspector] private float circleRadius = 0.15f; // circleRadius will be changed according to what we are (FH, Pcrawelr , MX)
     [SerializeField] private Vector3 colliderOffset, colliderOffsetMX;
     [SerializeField] private Vector3 headColliderOffset;
-    [SerializeField] private float circleRadius = 0.15f;
-    [SerializeField] [HideInInspector] private float circleRadiusFH = 0.15f, circleRadiusPCrawler = 0.15f, circleRadiusMX = 0.8f;
-    [SerializeField] private float fallDetectLength = 2f;
+    [SerializeField] private float circleRadiusFH = 0.15f, circleRadiusPCrawler = 0.15f, circleRadiusMX = 0.8f;
     public bool onGround = false;
     public bool onVoid = false;
     public bool headCollided;
@@ -61,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isRunning;
     public bool isMoving;
     public bool isFalling;
-    public bool isLanding; // for future MX land animation
+    public bool isLanding;
     public bool isJumping;
     public bool isWahooJumping;
     public bool isSliding;
@@ -140,13 +143,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (AnimationScript.isPCrawler || AnimationScript.isMX)
         {
-            maxDefaultSpeed = 5.25f;
-            maxSprintSpeed = 7.55f;
+            maxDefaultSpeed = maxSpeedBigger;
+            maxSprintSpeed = maxSprintSpeedBigger;
         }
         if (AnimationScript.isFH)
         {
-            maxDefaultSpeed = 4;
-            maxSprintSpeed = 6.56f;
+            maxDefaultSpeed = maxSpeedFH;
+            maxSprintSpeed = maxSprintSpeedFH;
 
         }
 
@@ -209,17 +212,14 @@ public class PlayerMovement : MonoBehaviour
                 maxSpeed = maxDefaultSpeed;
             }
 
-            // Modify moveSpeed based on sliding boolean
-           
-            
         }
 
 
 
 
 
-            // Some Animation Debug for Sliding (Prevents slide animation stuttering)
-            if (direction.x != 0)
+        // Some Animation Debug for Sliding (Prevents slide animation stuttering)
+        if (direction.x != 0)
             {
 
                 isMoving = true;
@@ -330,7 +330,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // I think these speak for themselves.
-        void Jump()
+         void Jump()
         {
             // OLD JUMP METHOD //
             //rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -339,13 +339,14 @@ public class PlayerMovement : MonoBehaviour
             //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
 
                
-            if (!onGround)
+            if (!onGround && !_isJumping)
             {
                 _isFalling = true;
             }
 
             if (onGround && Input.GetKeyDown(KeyCode.Y) && !onVoid)
             {
+                
                 _isFalling = false;
                 _isWahooJumping = false;
                 _isJumping = true;
