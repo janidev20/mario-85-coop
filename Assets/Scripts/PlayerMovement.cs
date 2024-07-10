@@ -20,17 +20,19 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Vertical Movement")]
     [SerializeField] private float jumpSpeedMX = 14.5f, jumpSpeedPC = 14.5f, jumpSpeedFH = 10f; //the jump force based on what character the player is
-    [SerializeField] [HideInInspector] private bool _isJumping = false;
-    [SerializeField] [HideInInspector] private float jumpStartTime;
-    [SerializeField] [HideInInspector] private float jumpTime;
-    [SerializeField] [HideInInspector] private float jumpSpeed;
-    [SerializeField] [HideInInspector] private float jumpCoolDown = 0.1f;
+    [SerializeField] private bool _enableJumping = true; // this is used for cooldown coroutine when player breaks block. (with jump/headbump) 
+    [SerializeField] private bool _isJumping = false;
+    [SerializeField] private float jumpStartTime;
+    [SerializeField] private float jumpTime;
+    [SerializeField] private float jumpSpeed;
+    [SerializeField] private float fallSpeed;
     [SerializeField] [HideInInspector] private bool _isWahooJumping;
     [SerializeField] [HideInInspector] private bool _isFalling;
 
     [Header("Components")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private List<LayerMask> blockLayer;
     [SerializeField] private LayerMask voidLayer;
     [SerializeField] private GameObject characterHolder;
     [SerializeField] private BoxCollider2D collider;
@@ -54,6 +56,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [HideInInspector] private float circleRadius = 0.15f; // circleRadius will be changed according to what we are (FH, Pcrawelr , MX)
     [SerializeField] private Vector3 colliderOffset, colliderOffsetMX;
     [SerializeField] private Vector3 headColliderOffset;
+    [SerializeField] private Vector3 headColliderOffsetB;
+    [SerializeField] private Vector3 headColliderBoxOffset;
+    [SerializeField] private Vector3 headColliderBoxSize;
+    [SerializeField] private float headColliderCircleRadius = 0.15f;
     [SerializeField] private float circleRadiusFH = 0.15f, circleRadiusPCrawler = 0.15f, circleRadiusMX = 0.8f;
     public bool onGround = false;
     public bool onVoid = false;
@@ -166,11 +172,12 @@ public class PlayerMovement : MonoBehaviour
             onGround = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, groundLayer);
 
         // Head Bump Detection (When mario hits something with his head)
-        headCollided = Physics2D.OverlapCircle(transform.position - headColliderOffset, circleRadius - 0, groundLayer); // This is to indicate if mario's head bumped into something
+        // headCollided = Physics2D.OverlapCircle(transform.position - headColliderOffset, headColliderCircleRadius, groundLayer) || Physics2D.OverlapCircle(transform.position - headColliderOffsetB, headColliderCircleRadius, groundLayer); // This is to indicate if mario's head bumped into something
+
+        headCollided = Physics2D.OverlapBox(transform.position - headColliderBoxOffset, headColliderBoxSize, 0, blockLayer[0]);
 
         if (headCollided) // If it did, 
         {
-            jumpTime = 0; // stop jumping. 
             Debug.Log("Head Collided.");
         }
 
@@ -337,8 +344,14 @@ public class PlayerMovement : MonoBehaviour
             //rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
             //jumpTimer = 0;
             //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
-
-               
+            
+            if (headCollided && !onGround)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(-Vector2.up * fallSpeed, ForceMode2D.Impulse);
+                jumpTime = 0;
+            }
+       
             if (!onGround && !_isJumping)
             {
                 _isFalling = true;
@@ -346,7 +359,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (onGround && Input.GetKeyDown(KeyCode.Y) && !onVoid)
             {
-                
+               
                 _isFalling = false;
                 _isWahooJumping = false;
                 _isJumping = true;
@@ -375,17 +388,19 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-
             if (Input.GetKey(KeyCode.Y) && _isJumping == true)
             {
+               
                 if (jumpTime > 0)
                 {
                     _isFalling = false;
                     rb.velocity = new Vector2(rb.velocity.x, 0);
                     rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
                     jumpTime -= Time.deltaTime;
+                
+            
                 }
-
+             
                 else
                 {
                     _isJumping = false;
@@ -561,5 +576,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(transform.position + colliderOffset, circleRadius);
+           // Gizmos.DrawSphere(transform.position - headColliderOffset, headColliderCircleRadius);
+            //Gizmos.DrawSphere(transform.position - headColliderOffsetB, headColliderCircleRadius);
+            Gizmos.DrawWireCube(transform.position - headColliderBoxOffset, headColliderBoxSize);
         }
-}
+    }

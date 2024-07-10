@@ -1552,6 +1552,7 @@ GameObject:
   - component: {fileID: 7052932058575745001}
   - component: {fileID: 7052932058575744997}
   - component: {fileID: 3380531219453389031}
+  - component: {fileID: 569135184952780207}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -1598,7 +1599,6 @@ MonoBehaviour:
   slideSpeed: 15
   direction: {x: 0, y: 0}
   moveSpeed: 4.15
-  sprintSpeed: 12
   defaultSpeed: 0
   speedUp: 0
   facingRight: 1
@@ -1895,6 +1895,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &569135184952780207
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052932058575745007}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: bbbd7a36ec08159439db26be7f540b4d, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.004, y: 0.57788}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.625, y: 0.01}
+  m_EdgeRadius: 0
 --- !u!1 &7052932058694417250
 GameObject:
   m_ObjectHideFlags: 0
