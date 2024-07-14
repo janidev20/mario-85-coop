@@ -6,11 +6,16 @@ public class BlockBreaking : MonoBehaviour
 {
     // Instantiate Break Effect (when MX collides with a breakable object)
     [SerializeField] private GameObject BlockBreakEffect;
+    [SerializeField] private List<LayerMask> breakableObjects;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // If the object of the collision has a 'Breakable' tag
-        if (collision.gameObject.CompareTag("Breakable"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("BrickBlock") || 
+            collision.gameObject.layer == LayerMask.NameToLayer("QMblock") || 
+            collision.gameObject.layer == LayerMask.NameToLayer("StoneBlock") || 
+            collision.gameObject.layer == LayerMask.NameToLayer("EmptyBlock") || 
+            collision.gameObject.layer == LayerMask.NameToLayer("Pipe"))
         {
             Instantiate(BlockBreakEffect, collision.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8294782986586223565}
   - component: {fileID: 904805065459223592}
   - component: {fileID: 1887286812800900185}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StoneBlock
   m_TagString: Breakable
   m_Icon: {fileID: 0}

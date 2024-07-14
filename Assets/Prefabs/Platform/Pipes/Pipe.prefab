@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2434662182398106479}
   - component: {fileID: 3531146296592387689}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pipe
   m_TagString: Breakable
   m_Icon: {fileID: 0}

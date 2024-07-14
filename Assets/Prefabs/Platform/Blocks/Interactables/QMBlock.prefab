@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3997454927221199245}
   - component: {fileID: 2409296822632506335}
   - component: {fileID: 786080013163617067}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: QMBlock
   m_TagString: Breakable
   m_Icon: {fileID: 0}

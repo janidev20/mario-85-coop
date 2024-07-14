@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 4277540777373107231}
   - component: {fileID: 2110203898003253233}
   - component: {fileID: 1842574225280800056}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DStoneBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

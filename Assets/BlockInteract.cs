@@ -48,7 +48,7 @@ public class BlockInteract : MonoBehaviour
     IEnumerator BlockBreak()
     {
             Collider2D hit = Physics2D.OverlapBox(transform.position - headColliderBoxOffset, headColliderBoxSize, 0, blockLayer[0]);
-        if (headCollided && hit.gameObject.tag == "Breakable" && hit.gameObject.layer == LayerMask.NameToLayer("brickBlock"))
+        if (hit.gameObject.layer == LayerMask.NameToLayer("BrickBlock"))
         {
             yield return new WaitForSeconds(0.035f);
 

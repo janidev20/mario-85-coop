@@ -25,12 +25,12 @@ TagManager:
   - UI
   - PP
   - whatIsVoid
-  - QM
-  - block
-  - brickBlock
-  - 
-  - 
-  - 
+  - QMblock
+  - StoneBlock
+  - BrickBlock
+  - EmptyBlock
+  - Pipe
+  - DStoneBlock
   - 
   - 
   - 

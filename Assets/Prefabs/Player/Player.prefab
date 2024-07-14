@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects: []
 --- !u!1 &875335210694235766
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &986694148511307358
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +220,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &1982177162053395053
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +295,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &3271315476917385955
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &3364605884814852687
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects: []
 --- !u!1 &3618302452913151573
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +518,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &4745170486014678427
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +593,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &5002938568678620038
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,6 +668,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &5034263394075706672
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,6 +827,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &5502418991152271734
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,6 +902,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &5935688198532919011
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +977,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &6405323278198410968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects: []
 --- !u!1 &7052932057666675491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,7 +1585,7 @@ GameObject:
   - component: {fileID: 7052932058575745001}
   - component: {fileID: 7052932058575744997}
   - component: {fileID: 3380531219453389031}
-  - component: {fileID: 569135184952780207}
+  - component: {fileID: 205456165059467972}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -1606,40 +1639,46 @@ MonoBehaviour:
   jumpSpeedMX: 9
   jumpSpeedPC: 8.75
   jumpSpeedFH: 7.75
+  _enableJumping: 1
   _isJumping: 0
   jumpStartTime: 0.15
   jumpTime: 0
   jumpSpeed: 0
-  jumpCoolDown: 0.35
+  fallSpeed: 4.35
   _isWahooJumping: 0
   _isFalling: 0
   rb: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  blockLayer:
+  - serializedVersion: 2
+    m_Bits: 12032
   voidLayer:
     serializedVersion: 2
     m_Bits: 128
   characterHolder: {fileID: 7052932057964129203}
   collider: {fileID: 7052932058575744997}
   fallDetect: {fileID: 0}
-  maxSpeed: 4
-  maxSprintSpeed: 6
-  maxDefaultSpeed: 4
   maxSpeedFH: 4
   maxSpeedBigger: 5.25
   maxSprintSpeedFH: 6.56
   maxSprintSpeedBigger: 7.55
+  maxSpeed: 4
+  maxSprintSpeed: 6
+  maxDefaultSpeed: 4
   linearDrag: 5
   gravity: 1.6
   fallMultiplier: 3.03
-  circleRadius: 0.79
   colliderOffset: {x: 0, y: -0.69, z: 0}
   colliderOffsetMX: {x: 0, y: -0.82, z: 0}
-  headColliderOffset: {x: 0, y: -0.44, z: 0}
+  headColliderBoxOffset: {x: -0.004, y: -0.4499, z: 0}
+  headColliderBoxSize: {x: 0.46, y: -0.01, z: 0}
+  headColliderCircleRadius: -0.03
   circleRadiusFH: 0.15
   circleRadiusPCrawler: 0.15
   circleRadiusMX: 0.56
+  circleRadius: 0.79
   onGround: 1
   onVoid: 0
   headCollided: 0
@@ -1653,6 +1692,7 @@ MonoBehaviour:
   isSliding: 0
   VM: {fileID: 5076840802214991602}
   jumpSrc: {fileID: 7052932058575745001}
+  bumpSound: {fileID: 8300000, guid: b5a027207f119b44fb842b5dfbea107a, type: 3}
   mxJump: {fileID: 8300000, guid: 2f3e9fe60a626cd4bb4df6c45eef357a, type: 3}
   pcJump: {fileID: 8300000, guid: 2f3e9fe60a626cd4bb4df6c45eef357a, type: 3}
   fhJump: {fileID: 8300000, guid: 4dc5ff126c284fb45a659cb3b1e41120, type: 3}
@@ -1895,32 +1935,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &569135184952780207
-BoxCollider2D:
+--- !u!114 &205456165059467972
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7052932058575745007}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: bbbd7a36ec08159439db26be7f540b4d, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.004, y: 0.57788}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.625, y: 0.01}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714ff1aa8c220ee49a73545aa31530dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleRadius: 0.15
+  circleRadiusSmall: 0.23
+  circleRadiusMX: 0.8
+  blockLayer:
+  - serializedVersion: 2
+    m_Bits: 1536
+  breakableBlock: []
+  headCollided: 0
+  headColliderOffset: {x: 0, y: -0.44, z: 0}
+  headColliderBoxOffset: {x: -0.004, y: -0.4499, z: 0}
+  headColliderBoxSize: {x: 0.46, y: -0.01, z: 0}
+  headColliderCircleRadius: 0.15
+  AnimationScript: {fileID: 7052932058575745000}
+  MovementScript: {fileID: 1933805374467724533}
+  breakEffect: {fileID: 4049011194948384611, guid: 36540025a0dc7cf4cbdecd4c8ae6fa3e, type: 3}
 --- !u!1 &7052932058694417250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,6 +2255,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &7083305674942161587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,6 +2330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects: []
 --- !u!1 &7129807793950847718
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,6 +2403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects: []
 --- !u!1 &7303720732930043280
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,6 +2476,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &7514797772755017002
 GameObject:
   m_ObjectHideFlags: 0
@@ -2502,6 +2551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects: []
 --- !u!1 &8211111714155008727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2574,6 +2624,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &8331764816002827665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,9 +2652,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8331764816002827665}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4155338200977974195}
@@ -2757,6 +2810,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects:
+  - serializedVersion: 2
+    m_Bits: 7936
 --- !u!1 &8706070568059565946
 GameObject:
   m_ObjectHideFlags: 0
@@ -2829,6 +2885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects: []
 --- !u!1 &8904620416704805298
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,6 +2958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects: []
 --- !u!1 &9090644930479268828
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,6 +3031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockBreakEffect: {fileID: 5199904260986803239, guid: 69de411352f36dd4cb2f4285bbad4dd3, type: 3}
+  breakableObjects: []
 --- !u!1001 &1852633111525543226
 PrefabInstance:
   m_ObjectHideFlags: 0
