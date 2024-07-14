@@ -10,6 +10,11 @@ public class HelpMenuUIManager : MonoBehaviour
     private bool closed = true;
     private void Update()
     {
+        ManageHelpMenu();
+    }
+
+    void ManageHelpMenu()
+    {
         if (Input.GetKeyDown(KeyCode.H))
         {
             closed = !closed;
@@ -25,7 +30,8 @@ public class HelpMenuUIManager : MonoBehaviour
             {
                 Opened[i].SetActive(false);
             }
-        } else
+        }
+        else
         {
             for (int i = 0; i < Closed.Count; i++)
             {
@@ -36,5 +42,5 @@ public class HelpMenuUIManager : MonoBehaviour
                 Opened[i].SetActive(true);
             }
         }
-    }
+    } 
 }

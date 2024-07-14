@@ -1588,7 +1588,7 @@ GameObject:
   - component: {fileID: 205456165059467972}
   m_Layer: 0
   m_Name: PlayerController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1953,7 +1953,6 @@ MonoBehaviour:
   blockLayer:
   - serializedVersion: 2
     m_Bits: 1536
-  breakableBlock: []
   headCollided: 0
   headColliderOffset: {x: 0, y: -0.44, z: 0}
   headColliderBoxOffset: {x: -0.004, y: -0.4499, z: 0}

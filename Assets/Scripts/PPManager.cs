@@ -10,6 +10,11 @@ public class PPManager : MonoBehaviour
 
     private void Update()
     {
+        HandlePP();
+    }
+
+    void HandlePP()
+    {
         if (Input.GetKeyDown(KeyCode.T))
         {
             PPEnabled = !PPEnabled;
@@ -21,7 +26,7 @@ public class PPManager : MonoBehaviour
         }
         else
             PP.SetActive(false);
-    
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

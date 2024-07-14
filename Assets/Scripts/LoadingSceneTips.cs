@@ -13,9 +13,14 @@ public class LoadingSceneTips : MonoBehaviour
     {
         randomNumber = Random.Range(0, 6);
     }
+ 
+    private void Update()
+    {
+        TipsHandling();
+    }
 
     // The collection of the pro tips showed in the Loading Screen.
-    private void Update()
+    void TipsHandling()
     {
         if (randomNumber == 0)
         {

@@ -47,12 +47,17 @@ public class BlockInteract : MonoBehaviour
 
     IEnumerator BlockBreak()
     {
-            Collider2D hit = Physics2D.OverlapBox(transform.position - headColliderBoxOffset, headColliderBoxSize, 0, blockLayer[0]);
+        // Get the object's collider that the overlapbox is colliding with.
+        Collider2D hit = Physics2D.OverlapBox(transform.position - headColliderBoxOffset, headColliderBoxSize, 0, blockLayer[0]);
+
+        // If the collided object's layer name is "BrickBlock"...
         if (hit.gameObject.layer == LayerMask.NameToLayer("BrickBlock"))
         {
             yield return new WaitForSeconds(0.035f);
 
+            //... Destroy it and
             Destroy(hit.gameObject);
+            // Spawn down epic break effect.
             Instantiate(breakEffect, hit.transform.position, Quaternion.identity);
         } 
     }
@@ -70,6 +75,7 @@ public class BlockInteract : MonoBehaviour
         }
     }
 
+    // This is a timer based cooldown system so that the 'headCollided' boolean doesn't count more than it has to.
     IEnumerator CollideCooldown()
     {
         if (headCollided)

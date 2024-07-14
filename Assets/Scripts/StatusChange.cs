@@ -18,6 +18,12 @@ public class StatusChange : MonoBehaviour
 
     private void Update()
     {
+        ChangeStatusText();   
+    }
+
+    // based on our form (FH, PCrawler, MX), status text changes.
+    void ChangeStatusText()
+    {
         if (AnimationScript.isMX)
         {
 
@@ -25,12 +31,14 @@ public class StatusChange : MonoBehaviour
             StopCoroutine(DisguisedText());
             StopCoroutine(CorruptedDisguiseText());
 
-        } else if (AnimationScript.isPCrawler)
+        }
+        else if (AnimationScript.isPCrawler)
         {
             StartCoroutine(CorruptedDisguiseText());
             StopCoroutine(DisguisedText());
             StopCoroutine(MXText());
-        } else if (AnimationScript.isFH)
+        }
+        else if (AnimationScript.isFH)
         {
             StartCoroutine(DisguisedText());
             StopCoroutine(CorruptedDisguiseText());
