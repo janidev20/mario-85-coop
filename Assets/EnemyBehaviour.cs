@@ -88,8 +88,9 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (isDead)
             {
-                Destroy(collider);
-                Destroy(rb);
+                collider.enabled = false;
+                rb.isKinematic = true;
+
                 enemyAnim.SetBool("dead", true);
                 if (!didntPlay)
                 {
