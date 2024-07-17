@@ -81,9 +81,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip bumpSound;
     [SerializeField] private AudioClip mxJump, pcJump, fhJump;
 
+    [Header("Enemy Script")]
+    [SerializeField] private EnemyKill ek;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        ek = GetComponent<EnemyKill>();
         defaultSpeed = moveSpeed;
         maxDefaultSpeed = maxSpeed;
     }
@@ -157,7 +161,9 @@ public class PlayerMovement : MonoBehaviour
             //rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
             //jumpTimer = 0;
             //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
-            
+        
+            EnemyBump();
+
             if (headCollided && !onGround)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -278,6 +284,24 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+    // add extra force upwards when stomping on enemy's head
+     void EnemyBump()
+     {
+        if (ek.collidingEnemyHead)
+        {
+            if (Input.GetKey(KeyCode.Y))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                jumpTime = 0;
+            }
+
+            else
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * (fallSpeed * 0.7f), ForceMode2D.Impulse);
+            jumpTime = 0;
+        }
+     } 
 
      void ChangeHeight()
         {
@@ -476,9 +500,9 @@ public class PlayerMovement : MonoBehaviour
                     VM.RandomFH();
                 }
                 else if (AnimationScript.isPCrawler)
-                {
-                    VM.RandomPC();
-                }
+                    {
+                        VM.RandomPC();
+                    }
                 else
                 {
                     VM.RandomMX();

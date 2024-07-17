@@ -84,9 +84,10 @@ GameObject:
   - component: {fileID: 1030440612691919796}
   - component: {fileID: 4260915473188016376}
   - component: {fileID: 5012541506388314644}
-  m_Layer: 0
+  - component: {fileID: 7310466070407902587}
+  m_Layer: 16
   m_Name: DestroyBlock (7)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,6 +149,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &7310466070407902587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875335210694235766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &986694148511307358
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,9 +180,10 @@ GameObject:
   - component: {fileID: 5491861673790900280}
   - component: {fileID: 6583140211624031735}
   - component: {fileID: 5236365449595760071}
-  m_Layer: 0
+  - component: {fileID: 3617573865506226524}
+  m_Layer: 16
   m_Name: DestroyBlock (5)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,6 +245,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &3617573865506226524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986694148511307358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &1982177162053395053
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,9 +276,10 @@ GameObject:
   - component: {fileID: 1139727273064258119}
   - component: {fileID: 1730944142434124577}
   - component: {fileID: 5259425355778999236}
-  m_Layer: 0
+  - component: {fileID: 7033658244268962033}
+  m_Layer: 16
   m_Name: DestroyBlock (1)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,6 +341,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &7033658244268962033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982177162053395053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &3271315476917385955
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,9 +372,10 @@ GameObject:
   - component: {fileID: 7894616345264040865}
   - component: {fileID: 932072893450789575}
   - component: {fileID: 2414739747137089331}
-  m_Layer: 0
+  - component: {fileID: 1739328424716065554}
+  m_Layer: 16
   m_Name: DestroyBlock (8)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -373,6 +437,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &1739328424716065554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3271315476917385955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &3364605884814852687
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,9 +541,10 @@ GameObject:
   - component: {fileID: 1809496880316821410}
   - component: {fileID: 5878260085846329526}
   - component: {fileID: 2820843420598830684}
-  m_Layer: 0
+  - component: {fileID: 1654186287167855257}
+  m_Layer: 16
   m_Name: DestroyBlock (6)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -521,6 +606,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &1654186287167855257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3618302452913151573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &4745170486014678427
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,9 +637,10 @@ GameObject:
   - component: {fileID: 4236705350582440512}
   - component: {fileID: 3451991175287576965}
   - component: {fileID: 6776642591260935579}
-  m_Layer: 0
+  - component: {fileID: 6089133925910624759}
+  m_Layer: 16
   m_Name: DestroyBlock
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -596,6 +702,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &6089133925910624759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745170486014678427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &5002938568678620038
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,9 +733,10 @@ GameObject:
   - component: {fileID: 2232183772131318217}
   - component: {fileID: 6777020532991638664}
   - component: {fileID: 879023367178056262}
-  m_Layer: 0
+  - component: {fileID: 5053153924462242101}
+  m_Layer: 16
   m_Name: DestroyBlock (1)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -671,6 +798,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &5053153924462242101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5002938568678620038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &5034263394075706672
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,9 +913,10 @@ GameObject:
   - component: {fileID: 2344578330872608601}
   - component: {fileID: 7321606306110630480}
   - component: {fileID: 4103483272460316595}
-  m_Layer: 0
+  - component: {fileID: 2879568892130349333}
+  m_Layer: 16
   m_Name: DestroyBlock
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -830,6 +978,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &2879568892130349333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5120489872200476146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &5502418991152271734
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,9 +1009,10 @@ GameObject:
   - component: {fileID: 8738262304496375525}
   - component: {fileID: 7918147711738552463}
   - component: {fileID: 1764317896021206611}
-  m_Layer: 0
+  - component: {fileID: 1607054334854962266}
+  m_Layer: 16
   m_Name: DestroyBlock (3)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -905,6 +1074,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &1607054334854962266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502418991152271734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &5935688198532919011
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,9 +1105,10 @@ GameObject:
   - component: {fileID: 3599003037833627824}
   - component: {fileID: 7148441621779142708}
   - component: {fileID: 5458596733978845327}
-  m_Layer: 0
+  - component: {fileID: 4999716732321676473}
+  m_Layer: 16
   m_Name: DestroyBlock  (1)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -980,6 +1170,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &4999716732321676473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935688198532919011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &6405323278198410968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,7 +1796,8 @@ GameObject:
   - component: {fileID: 7052932058575744997}
   - component: {fileID: 3380531219453389031}
   - component: {fileID: 205456165059467972}
-  m_Layer: 0
+  - component: {fileID: 8949921215466296762}
+  m_Layer: 16
   m_Name: PlayerController
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1696,6 +1907,7 @@ MonoBehaviour:
   mxJump: {fileID: 8300000, guid: 2f3e9fe60a626cd4bb4df6c45eef357a, type: 3}
   pcJump: {fileID: 8300000, guid: 2f3e9fe60a626cd4bb4df6c45eef357a, type: 3}
   fhJump: {fileID: 8300000, guid: 4dc5ff126c284fb45a659cb3b1e41120, type: 3}
+  ek: {fileID: 0}
 --- !u!114 &7052932058575745000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1762,6 +1974,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e598a0ed6449bed4087b9c8b13e245a5, type: 3}
   - {fileID: 8300000, guid: feec218e7e5c8a84fafb56f006b462ba, type: 3}
   - {fileID: 8300000, guid: f4aea29ed19250945bfa311ced6e2988, type: 3}
+  PCJumpSounds:
+  - {fileID: 8300000, guid: 138b3e543b57b544b9dedcc670423fec, type: 3}
   WahooJumpSound:
   - {fileID: 8300000, guid: 138b3e543b57b544b9dedcc670423fec, type: 3}
   - {fileID: 8300000, guid: 693bfa58a95b7204499a68a129f014de, type: 3}
@@ -1961,6 +2175,26 @@ MonoBehaviour:
   AnimationScript: {fileID: 7052932058575745000}
   MovementScript: {fileID: 1933805374467724533}
   breakEffect: {fileID: 4049011194948384611, guid: 36540025a0dc7cf4cbdecd4c8ae6fa3e, type: 3}
+--- !u!114 &8949921215466296762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052932058575745007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: -0.77, z: 0}
+  feetRadius: 0.2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &7052932058694417250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,9 +2427,10 @@ GameObject:
   - component: {fileID: 6907161366119030933}
   - component: {fileID: 4241972402831582333}
   - component: {fileID: 8016844481774637025}
-  m_Layer: 0
+  - component: {fileID: 6628145215217212189}
+  m_Layer: 16
   m_Name: DestroyBlock (4)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2257,6 +2492,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &6628145215217212189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7069863550086763630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &7083305674942161587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2414,9 +2669,10 @@ GameObject:
   - component: {fileID: 5404925099301406169}
   - component: {fileID: 4654193445244730920}
   - component: {fileID: 5849778043942406930}
-  m_Layer: 0
+  - component: {fileID: 7330395969549086730}
+  m_Layer: 16
   m_Name: DestroyBlock (2)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2478,6 +2734,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &7330395969549086730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303720732930043280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &7514797772755017002
 GameObject:
   m_ObjectHideFlags: 0
@@ -2562,9 +2838,10 @@ GameObject:
   - component: {fileID: 4155338200977974195}
   - component: {fileID: 156618304271488444}
   - component: {fileID: 8933839154640720151}
-  m_Layer: 0
+  - component: {fileID: 6350025769737112172}
+  m_Layer: 16
   m_Name: 'DestroyBlock '
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2626,6 +2903,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &6350025769737112172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211111714155008727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 0
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &8331764816002827665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2643,7 +2940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8440296347661525490
 Transform:
   m_ObjectHideFlags: 0
@@ -2748,9 +3045,10 @@ GameObject:
   - component: {fileID: 7464775141615975445}
   - component: {fileID: 1370282883994448168}
   - component: {fileID: 8709095422844090430}
-  m_Layer: 0
+  - component: {fileID: 540420199803438110}
+  m_Layer: 16
   m_Name: DestroyBlock  (2)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2812,6 +3110,26 @@ MonoBehaviour:
   breakableObjects:
   - serializedVersion: 2
     m_Bits: 7936
+--- !u!114 &540420199803438110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498934347130532487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWahooSound: 1
+  collidingEnemyHead: 0
+  feetColliderOffset: {x: 0, y: 0, z: 0}
+  feetRadius: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 32768
+  plyAnim: {fileID: 0}
 --- !u!1 &8706070568059565946
 GameObject:
   m_ObjectHideFlags: 0

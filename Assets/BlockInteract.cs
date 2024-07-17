@@ -59,34 +59,39 @@ public class BlockInteract : MonoBehaviour
             Destroy(hit.gameObject);
             // Spawn down epic break effect.
             Instantiate(breakEffect, hit.transform.position, Quaternion.identity);
-        } 
-    }
-
-    void DetectCollision()
-    {
-        // Head Bump Detection(When mario hits something with his head)
-        headCollided = Physics2D.OverlapBox(transform.position - headColliderBoxOffset, headColliderBoxSize, 0, blockLayer[0]); // This is to indicate if mario's head bumped into something
-        
-
-        if (headCollided) // If it did, 
-        {
-            StartCoroutine(CollideCooldown());
-            Debug.Log("Head Collided.");
-        }
-    }
-
-    // This is a timer based cooldown system so that the 'headCollided' boolean doesn't count more than it has to.
-    IEnumerator CollideCooldown()
-    {
-        if (headCollided)
-        {
-            cooldown = true;
         }
 
-        yield return new WaitForSeconds(0.15f);
 
-        cooldown = false;
+
     }
 
-   
+  
+
+        void DetectCollision()
+        {
+            // Head Bump Detection(When mario hits something with his head)
+            headCollided = Physics2D.OverlapBox(transform.position - headColliderBoxOffset, headColliderBoxSize, 0, blockLayer[0]); // This is to indicate if mario's head bumped into something
+
+
+            if (headCollided) // If it did, 
+            {
+                StartCoroutine(CollideCooldown());
+                Debug.Log("Head Collided.");
+            }
+        }
+
+        // This is a timer based cooldown system so that the 'headCollided' boolean doesn't count more than it has to.
+        IEnumerator CollideCooldown()
+        {
+            if (headCollided)
+            {
+                cooldown = true;
+            }
+
+            yield return new WaitForSeconds(0.15f);
+
+            cooldown = false;
+        }
+
+    
 }

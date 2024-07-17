@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 5286601085722216055}
   - component: {fileID: 5286601085722216054}
   - component: {fileID: 5286601085722216059}
-  - component: {fileID: 5286601085722216058}
   - component: {fileID: 5286601085722216057}
   - component: {fileID: 5286601085722216056}
   - component: {fileID: 5286601085722216060}
-  - component: {fileID: 5286601085722216061}
-  m_Layer: 0
+  - component: {fileID: 4793676754952481732}
+  - component: {fileID: 4298934086955560493}
+  m_Layer: 15
   m_Name: Goomba
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 5286601085722216053}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 292.76, y: -2.49, z: -7.595703}
-  m_LocalScale: {x: 0.70831, y: 0.70831, z: 0.70831}
+  m_LocalScale: {x: 0.70831007, y: 0.70831007, z: 0.70831}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -52,22 +52,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnim: {fileID: 0}
   collider: {fileID: 0}
+  sr: {fileID: 0}
   rb: {fileID: 0}
   sd: {fileID: 0}
   isDead: 0
+  squash: 0
   isGoomba: 1
   isKoopa: 0
   audsrc: {fileID: 5286601085722216056}
   deathSound: {fileID: 8300000, guid: f548cc4017ee14b4db22003865fceb98, type: 3}
   didntPlay: 0
   direction: 0
-  isTouchingWall: 0
-  touchDetectCoolDown: 2
-  circleRadius: 0.15
+  _goombaSpeed: 50
   colliderOffset: {x: 0.33, y: 0, z: 0}
   wallLayer:
   - serializedVersion: 2
     m_Bits: 16128
+  isTouchingWall: 0
+  headIsTouched: 0
+  touchDetectCoolDown: 2
+  circleRadius: 0.15
+  pointEffect: {fileID: 634650626505444836, guid: c19cea52682756d4688f99a879243570, type: 3}
 --- !u!114 &5286601085722216059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,27 +86,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToDestroy: 5
---- !u!95 &5286601085722216058
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5286601085722216053}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8174462081fe28440a16ff07b088cc35, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &5286601085722216057
 Rigidbody2D:
   serializedVersion: 4
@@ -245,7 +229,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!212 &5286601085722216061
+--- !u!95 &4793676754952481732
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5286601085722216053}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8174462081fe28440a16ff07b088cc35, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &4298934086955560493
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

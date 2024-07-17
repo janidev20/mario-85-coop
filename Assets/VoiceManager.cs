@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class VoiceManager : MonoBehaviour
 {
-    [SerializeField] private AudioClip[] FHVoices, PipeCrawlerVoices, MXVoices, WahooJumpSound, FallSound;
+    [SerializeField] private AudioClip[] FHVoices, PipeCrawlerVoices, MXVoices, PCJumpSounds, WahooJumpSound, FallSound;
     [SerializeField] private AudioSource SRC;
     [SerializeField] private bool canPlay = true;
     [SerializeField] private bool canPlayEvent = true;
@@ -32,6 +32,19 @@ public class VoiceManager : MonoBehaviour
             SRC.Play();
             canPlay = false;
             StartCoroutine(VoiceCoolDown(3));
+        }
+    }
+
+    public void PCWahoo()
+    {
+        if (canPlay)
+        {
+            SRC.pitch = 1.2f;
+            SRC.clip = PCJumpSounds[Random.Range(0, PCJumpSounds.Length)];
+            
+            SRC.Play();
+            canPlay = false;
+            StartCoroutine(VoiceCoolDown(0.85f));
         }
     }
 
@@ -88,6 +101,7 @@ public class VoiceManager : MonoBehaviour
 
         yield return new WaitForSeconds(time);
 
+        SRC.pitch = 1;
         canPlay = true;
    
     }

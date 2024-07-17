@@ -7,11 +7,12 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("References")]
     [SerializeField] private Animator enemyAnim;
     [SerializeField] private Collider2D collider;
+    [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SelfDestruct sd;
 
     [Header("Booleans")]
-    [SerializeField] private bool isDead=false;
+    [SerializeField] public bool isDead = false, squash = false;
     [SerializeField] private bool isGoomba, isKoopa;
 
     [Header("Audio")]
@@ -21,21 +22,30 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private int direction = 1;
+    [SerializeField] private float _goombaSpeed;
     
-    [SerializeField] private bool isTouchingWall;
-    [SerializeField] private float touchDetectCoolDown = 2;
-
-    [SerializeField] private float circleRadius;
+    [Header("Collision")]
     [SerializeField] private Vector3 colliderOffset;
     [SerializeField] private List<LayerMask> wallLayer;
+    [SerializeField] private bool isTouchingWall;
+    [SerializeField] public bool headIsTouched;
+    [SerializeField] private float touchDetectCoolDown = 2;
+    [SerializeField] private float circleRadius;
+
+    [Header("Prefabs")]
+    [SerializeField] GameObject pointEffect; // after killed 
 
     private void Awake()
     {
         sd = GetComponent<SelfDestruct>();
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
-        enemyAnim = GetComponent<Animator>();
+        enemyAnim = GetComponentInChildren<Animator>();
         audsrc = GetComponent<AudioSource>();
+        sr = GetComponent<SpriteRenderer>();
+
+        rb.isKinematic = true;
+
 
         direction = 1;
         sd.enabled = false;
@@ -43,14 +53,21 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        AnimationsHandler();
-        MovementSystem(35);
+        if (!GameManager.isPaused)
+        {
+            AnimationsHandler();
+            MovementSystem(35);
+
+        }
+
     }
 
     void MovementSystem(float goombaSpeed)
     {
         if (isGoomba)
         {
+            goombaSpeed = _goombaSpeed;
+
             // touch detect
             isTouchingWall = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, wallLayer[0]) || Physics2D.OverlapCircle(transform.position - colliderOffset, circleRadius, wallLayer[0]);
         
@@ -88,12 +105,25 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (isDead)
             {
-                collider.enabled = false;
                 rb.isKinematic = true;
+                rb.velocity = new Vector2(0, 0);
 
-                enemyAnim.SetBool("dead", true);
+                if (!squash)
+                {
+                    enemyAnim.SetBool("dead", true);
+                } else
+                {
+                    sr.sortingLayerID = 1; // Change the Sprite renderer's sorting layer to 1.
+                    enemyAnim.SetBool("squashDead", true);
+                    sd.timeToDestroy = 1.5f;
+                    sd.enabled = true;
+
+                }
+
+               
                 if (!didntPlay)
                 {
+                    Instantiate(pointEffect, transform.position, Quaternion.identity);
                     audsrc.PlayOneShot(deathSound);
                     didntPlay = true;
                 }
@@ -122,16 +152,28 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    private void OnWillRenderObject()
+    {
+        rb.isKinematic = false;
+    }
+
     // Collision Stuff
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.CompareTag("Player"))
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && !collision.collider.gameObject.GetComponent<PlayerAnimation>().isFH)
         {
             isDead = true;
+            sd.timeToDestroy = 5f;
             sd.enabled = true;
         }
-    }
 
+
+        // ignore Player collision if dead 
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && isDead)
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
