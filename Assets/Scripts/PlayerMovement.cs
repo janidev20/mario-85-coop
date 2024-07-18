@@ -292,13 +292,13 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.Y))
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up * (jumpSpeed * 0.6f), ForceMode2D.Impulse);
                 jumpTime = 0;
             }
 
             else
             rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(Vector2.up * (fallSpeed * 0.7f), ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * fallSpeed, ForceMode2D.Impulse);
             jumpTime = 0;
         }
      } 
@@ -615,7 +615,9 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-     private void OnDrawGizmos()
+    
+    // Draw the OverLap Sphere/Box detections on Unity Preview
+    private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(transform.position + colliderOffset, circleRadius);

@@ -21,8 +21,10 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private bool didntPlay = false;
 
     [Header("Movement")]
+    [Tooltip("Change it to a value (0 = No movement, 1 = Go right, -1 = Go left)")]
     [SerializeField] private int direction = 1;
-    [SerializeField] private float _goombaSpeed;
+    [Tooltip("Default : 50")]
+    [SerializeField] private float _goombaSpeed = 50;
     
     [Header("Collision")]
     [SerializeField] private Vector3 colliderOffset;
@@ -44,22 +46,21 @@ public class EnemyBehaviour : MonoBehaviour
         audsrc = GetComponent<AudioSource>();
         sr = GetComponent<SpriteRenderer>();
 
+        // disable movement (enable after seen on camera renderer)
         rb.isKinematic = true;
 
-
-        direction = 1;
         sd.enabled = false;
     }
 
     private void Update()
     {
+        // put "if paused" here, otherwise the enemy will still move even if it's paused)
         if (!GameManager.isPaused)
         {
             AnimationsHandler();
             MovementSystem(35);
 
         }
-
     }
 
     void MovementSystem(float goombaSpeed)
@@ -68,7 +69,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             goombaSpeed = _goombaSpeed;
 
-            // touch detect
+            // Wall detection
             isTouchingWall = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, wallLayer[0]) || Physics2D.OverlapCircle(transform.position - colliderOffset, circleRadius, wallLayer[0]);
         
             
@@ -99,6 +100,9 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    // Handle the death animations, 
+    // Disable the Rigidbody,
+    // Play death sound 
     void AnimationsHandler()
     {
         if (isGoomba)
@@ -131,6 +135,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    // Switch the direction if colliding with a wall
     void DirectionSwitch()
     {
         if (isTouchingWall)
@@ -152,6 +157,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    // Don't start moving until the enemy is visible on camera.
     private void OnWillRenderObject()
     {
         rb.isKinematic = false;
@@ -160,6 +166,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Collision Stuff
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Death by player (MX or Pipe Crawler)
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && !collision.collider.gameObject.GetComponent<PlayerAnimation>().isFH)
         {
             isDead = true;
@@ -174,6 +181,20 @@ public class EnemyBehaviour : MonoBehaviour
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
     }
+
+    // If the player headbumps a block which the enemy is standing on, the break effect with a "Kill" layer has a -> Trigger Collider.
+    // If the enemy collides with this, initiate the death.
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Kill"))
+        {
+            isDead = true;
+            sd.timeToDestroy = 5f;
+            sd.enabled = true;
+        }
+    }
+
+    // Draw the Sphere detections on Unity Preview
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
