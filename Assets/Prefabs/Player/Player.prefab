@@ -132,7 +132,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.49653864, y: 0.66636586}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.089
 --- !u!114 &5012541506388314644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,13 +161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &986694148511307358
 GameObject:
@@ -228,7 +227,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.5086119, y: 0.87867236}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.089
 --- !u!114 &5236365449595760071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,13 +256,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &1982177162053395053
 GameObject:
@@ -353,13 +351,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &3271315476917385955
 GameObject:
@@ -420,7 +417,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 2.4067435, y: 0.6650654}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.089
 --- !u!114 &2414739747137089331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,13 +446,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &3364605884814852687
 GameObject:
@@ -589,7 +585,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.48447126, y: 0.784314}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.089
 --- !u!114 &2820843420598830684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,13 +614,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &4745170486014678427
 GameObject:
@@ -685,7 +680,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 1.9279394, y: 3.3527489}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.089
 --- !u!114 &6776642591260935579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,13 +709,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &5002938568678620038
 GameObject:
@@ -781,7 +775,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.48446995, y: 0.87867236}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.089
 --- !u!114 &879023367178056262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,13 +804,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &5034263394075706672
 GameObject:
@@ -990,13 +983,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &5502418991152271734
 GameObject:
@@ -1057,7 +1049,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.55686855, y: 0.66636586}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.089
 --- !u!114 &1764317896021206611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,13 +1078,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &5935688198532919011
 GameObject:
@@ -1182,13 +1173,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &6405323278198410968
 GameObject:
@@ -1207,7 +1197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7854211803503231068
 Transform:
   m_ObjectHideFlags: 0
@@ -2187,13 +2177,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: -0.77, z: 0}
   feetRadius: 0.2
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &7052932058694417250
 GameObject:
@@ -2475,7 +2464,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.303448, y: 2.5775166}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.089
 --- !u!114 &8016844481774637025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2504,13 +2493,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &7083305674942161587
 GameObject:
@@ -2717,7 +2705,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.5206688, y: 0.784314}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.089
 --- !u!114 &5849778043942406930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2746,13 +2734,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &7514797772755017002
 GameObject:
@@ -2915,13 +2902,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 0
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &8331764816002827665
 GameObject:
@@ -3122,13 +3108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableWahooSound: 1
-  collidingEnemyHead: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  collidingEnemyHead: 0
   plyAnim: {fileID: 0}
 --- !u!1 &8706070568059565946
 GameObject:

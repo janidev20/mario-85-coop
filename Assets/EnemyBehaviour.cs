@@ -25,7 +25,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private int direction = 1;
     [Tooltip("Default : 50")]
     [SerializeField] private float _goombaSpeed = 50;
-    
+    bool canMove;
+
     [Header("Collision")]
     [SerializeField] private Vector3 colliderOffset;
     [SerializeField] private List<LayerMask> wallLayer;
@@ -40,7 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void Awake()
     {
         sd = GetComponent<SelfDestruct>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = this.gameObject.GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
         enemyAnim = GetComponentInChildren<Animator>();
         audsrc = GetComponent<AudioSource>();
@@ -87,7 +88,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 touchDetectCoolDown = 2;
             } 
-        
+
             if (direction == 1)
             {
                 rb.AddForce(Vector2.right * direction * goombaSpeed);
@@ -97,6 +98,8 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 rb.AddForce(Vector2.right * direction * goombaSpeed);
             }
+                
+            
         }
     }
 
@@ -158,6 +161,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     // Don't start moving until the enemy is visible on camera.
+    // IMPORTANT NOTE : Viewing the enemies in Unity Scene Editor may already trigger this void. (so they start moving immediately on start while viewing on scene editor)
     private void OnWillRenderObject()
     {
         rb.isKinematic = false;
