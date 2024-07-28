@@ -13,16 +13,15 @@ public class BlockBreaking : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // If the object of the collision has a specific Layer:
-        if (collision.gameObject.layer == LayerMask.NameToLayer("BrickBlock") || 
-            collision.gameObject.layer == LayerMask.NameToLayer("QMblock") || 
+        if (collision.gameObject.layer == LayerMask.NameToLayer("BrickBlock") ||
             collision.gameObject.layer == LayerMask.NameToLayer("StoneBlock") || 
             collision.gameObject.layer == LayerMask.NameToLayer("EmptyBlock") || 
-            collision.gameObject.layer == LayerMask.NameToLayer("Pipe"))
+            collision.gameObject.layer == LayerMask.NameToLayer("Pipe") || 
+            collision.gameObject.layer == LayerMask.NameToLayer("QMblock"))
         {
             Instantiate(BlockBreakEffect, collision.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
         }
-
        
     }
 }

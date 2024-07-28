@@ -35,8 +35,23 @@ public class EnemyKill : MonoBehaviour
         // if "colliding with the enemy head" then :
         if (collidingEnemyHead && GetComponent<PlayerAnimation>().isFH)
         {
-            hit.gameObject.GetComponent<EnemyBehaviour>().squash = true;
-            hit.gameObject.GetComponent<EnemyBehaviour>().isDead = true;
+            if (hit.gameObject.GetComponent<EnemyBehaviour>().isGoomba)
+            {
+                hit.gameObject.GetComponent<EnemyBehaviour>().squash = true;
+                hit.gameObject.GetComponent<EnemyBehaviour>().isDead = true;
+            }
+
+            if (hit.gameObject.GetComponent<EnemyBehaviour>().isKoopa)
+            {
+               if (!hit.gameObject.GetComponent<EnemyBehaviour>().isShell)
+               {
+                    hit.gameObject.GetComponent<EnemyBehaviour>().isShell = true;
+               }
+
+
+               hit.gameObject.GetComponent<EnemyBehaviour>().isRolling =!hit.gameObject.GetComponent<EnemyBehaviour>().isRolling;
+               
+            }
         }
 
         // IGNORE COLLISION if the enemy is dead, 

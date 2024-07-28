@@ -43,7 +43,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "StoryModeIntro")
+        if (SceneManager.GetActiveScene().name == "Intro")
         {
             Destroy(this.gameObject);
         }

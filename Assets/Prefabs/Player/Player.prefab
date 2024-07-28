@@ -1849,12 +1849,12 @@ MonoBehaviour:
   _isWahooJumping: 0
   _isFalling: 0
   rb: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
   blockLayer:
   - serializedVersion: 2
     m_Bits: 12032
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   voidLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2156,7 +2156,10 @@ MonoBehaviour:
   circleRadiusMX: 0.8
   blockLayer:
   - serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 1792
+  QMBlockLayer:
+    serializedVersion: 2
+    m_Bits: 256
   headCollided: 0
   headColliderOffset: {x: 0, y: -0.44, z: 0}
   headColliderBoxOffset: {x: -0.004, y: -0.4499, z: 0}
@@ -2164,6 +2167,7 @@ MonoBehaviour:
   headColliderCircleRadius: 0.15
   AnimationScript: {fileID: 7052932058575745000}
   MovementScript: {fileID: 1933805374467724533}
+  enemyScript: {fileID: 0}
   breakEffect: {fileID: 4049011194948384611, guid: 36540025a0dc7cf4cbdecd4c8ae6fa3e, type: 3}
 --- !u!114 &8949921215466296762
 MonoBehaviour:

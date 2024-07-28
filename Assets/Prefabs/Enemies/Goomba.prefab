@@ -55,6 +55,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   rb: {fileID: 0}
   sd: {fileID: 0}
+  facingRight: 0
   isDead: 0
   squash: 0
   isGoomba: 1
@@ -63,7 +64,8 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: f548cc4017ee14b4db22003865fceb98, type: 3}
   didntPlay: 0
   direction: 0
-  _goombaSpeed: 50
+  goombaSpeed: 25
+  koopaSpeed: 25
   colliderOffset: {x: 0.33, y: 0, z: 0}
   wallLayer:
   - serializedVersion: 2

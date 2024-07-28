@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerAnimation))]
-[RequireComponent(typeof(PlayerMovement))]
+
 public class BlockInteract : MonoBehaviour
 {
     [Header("Collision")]
     [SerializeField] [HideInInspector] private float circleRadius = 0.15f; // circleRadius will be changed according to what we are (FH, Pcrawelr , MX)
     [SerializeField] private float circleRadiusSmall = 0.15f, circleRadiusMX = 0.8f;
     [SerializeField] private List<LayerMask> blockLayer; // THE 0TH ELEMENT SHOULD ALWAYS BE "block"!!!!!
+    [SerializeField] private LayerMask QMBlockLayer;
     public bool headCollided;
     bool cooldown; // for collision cooldown
 
@@ -22,12 +22,14 @@ public class BlockInteract : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerAnimation AnimationScript;
     [SerializeField] private PlayerMovement MovementScript;
+    [SerializeField] private EnemyBehaviour enemyScript;
 
     [Header("BlockBreak")]
     [SerializeField] GameObject breakEffect;
 
     private void Update()
     {
+
         DetectCollision();
         CircleRadiusManage();
         StartCoroutine(BlockBreak());
@@ -50,6 +52,12 @@ public class BlockInteract : MonoBehaviour
         // Get the object's collider that the overlapbox is colliding with.
         Collider2D hit = Physics2D.OverlapBox(transform.position - headColliderBoxOffset, headColliderBoxSize, 0, blockLayer[0]);
 
+        if (hit.gameObject.layer == LayerMask.NameToLayer("QMblock"))
+        {
+            Debug.Log("Hit!");
+            hit.GetComponent<ItemBlockManager>().hit = true;
+        }
+
         // If the collided object's layer name is "BrickBlock"...
         if (hit.gameObject.layer == LayerMask.NameToLayer("BrickBlock"))
         {
@@ -61,12 +69,11 @@ public class BlockInteract : MonoBehaviour
             Instantiate(breakEffect, hit.transform.position, Quaternion.identity);
         }
 
-
-
     }
 
     void DetectCollision()
         {
+
             // Head Bump Detection(When mario hits something with his head)
             headCollided = Physics2D.OverlapBox(transform.position - headColliderBoxOffset, headColliderBoxSize, 0, blockLayer[0]); // This is to indicate if mario's head bumped into something
 

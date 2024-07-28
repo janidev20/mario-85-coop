@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private LayerMask groundLayer;
     [SerializeField] private List<LayerMask> blockLayer;
+    [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask voidLayer;
     [SerializeField] private GameObject characterHolder;
     [SerializeField] private BoxCollider2D collider;

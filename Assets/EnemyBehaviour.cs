@@ -16,30 +16,39 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Booleans")]
     [SerializeField] public bool isDead = false, squash = false;
-    [SerializeField] private bool isGoomba, isKoopa;
+    public bool isGoomba, isKoopa;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audsrc;
-    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip deathSound, bumpSound;
     [SerializeField] private bool didntPlay = false;
 
     [Header("Movement")]
     [Tooltip("Change it to a value (0 = No movement, 1 = Go right, -1 = Go left)")]
     [SerializeField] private int direction = 1;
     [Tooltip("Default : 50")]
-    [SerializeField] private float goombaSpeed = 50, koopaSpeed = 50;
-    bool canMove;
+    [SerializeField] private float goombaSpeed = 50, koopaSpeed = 50, koopaShellSpeed = 150;
+
+    [Header("Koopa")]
+    [SerializeField] private Vector3 hitColliderSize, hitColliderOffset, hitColliderSizeMiddle, hitColliderOffsetMiddle;
+    public bool isShell = false;
+    public bool isRolling = false, rollingLeft, rollingRight;
+    public bool hasExited;
+    bool canExit;
+
+    [SerializeField] private float timeToShellExit = 15f;
 
     [Header("Collision")]
     [SerializeField] private Vector3 colliderOffset;
     [SerializeField] private List<LayerMask> wallLayer;
+    [SerializeField] private LayerMask plyLayer;
     [SerializeField] private bool isTouchingWall;
     [SerializeField] public bool headIsTouched;
-    [SerializeField] private float touchDetectCoolDown = 2;
+    [SerializeField] private float touchDetectCoolDown = 0.1f;
     [SerializeField] private float circleRadius;
 
     [Header("Prefabs")]
-    [SerializeField] GameObject pointEffect; // after killed 
+    [SerializeField] GameObject pointEffect; // after killed
 
     private void Awake()
     {
@@ -77,14 +86,13 @@ public class EnemyBehaviour : MonoBehaviour
         {
             AnimationsHandler();
             MovementSystem();
-
         }
     }
 
     void MovementSystem()
     {
         GoombaMovement(goombaSpeed);
-        KoopaMovement(koopaSpeed);
+        KoopaMovement(koopaSpeed, koopaShellSpeed);
     }
 
     void GoombaMovement(float movementSpeed)
@@ -123,7 +131,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    void KoopaMovement(float movementSpeed)
+    void KoopaMovement(float movementSpeed, float rollSpeed)
     {
         if (!isKoopa)
             return;
@@ -132,31 +140,112 @@ public class EnemyBehaviour : MonoBehaviour
         isTouchingWall = Physics2D.OverlapCircle(transform.position + colliderOffset, circleRadius, wallLayer[0]) || Physics2D.OverlapCircle(transform.position - colliderOffset, circleRadius, wallLayer[0]);
 
 
-        if (touchDetectCoolDown == 2)
+        if (touchDetectCoolDown == 0.5f)
         {
             DirectionSwitch();
         }
 
-        if (touchDetectCoolDown < 2)
+        if (touchDetectCoolDown < 0.5f)
         {
             touchDetectCoolDown -= Time.deltaTime;
         }
 
         if (touchDetectCoolDown <= 0)
         {
-            touchDetectCoolDown = 2;
+            touchDetectCoolDown = 0.5f;
         }
 
-        if (direction == 1)
+        if (!isShell)
         {
-            rb.AddForce(Vector2.right * direction * movementSpeed);
-        }
+             if (direction == 1)
+             {
+                 rb.AddForce(Vector2.right * direction * movementSpeed);
+             }
 
-        if (direction == -1)
+             if (direction == -1)
+             {
+                 rb.AddForce(Vector2.right * direction * movementSpeed);
+             }
+        }
+    
+        if (isShell)
         {
-            rb.AddForce(Vector2.right * direction * movementSpeed);
+
+           
+            rollingLeft = Physics2D.OverlapBox(transform.position + hitColliderOffset, hitColliderSize, 0, plyLayer) || Physics2D.OverlapBox(transform.position + hitColliderOffsetMiddle, hitColliderSizeMiddle, 0, plyLayer);
+            rollingRight = Physics2D.OverlapBox(new Vector3(transform.position.x - hitColliderOffset.x, transform.position.y + hitColliderOffset.y, transform.position.z - hitColliderOffset.z), hitColliderSize, 0, plyLayer);
+
+
+            if (rollingRight && rollingLeft && !isRolling)
+            {
+
+
+                if (direction == -1)
+                {
+                    direction = 1;
+                    Flip();
+                }
+                else
+                {
+                    direction = 1;
+                }
+
+                audsrc.PlayOneShot(deathSound);
+                isRolling = true;
+            }
+
+            else if (rollingRight && !isRolling)
+            {
+
+                
+                if (direction == -1)
+                {
+                    direction = 1;
+                    Flip();
+                }
+                else
+                {
+                    direction = 1;
+                }
+
+                audsrc.PlayOneShot(deathSound);
+                isRolling = true;
+            }
+
+            else if (rollingLeft && !isRolling)
+            {
+
+
+                if (direction == 1)
+                {
+                    direction = -1;
+                    Flip();
+                }
+                else
+                {
+                    direction = -1;
+                }
+
+                audsrc.PlayOneShot(deathSound);
+                isRolling = true;
+            }
+
+            if (isRolling)
+            {
+                if (direction == -1)
+                {
+                    rb.AddForce(Vector2.right * direction * rollSpeed);
+                }
+
+                if (direction == 1)
+                {
+                    rb.AddForce(Vector2.right * direction * rollSpeed);
+                }
+            }
         }
     }
+
+ 
 
     // Handle the death animations, 
     // Disable the Rigidbody,
@@ -217,7 +306,6 @@ public class EnemyBehaviour : MonoBehaviour
             else
             {
                 sr.sortingLayerID = 1; // Change the Sprite renderer's sorting layer to 1.
-                enemyAnim.SetBool("shell", true);
                 sd.timeToDestroy = 1.5f;
                 sd.enabled = true;
 
@@ -229,6 +317,55 @@ public class EnemyBehaviour : MonoBehaviour
                 Instantiate(pointEffect, transform.position, Quaternion.identity);
                 audsrc.PlayOneShot(deathSound);
                 didntPlay = true;
+            }
+        }
+
+        if (isShell)
+        {
+            if (!didntPlay)
+            {
+                enemyAnim.SetBool("shell", true);
+                audsrc.PlayOneShot(deathSound);
+                didntPlay = true;
+            }
+
+            if (!isRolling)
+            {
+                ExitShell();
+            } else
+            {
+                enemyAnim.SetBool("exitshell", false);
+                timeToShellExit = 15;
+            }
+
+        } else 
+        {
+            hasExited = false;
+            enemyAnim.SetBool("shell", false);
+            if (!isDead)
+            {
+                didntPlay = false;
+            }
+        }
+    }
+
+    void ExitShell()
+    {
+        if (!hasExited)
+        {
+            timeToShellExit -= Time.deltaTime;
+
+            if (timeToShellExit >= 0 && timeToShellExit <= 5)
+            {
+                enemyAnim.SetBool("exitshell", true);
+            }
+
+            else if (timeToShellExit < 0)
+            {
+                enemyAnim.SetBool("exitshell", false);
+                isShell = false;
+                timeToShellExit = 15;
+                hasExited = true;
             }
         }
     }
@@ -243,6 +380,10 @@ public class EnemyBehaviour : MonoBehaviour
                 direction = -1;
                 touchDetectCoolDown -= 0.1f;
                 Flip();
+                if (isKoopa && isShell)
+                {
+                    audsrc.PlayOneShot(bumpSound);
+                }
             }
 
             else if (direction == -1)
@@ -250,6 +391,10 @@ public class EnemyBehaviour : MonoBehaviour
                 direction = 1;
                 touchDetectCoolDown -= 0.1f;
                 Flip();
+                if (isKoopa && isShell)
+                {
+                    audsrc.PlayOneShot(bumpSound);
+                }
             }
 
         }
@@ -280,12 +425,17 @@ public class EnemyBehaviour : MonoBehaviour
             sd.enabled = true;
         }
 
-
         // ignore Player collision if dead 
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && isDead || collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && isDead || collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && !isRolling)
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
+
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && isRolling)
+        {
+            collision.collider.gameObject.GetComponent<EnemyBehaviour>().isDead = true;
+        }
+
     }
 
     // If the player headbumps a block which the enemy is standing on, the break effect with a "Kill" layer has a -> Trigger Collider.
@@ -306,5 +456,8 @@ public class EnemyBehaviour : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(transform.position + colliderOffset, circleRadius);
         Gizmos.DrawSphere(transform.position - colliderOffset, circleRadius);
+        Gizmos.DrawWireCube(transform.position + hitColliderOffset, hitColliderSize);
+        Gizmos.DrawWireCube(new Vector3(transform.position.x - hitColliderOffset.x, transform.position.y + hitColliderOffset.y, transform.position.z - hitColliderOffset.z), hitColliderSize);
+        Gizmos.DrawWireCube(transform.position + hitColliderOffsetMiddle, hitColliderSizeMiddle);
     }
 }
