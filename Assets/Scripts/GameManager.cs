@@ -44,10 +44,9 @@ public class GameManager : MonoBehaviour
     [Header("Global Audio Source")]
     [SerializeField] private AudioSource SFXSource;
     [SerializeField] private AudioSource AmbientSource;
-    [SerializeField] private AudioClip UnPauseSFX, DeathSound, ScaryAmbient, HappyAmbient;
+    [SerializeField] private AudioClip UnPauseSFX, DeathSound;
     [SerializeField] private AudioClip DialogueNext, DialogueSpeak;
 
-    public bool isHappy = true; // For music change (TEMPORARY)
     public static bool isPaused = false;
 
     private void Start()
@@ -76,13 +75,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            ChangeMusic();
-        }
-
 
         if (!isPaused)
         {
@@ -91,6 +83,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
+            if (SceneManager.GetActiveScene().name != "Intro")
             Pause();
         }
 
@@ -172,7 +165,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
 
 
-        LC.canMove = true;
+        LC.runLeft = true;
 
         yield return new WaitForSeconds(2.5f);
 
@@ -193,25 +186,6 @@ public class GameManager : MonoBehaviour
 
         FadeIn.SetActive(false);
         FadeIn.SetActive(true);
-    }
-
-    void ChangeMusic()
-    {
-        isHappy = !isHappy;
-
-        if (isHappy)
-        {
-            AmbientSource.enabled = false;
-            AmbientSource.clip = HappyAmbient;
-            AmbientSource.enabled = true;
-        }
-        else
-        {
-            AmbientSource.enabled = false;
-            AmbientSource.clip = ScaryAmbient;
-            AmbientSource.enabled = true;
-
-        }
     }
     
     IEnumerator VoidWarning()
@@ -270,7 +244,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.55f);
 
         // Basically reload the Scene
-        SceneManager.LoadScene("Test Scene");
+        SceneManager.LoadScene("Story Mode");
     }
 
     public void UnPause()

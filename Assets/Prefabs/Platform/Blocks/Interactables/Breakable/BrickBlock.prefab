@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7049339890638152107}
   - component: {fileID: 438925102313377490}
   - component: {fileID: 3430817562852504998}
+  - component: {fileID: 2963485251049273402}
+  - component: {fileID: 4305247722573099593}
   m_Layer: 10
   m_Name: BrickBlock
   m_TagString: Breakable
@@ -29,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 1789996624062933457}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.6596336, y: -0.76309586, z: 0.25498042}
-  m_LocalScale: {x: 0.6173521, y: 0.6088985, z: 0.60382634}
+  m_LocalScale: {x: 0.6173521, y: 0.6088985, z: 0.6038263}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1789996625203079478}
@@ -171,6 +173,47 @@ CompositeCollider2D:
       - {x: -0.3086467, y: -0.3044492}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
+--- !u!114 &2963485251049273402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789996624062933457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1854ee5c41dee7459f6e9b0464da684, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBrickBlock: 1
+  isCoin: 0
+  coin: {fileID: 0}
+  hit: 0
+  hitDestroy: 0
+  src: {fileID: 0}
+  coinSound: {fileID: 0}
+  animator: {fileID: 4305247722573099593}
+--- !u!95 &4305247722573099593
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789996624062933457}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f74775e6fc6af9d40b52b27513f915e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1789996625203079477
 GameObject:
   m_ObjectHideFlags: 0

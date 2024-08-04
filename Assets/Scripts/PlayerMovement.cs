@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Character Animator")]
     [SerializeField] private PlayerAnimation AnimationScript;
     public bool isRunning;
-    public bool isMoving;
+    public bool isMoving; 
     public bool isFalling;
     public bool isLanding;
     public bool isJumping;
@@ -96,14 +96,13 @@ public class PlayerMovement : MonoBehaviour
      void Update()
     {
 
-        if (isCrouching && !isMoving && !AnimationScript.isPCrawler) // Can't move if crouching + if player isnt pcrawler (cause he doesnt have crouch anim lol)
-            return;
-
         ChangeHeight();
         ChangeSpeed();
         CheckGrounds();
         HeadCollision();
 
+        if (isCrouching && !isMoving && !AnimationScript.isPCrawler) // Can't move if crouching + if player isnt pcrawler (cause he doesnt have crouch anim lol)
+            return;
 
         // The default and WahooJump used as 2 seperate methods. Y input is in Jump() and V input is in WahooJump() ONLY. 
         if (!AnimationScript.isTransforming)
@@ -113,7 +112,18 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Direction Input Detection (observable in the Inspector)
-        direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        direction = new Vector2(direction.x, Input.GetAxisRaw("Vertical"));
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            direction.x = -1;
+        } else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            direction.x = 1;
+        } else
+        {
+            direction.x = 0;
+        }
 
         SlidingManage();
         CircleRadiusManagement();
@@ -267,7 +277,7 @@ public class PlayerMovement : MonoBehaviour
                 /////////////////////////////////
                 jumpSpeed = jumpSpeedMX;
                 rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(Vector2.up * (jumpSpeed * 2.8f), ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up * (jumpSpeed * 2.95f), ForceMode2D.Impulse);
                 VM.WahooJump();
                 jumpSrc.PlayOneShot(mxJump);
                  
@@ -313,7 +323,6 @@ public class PlayerMovement : MonoBehaviour
                  if (AnimationScript.isFH)
                  {
                      defaultSpeed = 0;
-                     collider.offset = new Vector2(0.0118157f, -0.4482942f);
                      collider.size = new Vector2(0.836907f, 1.210171f);
 
                  }
@@ -324,8 +333,8 @@ public class PlayerMovement : MonoBehaviour
 
                  if (AnimationScript.isFH)
                  {
-                     collider.offset = new Vector2(0.004783392f, -0.229393f);
-                     collider.size = new Vector2(0.6538078f, 1.624514f);
+                     collider.offset = new Vector2(0.0004490763f, -0.2520845f);
+                     collider.size = new Vector2(0.6913055f, 1.620345f);
 
                  }
 

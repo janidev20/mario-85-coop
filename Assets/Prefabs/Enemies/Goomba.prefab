@@ -62,14 +62,29 @@ MonoBehaviour:
   isKoopa: 0
   audsrc: {fileID: 5286601085722216056}
   deathSound: {fileID: 8300000, guid: f548cc4017ee14b4db22003865fceb98, type: 3}
+  bumpSound: {fileID: 0}
   didntPlay: 0
   direction: 0
-  goombaSpeed: 25
-  koopaSpeed: 25
+  goombaSpeed: 1400
+  koopaSpeed: 1400
+  koopaShellSpeed: 15000
+  hitColliderSize: {x: 0, y: 0, z: 0}
+  hitColliderOffset: {x: 0, y: 0, z: 0}
+  hitColliderSizeMiddle: {x: 0, y: 0, z: 0}
+  hitColliderOffsetMiddle: {x: 0, y: 0, z: 0}
+  isShell: 0
+  isRolling: 0
+  rollingLeft: 0
+  rollingRight: 0
+  hasExited: 0
+  timeToShellExit: 15
   colliderOffset: {x: 0.33, y: 0, z: 0}
   wallLayer:
   - serializedVersion: 2
     m_Bits: 16128
+  plyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   isTouchingWall: 0
   headIsTouched: 0
   touchDetectCoolDown: 2
@@ -103,8 +118,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 2.5
+  m_Material: {fileID: 6200000, guid: f751d628c859ea0409958bfbe472a50f, type: 2}
   m_Interpolate: 2
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -118,7 +133,7 @@ AudioSource:
   m_GameObject: {fileID: 5286601085722216053}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3812930246104492735, guid: d9e41f72a879d7d44b6bc84eb55d38fb, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -214,7 +229,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 5286601085722216053}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f751d628c859ea0409958bfbe472a50f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

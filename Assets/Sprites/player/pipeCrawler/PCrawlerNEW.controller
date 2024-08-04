@@ -279,11 +279,11 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: isFalling
-    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: isMoving
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isFalling
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isRunning
@@ -404,7 +404,7 @@ AnimatorStateMachine:
     m_Position: {x: 70, y: 160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5385455433235585726}
-    m_Position: {x: 580, y: 100, z: 0}
+    m_Position: {x: 600, y: 100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8987756230637744203}
     m_Position: {x: 330, y: 160, z: 0}

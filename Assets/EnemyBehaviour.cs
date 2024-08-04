@@ -122,12 +122,12 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (direction == 1)
         {
-            rb.AddForce(Vector2.right * direction * movementSpeed);
+            rb.AddForce(Vector2.right * direction * movementSpeed * Time.deltaTime);
         }
 
         if (direction == -1)
         {
-            rb.AddForce(Vector2.right * direction * movementSpeed);
+            rb.AddForce(Vector2.right * direction * movementSpeed * Time.deltaTime);
         }
     }
 
@@ -159,12 +159,12 @@ public class EnemyBehaviour : MonoBehaviour
         {
              if (direction == 1)
              {
-                 rb.AddForce(Vector2.right * direction * movementSpeed);
+                 rb.AddForce(Vector2.right * direction * movementSpeed * Time.deltaTime);
              }
 
              if (direction == -1)
              {
-                 rb.AddForce(Vector2.right * direction * movementSpeed);
+                 rb.AddForce(Vector2.right * direction * movementSpeed * Time.deltaTime);
              }
         }
     
@@ -234,12 +234,12 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (direction == -1)
                 {
-                    rb.AddForce(Vector2.right * direction * rollSpeed);
+                    rb.AddForce(Vector2.right * direction * rollSpeed * Time.deltaTime);
                 }
 
                 if (direction == 1)
                 {
-                    rb.AddForce(Vector2.right * direction * rollSpeed);
+                    rb.AddForce(Vector2.right * direction * rollSpeed * Time.deltaTime);
                 }
             }
         }
@@ -434,6 +434,11 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && isRolling)
         {
             collision.collider.gameObject.GetComponent<EnemyBehaviour>().isDead = true;
+        }
+
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("whatIsVoid"))
+        {
+            Destroy(this.gameObject);
         }
 
     }

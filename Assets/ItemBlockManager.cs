@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemBlockManager : MonoBehaviour
 {
+    [Header("BrickBlockCheck")]
+    public bool isBrickBlock;
 
     [Header("Items")]
     [SerializeField] private bool isCoin = true;
@@ -30,12 +32,13 @@ public class ItemBlockManager : MonoBehaviour
 
     private void Update()
     {
+        BrickBlockBump();
         GiveItem(null);
     }
 
     void GiveItem(GameObject item)
     {
-        if (!hit)
+        if (!hit || isBrickBlock)
             return;
 
 
@@ -54,4 +57,24 @@ public class ItemBlockManager : MonoBehaviour
         }
     }
     
+    public void BrickBlockBump()
+    {
+        if (!isBrickBlock)
+            return;
+
+        if (hit)
+        {
+            animator.SetBool("hit", true);
+            StartCoroutine(BrickBlockIdleReset());
+        }
+    }
+
+    IEnumerator BrickBlockIdleReset()
+    {
+        yield return new WaitForSeconds(0.155f);
+
+        animator.SetBool("hit", false);
+        hit = false;
+
+    }
 }

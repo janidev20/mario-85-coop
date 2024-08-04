@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class BlockInteract : MonoBehaviour
 {
+    [Header("Lucas")]
+    public bool isLucas;
+
+
     [Header("Collision")]
     [SerializeField] [HideInInspector] private float circleRadius = 0.15f; // circleRadius will be changed according to what we are (FH, Pcrawelr , MX)
     [SerializeField] private float circleRadiusSmall = 0.15f, circleRadiusMX = 0.8f;
@@ -22,7 +26,6 @@ public class BlockInteract : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerAnimation AnimationScript;
     [SerializeField] private PlayerMovement MovementScript;
-    [SerializeField] private EnemyBehaviour enemyScript;
 
     [Header("BlockBreak")]
     [SerializeField] GameObject breakEffect;
@@ -31,12 +34,17 @@ public class BlockInteract : MonoBehaviour
     {
 
         DetectCollision();
-        CircleRadiusManage();
         StartCoroutine(BlockBreak());
+        CircleRadiusManage();
     }
 
     void CircleRadiusManage()
     {
+        if (isLucas)
+        {
+            circleRadius = circleRadiusSmall;
+        }
+
         if (AnimationScript.isFH || AnimationScript.isPCrawler)
         {
             circleRadius = circleRadiusSmall;
@@ -59,7 +67,7 @@ public class BlockInteract : MonoBehaviour
         }
 
         // If the collided object's layer name is "BrickBlock"...
-        if (hit.gameObject.layer == LayerMask.NameToLayer("BrickBlock"))
+        if (hit.gameObject.layer == LayerMask.NameToLayer("BrickBlock") && !isLucas)
         {
             yield return new WaitForSeconds(0.035f);
 
@@ -67,6 +75,12 @@ public class BlockInteract : MonoBehaviour
             Destroy(hit.gameObject);
             // Spawn down epic break effect.
             Instantiate(breakEffect, hit.transform.position, Quaternion.identity);
+        }
+
+        if (hit.gameObject.layer == LayerMask.NameToLayer("BrickBlock") && isLucas)
+        {
+            Debug.Log("Hit!");
+            hit.GetComponent<ItemBlockManager>().hit = true;
         }
 
     }
@@ -97,4 +111,9 @@ public class BlockInteract : MonoBehaviour
 
             cooldown = false;
         }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position - headColliderBoxOffset, headColliderBoxSize);
+    }
 }
