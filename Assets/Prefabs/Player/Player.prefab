@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -168,6 +169,37 @@ MonoBehaviour:
     m_Bits: 32768
   collidingEnemyHead: 0
   plyAnim: {fileID: 0}
+--- !u!1 &890775425553183687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2313859530355234280}
+  m_Layer: 0
+  m_Name: LucasTriggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2313859530355234280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890775425553183687}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7052932057666675490}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &986694148511307358
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -351,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -477,6 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -645,6 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -740,6 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -835,6 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -1014,6 +1052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -1109,6 +1148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -1204,6 +1244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -1430,6 +1471,7 @@ Transform:
   - {fileID: 7052932058575745005}
   - {fileID: 7052932057791802543}
   - {fileID: 9100666807720292570}
+  - {fileID: 2313859530355234280}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2183,6 +2225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714ff1aa8c220ee49a73545aa31530dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   circleRadius: 0.15
   circleRadiusSmall: 0.23
   circleRadiusMX: 0.8
@@ -2199,7 +2242,6 @@ MonoBehaviour:
   headColliderCircleRadius: 0.15
   AnimationScript: {fileID: 7052932058575745000}
   MovementScript: {fileID: 1933805374467724533}
-  enemyScript: {fileID: 0}
   breakEffect: {fileID: 4049011194948384611, guid: 36540025a0dc7cf4cbdecd4c8ae6fa3e, type: 3}
 --- !u!114 &8949921215466296762
 MonoBehaviour:
@@ -2213,6 +2255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: -0.77, z: 0}
   feetRadius: 0.2
   enemyLayer:
@@ -2529,6 +2572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -2770,6 +2814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -2938,6 +2983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:
@@ -3144,6 +3190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9d06e591bcd634c9875f5de8c7e56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLucas: 0
   feetColliderOffset: {x: 0, y: 0, z: 0}
   feetRadius: 0
   enemyLayer:

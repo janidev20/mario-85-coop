@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92af9cb032db3dd4eb49ec7db193a68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 1153438090322170795}
+  isControllable: 1
   moveSpeed: 500
   linearDrag: 0
   direction: {x: 0, y: 0}
@@ -234,6 +234,7 @@ MonoBehaviour:
   circleRadius: 0.15
   onGround: 0
   headCollided: 0
+  rb: {fileID: 1153438090322170795}
   blockLayer:
   - serializedVersion: 2
     m_Bits: 12032

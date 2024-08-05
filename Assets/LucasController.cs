@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LucasController : MonoBehaviour
 {
-    [Header("Components")]
-    [SerializeField] private Rigidbody2D rb;
+    [Header("AI")]
+    public bool isControllable = false; // if true, 2 player mode
 
     [Header("Horizontal Movement")]
     [SerializeField] private float moveSpeed;
@@ -40,7 +40,7 @@ public class LucasController : MonoBehaviour
     public bool headCollided;
 
     [Header("Components")]
-
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private List<LayerMask> blockLayer;
     [SerializeField] private LayerMask groundLayer;
 
@@ -96,6 +96,8 @@ public class LucasController : MonoBehaviour
 
     void CheckForInput()
     {
+        if (!isControllable)
+            return;
 
         // Horizontal Input
         direction.x = Input.GetAxisRaw("Horizontal");
@@ -126,6 +128,9 @@ public class LucasController : MonoBehaviour
 
     void Jump()
         {
+        if (!isControllable)
+            return;
+
             if (headCollided && !onGround)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
