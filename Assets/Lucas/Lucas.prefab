@@ -214,6 +214,7 @@ MonoBehaviour:
   jumpBig: 13.5
   jumpMiddle: 12
   jumpSmall: 10
+  jumpSmaller: 5
   isControllable: 1
   moveSpeed: 500
   linearDrag: 0
@@ -480,6 +481,9 @@ MonoBehaviour:
   JumpSmall:
     serializedVersion: 2
     m_Bits: 2097152
+  JumpSmaller:
+    serializedVersion: 2
+    m_Bits: 0
   JumpDanger:
     serializedVersion: 2
     m_Bits: 0
@@ -487,3 +491,4 @@ MonoBehaviour:
   moveLeft: 0
   moveRight: 0
   run: 0
+  RUNLEFT: 0

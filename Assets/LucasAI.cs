@@ -14,13 +14,15 @@ public class LucasAI : MonoBehaviour
     [SerializeField] LayerMask JumpBig;
     [SerializeField] LayerMask JumpMiddle;
     [SerializeField] LayerMask JumpSmall;
+    [SerializeField] LayerMask JumpSmaller;
     [SerializeField] LayerMask JumpDanger; // When MX is too close
 
     [Header("Control")]
-    [SerializeField] private bool testInput = true;
+    [SerializeField] private bool testInput = false;
     public bool moveLeft;
     public bool moveRight;
     public bool run;
+    public bool RUNLEFT;
 
 
     private void Start()
@@ -30,6 +32,26 @@ public class LucasAI : MonoBehaviour
 
     private void Update()
     {
+        if (LucasController.LucasIsDead)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RUNLEFT = !RUNLEFT;
+        }
+
+        if (RUNLEFT)
+        {
+            moveLeft = true;
+            run = true;
+        }
+        else
+        {
+            moveLeft = false;
+            run = false;
+        }
+
+
         ManageMovement();
         CheckForInput(testInput);
     }
@@ -106,6 +128,11 @@ public class LucasAI : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmall"))
         {
             movementScript.JumpSmall();
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmaller"))
+        {
+            movementScript.JumpSmaller();
         }
     }
 }

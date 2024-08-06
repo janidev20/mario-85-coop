@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Physics")]
     /// Max speed values
     [SerializeField] private float maxSpeedFH = 4f, maxSpeedBigger = 5.25f;
-    [SerializeField] private float maxSprintSpeedFH = 6.56f, maxSprintSpeedBigger = 7.55f;
+    [SerializeField] private float maxSprintSpeedFH = 6.56f, maxSprintSpeedBigger = 7.0f;
     [SerializeField] [HideInInspector] private float maxSpeed;              // (this will be changed according to what we are (FH, Pcrawelr , MX)
     [SerializeField] [HideInInspector] private float maxSprintSpeed = 12f;  // (this will be changed according to what we are (FH, Pcrawelr , MX)
     [SerializeField] [HideInInspector] private float maxDefaultSpeed;       // (this will be changed according to what we are (FH, Pcrawelr , MX)

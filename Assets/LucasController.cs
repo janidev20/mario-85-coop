@@ -8,7 +8,11 @@ public class LucasController : MonoBehaviour
     public float jumpBig;
     public float jumpMiddle;
     public float jumpSmall;
+    public float jumpSmaller;
     public bool isControllable = false; // if true, 2 player mode
+
+    [Header("Life")]
+    public static bool LucasIsDead = false;
 
     [Header("Horizontal Movement")]
     [SerializeField] private float moveSpeed;
@@ -71,6 +75,9 @@ public class LucasController : MonoBehaviour
     private void Update()
     {
 
+        if (LucasIsDead)
+            return;
+
         /// Movement, Control
         Jump();
         HeadCollision();
@@ -109,6 +116,8 @@ public class LucasController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (LucasIsDead)
+            return;
 
         // Movement Logic
         moveCharacter(direction.x);
@@ -395,10 +404,37 @@ public class LucasController : MonoBehaviour
         }
     }
 
+    public void JumpSmaller()
+    {
+        if (onGround)
+        {
+            isJumping = true;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jumpSmaller, ForceMode2D.Impulse);
+            audSRC.PlayOneShot(jumpSound);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(transform.position + colliderOffset, circleRadius);
         Gizmos.DrawWireCube(transform.position - headColliderBoxOffset, headColliderBoxSize);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            LucasIsDead = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            LucasIsDead = true;
+        }
     }
 }
