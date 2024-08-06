@@ -13,7 +13,7 @@ public class LucasController : MonoBehaviour
     [Header("Horizontal Movement")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float linearDrag;
-    [SerializeField] private Vector2 direction;
+    public Vector2 direction;
     public bool isRunning;
     public bool isMoving;
     public bool isSliding;
@@ -90,7 +90,7 @@ public class LucasController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            JumpmMiddle();
+            JumpMiddle();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -98,6 +98,12 @@ public class LucasController : MonoBehaviour
             JumpBig();
         }
 
+
+        // Intro Movement
+        if (runLeft)
+        {
+            direction.x = -1;
+        }
     }
 
     // Update is called once per frame
@@ -107,14 +113,6 @@ public class LucasController : MonoBehaviour
         // Movement Logic
         moveCharacter(direction.x);
         modifyPhysics();
-
-
-        if (runLeft)
-        {
-            direction.x = -1;
-        }
-
-
     }
 
     void CheckForInput()
@@ -376,7 +374,7 @@ public class LucasController : MonoBehaviour
 
     }
 
-    public void JumpmMiddle()
+    public void JumpMiddle()
     {
         if (onGround)
         {
