@@ -210,6 +210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92af9cb032db3dd4eb49ec7db193a68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpBig: 13.5
+  jumpMiddle: 12
+  jumpSmall: 10
   isControllable: 1
   moveSpeed: 500
   linearDrag: 0

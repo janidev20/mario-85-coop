@@ -5,6 +5,9 @@ using UnityEngine;
 public class LucasController : MonoBehaviour
 {
     [Header("AI")]
+    public float jumpBig;
+    public float jumpMiddle;
+    public float jumpSmall;
     public bool isControllable = false; // if true, 2 player mode
 
     [Header("Horizontal Movement")]
@@ -68,20 +71,40 @@ public class LucasController : MonoBehaviour
     private void Update()
     {
 
+        /// Movement, Control
         Jump();
         HeadCollision();
         SlidingManage();
         EnemyBump();
+        /// Checking, Detection
         CheckGrounds();
         ChangeMaxSpeed();
         CheckForInput();
+        // AI Control
+        // (Quick Debugging)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            JumpSmall();
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            JumpmMiddle();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            JumpBig();
+        }
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
 
-
+        // Movement Logic
         moveCharacter(direction.x);
         modifyPhysics();
 
@@ -91,8 +114,8 @@ public class LucasController : MonoBehaviour
             direction.x = -1;
         }
 
-       
-    }   
+
+    }
 
     void CheckForInput()
     {
@@ -106,7 +129,8 @@ public class LucasController : MonoBehaviour
         if (Input.GetKey(KeyCode.JoystickButton5))
         {
             isRunning = true;
-        } else
+        }
+        else
         {
             isRunning = false;
         }
@@ -127,60 +151,60 @@ public class LucasController : MonoBehaviour
     }
 
     void Jump()
-        {
+    {
         if (!isControllable)
             return;
 
-            if (headCollided && !onGround)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(-Vector2.up * fallSpeed, ForceMode2D.Impulse);
-                jumpTime = 0;
-            }
+        if (headCollided && !onGround)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(-Vector2.up * fallSpeed, ForceMode2D.Impulse);
+            jumpTime = 0;
+        }
 
 
         if (onGround && Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            isJumping = true;
+            jumpTime = jumpStartTime;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+
+            audSRC.PlayOneShot(jumpSound);
+        }
+
+
+        if (Input.GetKey(KeyCode.JoystickButton1) && isJumping == true)
+        {
+
+            if (jumpTime > 0)
             {
-                isJumping = true;
-                jumpTime = jumpStartTime;
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                jumpTime -= Time.deltaTime;
 
-                audSRC.PlayOneShot(jumpSound);
-            }
-
-
-            if (Input.GetKey(KeyCode.JoystickButton1) && isJumping == true)
-            {
-
-                if (jumpTime > 0)
-                {
-                    rb.velocity = new Vector2(rb.velocity.x, 0);
-                    rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-                    jumpTime -= Time.deltaTime;
-
-
-                }
-
-                else
-                {
-                    isJumping = false;
-                }
 
             }
 
-            // This prevents the bug that often makes mario skip a jump animation (DO NOT FUCKING TOUCH THIS TOOK ME HOURS TO FIX)
-            if (Input.GetKeyUp(KeyCode.JoystickButton1))
+            else
             {
                 isJumping = false;
-                jumpTime = 0;
             }
 
-            if (!onGround)
-            {
-                isJumping = true;
-            }
         }
+
+        // This prevents the bug that often makes mario skip a jump animation (DO NOT FUCKING TOUCH THIS TOOK ME HOURS TO FIX)
+        if (Input.GetKeyUp(KeyCode.JoystickButton1))
+        {
+            isJumping = false;
+            jumpTime = 0;
+        }
+
+        if (!onGround)
+        {
+            isJumping = true;
+        }
+    }
 
     void HeadCollision()
     {
@@ -193,7 +217,7 @@ public class LucasController : MonoBehaviour
         {
             Debug.Log("LUCAS Head Collided.");
             audSRC.PlayOneShot(bumpSound);
-            
+
         }
     }
 
@@ -219,7 +243,7 @@ public class LucasController : MonoBehaviour
     {
 
         rb.AddForce(direction * moveSpeed * Time.deltaTime);
-        
+
         if ((horizontal > 0 && !facingRight) || (horizontal < 0 && facingRight))
         {
             Flip();
@@ -333,6 +357,44 @@ public class LucasController : MonoBehaviour
     {
         facingRight = !facingRight;
         transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
+    }
+
+    /// <summary>
+    /// AI CONTROL
+    /// </summary>
+
+    public void JumpBig()
+    {
+
+        if (onGround)
+        {
+            isJumping = true;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jumpBig, ForceMode2D.Impulse);
+            audSRC.PlayOneShot(jumpSound);
+        }
+
+    }
+
+    public void JumpmMiddle()
+    {
+        if (onGround)
+        {
+            isJumping = true;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jumpMiddle, ForceMode2D.Impulse);
+            audSRC.PlayOneShot(jumpSound);
+        }
+    }
+    public void JumpSmall()
+    {
+        if (onGround)
+        {
+            isJumping = true;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jumpSmall, ForceMode2D.Impulse);
+            audSRC.PlayOneShot(jumpSound);
+        }
     }
 
     private void OnDrawGizmos()
