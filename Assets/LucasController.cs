@@ -60,6 +60,7 @@ public class LucasController : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource audSRC;
     [SerializeField] private AudioClip jumpSound, bumpSound;
+    public bool didntPlay = false;
 
 
     [Header("Enemy Script")]
@@ -68,6 +69,7 @@ public class LucasController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LucasIsDead = false;
         rb = GetComponent<Rigidbody2D>();
         ek = GetComponent<EnemyKill>();
     }
@@ -75,19 +77,22 @@ public class LucasController : MonoBehaviour
     private void Update()
     {
 
-        if (LucasIsDead)
+        if (LucasIsDead || GameManager.isPaused)
             return;
 
+
         /// Movement, Control
-        Jump();
+        EnemyBump();
         HeadCollision();
         SlidingManage();
-        EnemyBump();
+        Jump();
         /// Checking, Detection
         CheckGrounds();
         ChangeMaxSpeed();
         CheckForInput();
         // AI Control
+
+
         // (Quick Debugging)
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -111,12 +116,13 @@ public class LucasController : MonoBehaviour
         {
             direction.x = -1;
         }
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (LucasIsDead)
+        if (LucasIsDead || GameManager.isPaused)
             return;
 
         // Movement Logic
@@ -230,7 +236,7 @@ public class LucasController : MonoBehaviour
 
     void EnemyBump()
     {
-        if (ek.collidingEnemyHead)
+        if (ek.collidingEnemyHead || ek.collidingMXHead)
         {
             if (Input.GetKey(KeyCode.JoystickButton1))
             {
@@ -378,7 +384,14 @@ public class LucasController : MonoBehaviour
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpBig, ForceMode2D.Impulse);
-            audSRC.PlayOneShot(jumpSound);
+          if (!didntPlay)
+            {
+                audSRC.PlayOneShot(jumpSound);
+                didntPlay = true;
+            }
+        } else
+        {
+            didntPlay = false;
         }
 
     }
@@ -390,7 +403,15 @@ public class LucasController : MonoBehaviour
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpMiddle, ForceMode2D.Impulse);
-            audSRC.PlayOneShot(jumpSound);
+            if (!didntPlay)
+            {
+                audSRC.PlayOneShot(jumpSound);
+                didntPlay = true;
+            }
+        }
+        else
+        {
+            didntPlay = false;
         }
     }
     public void JumpSmall()
@@ -400,7 +421,15 @@ public class LucasController : MonoBehaviour
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpSmall, ForceMode2D.Impulse);
-            audSRC.PlayOneShot(jumpSound);
+            if (!didntPlay)
+            {
+                audSRC.PlayOneShot(jumpSound);
+                didntPlay = true;
+            }
+        }
+        else
+        {
+            didntPlay = false;
         }
     }
 
@@ -411,7 +440,34 @@ public class LucasController : MonoBehaviour
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpSmaller, ForceMode2D.Impulse);
-            audSRC.PlayOneShot(jumpSound);
+            if (!didntPlay)
+            {
+                audSRC.PlayOneShot(jumpSound);
+                didntPlay = true;
+            }
+        }
+        else
+        {
+            didntPlay = false;
+        }
+    }
+
+    public void JumpDanger(float jumpPower)
+    {
+        if (onGround)
+        {
+            isJumping = true;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            if (!didntPlay)
+            {
+                audSRC.PlayOneShot(jumpSound);
+                didntPlay = true;
+            }
+        }
+        else
+        {
+            didntPlay = false;
         }
     }
 
@@ -424,7 +480,10 @@ public class LucasController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && StunManager.isStunned)
+        {
+            Physics2D.IgnoreCollision(collision, GetComponent<Collider2D>());
+        } else if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !StunManager.isStunned)
         {
             LucasIsDead = true;
         }
@@ -432,7 +491,11 @@ public class LucasController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && StunManager.isStunned)
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
+        else if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && !StunManager.isStunned)
         {
             LucasIsDead = true;
         }

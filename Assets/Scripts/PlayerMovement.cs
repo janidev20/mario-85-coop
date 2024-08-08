@@ -95,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
 
      void Update()
     {
+        if (StunManager.isStunned)
+            return;
 
         ChangeHeight();
         ChangeSpeed();
@@ -132,8 +134,20 @@ public class PlayerMovement : MonoBehaviour
     }
      void FixedUpdate()
      {
-         moveCharacter(direction.x);
          modifyPhysics();
+
+
+        if (StunManager.isStunned)
+        {
+            direction.x = 0;
+            if (rb.velocity.x > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x - 0.3f, rb.velocity.y);
+            }
+            return;
+        }
+
+        moveCharacter(direction.x);
      }
 
      // Movement Logic

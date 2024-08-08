@@ -419,6 +419,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: dgvj9c4-9929859d-6dac-4239-90c3-6adc21729097 (1)_15
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 1127
+        width: 34
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c752abeb481c415489b143608a8d8e1a
+      internalID: 263414104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -437,6 +458,7 @@ TextureImporter:
       dgvj9c4-9929859d-6dac-4239-90c3-6adc21729097 (1)_12: -915555964
       dgvj9c4-9929859d-6dac-4239-90c3-6adc21729097 (1)_13: 81599473
       dgvj9c4-9929859d-6dac-4239-90c3-6adc21729097 (1)_14: 308184951
+      dgvj9c4-9929859d-6dac-4239-90c3-6adc21729097 (1)_15: -1132376153
       dgvj9c4-9929859d-6dac-4239-90c3-6adc21729097 (1)_2: -1539329035
       dgvj9c4-9929859d-6dac-4239-90c3-6adc21729097 (1)_3: -1835528210
       dgvj9c4-9929859d-6dac-4239-90c3-6adc21729097 (1)_4: -1856355074

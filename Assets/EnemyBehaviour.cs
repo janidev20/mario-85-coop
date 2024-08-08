@@ -418,7 +418,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Death by player (MX or Pipe Crawler)
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && !collision.collider.gameObject.GetComponent<PlayerAnimation>().isFH)
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Kill") && !collision.collider.gameObject.GetComponent<PlayerAnimation>().isFH || collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && !collision.collider.gameObject.GetComponent<PlayerAnimation>().isFH)
         {
             isDead = true;
             sd.timeToDestroy = 5f;
@@ -426,7 +426,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         // ignore Player collision if dead 
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && isDead || collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && !isRolling)
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && isDead || collision.collider.gameObject.layer == LayerMask.NameToLayer("Kill") && isDead || collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy") && !isRolling)
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }

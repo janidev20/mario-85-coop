@@ -457,7 +457,11 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 32768
+  MXHeadLayer:
+    serializedVersion: 2
+    m_Bits: 33554432
   collidingEnemyHead: 0
+  collidingMXHead: 0
   plyAnim: {fileID: 0}
 --- !u!114 &2133174246636017707
 MonoBehaviour:
@@ -483,7 +487,7 @@ MonoBehaviour:
     m_Bits: 2097152
   JumpSmaller:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4194304
   JumpDanger:
     serializedVersion: 2
     m_Bits: 0
@@ -492,3 +496,4 @@ MonoBehaviour:
   moveRight: 0
   run: 0
   RUNLEFT: 0
+  dodgedMX: 0

@@ -16,6 +16,11 @@ public class MusicManager : MonoBehaviour
     [Header("Booleans")]
     bool isHappy = false;
 
+    private void Start()
+    {
+        SRC.clip = ScaryAmbient;
+    }
+
     private void Update()
     {
         CheckForInput(); // on pressing "M" > change music

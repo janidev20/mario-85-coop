@@ -127,6 +127,13 @@ public class PlayerAnimation : MonoBehaviour
             playerAnimator.SetBool("isLanding", false);
         }
 
+        if (StunManager.isStunned && isPCrawler)
+        {
+            playerAnimator.SetBool("isStunned", true);
+        } else
+        {
+            playerAnimator.SetBool("isStunned", false);
+        }
     }
 
     void CharacterMethod()

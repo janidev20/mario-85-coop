@@ -23,10 +23,12 @@ public class LucasAI : MonoBehaviour
     public bool moveRight;
     public bool run;
     public bool RUNLEFT;
-
+    public bool dodgedMX = false;
 
     private void Start()
     {
+        RUNLEFT = !RUNLEFT;
+
         movementScript = GetComponent<LucasController>();
     }
 
@@ -55,7 +57,7 @@ public class LucasAI : MonoBehaviour
         ManageMovement();
         CheckForInput(testInput);
     }
-    
+
     void ManageMovement()
     {
         if (moveLeft)
@@ -72,11 +74,12 @@ public class LucasAI : MonoBehaviour
         {
             movementScript.direction.x = 0;
         }
-    
+
         if (run)
         {
             movementScript.isRunning = true;
-        } else
+        }
+        else
         {
             movementScript.isRunning = false;
         }
@@ -90,7 +93,8 @@ public class LucasAI : MonoBehaviour
         if (Input.GetKey(KeyCode.C))
         {
             run = true;
-        } else
+        }
+        else
         {
             run = false;
         }
@@ -115,24 +119,200 @@ public class LucasAI : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpBig"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("GoRight"))
         {
-            movementScript.JumpBig();
+            moveRight = true;
+            RUNLEFT = false;
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpMiddle"))
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("JumpDangerRight"))
         {
-            movementScript.JumpMiddle();
+            if (movementScript.onGround)
+            {
+
+
+                if (collision.gameObject.GetComponentInParent<PlayerAnimation>().isPCrawler)
+                {
+                    if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
+                    {
+                        if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                        {
+                            RUNLEFT = false;
+                            moveRight = false;
+                            movementScript.JumpDanger(movementScript.jumpSmall * 1.35f);
+                        }
+                        else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                        {
+                            RUNLEFT = true;
+                            moveRight = false;
+                        }
+
+                    }
+                    else
+                    {
+                        RUNLEFT = false;
+                        moveRight = false;
+                    }
+                }
+                else if (collision.gameObject.GetComponentInParent<PlayerAnimation>().isMX)
+                {
+                    if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
+                    {
+                        if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                        {
+                            RUNLEFT = false;
+                            moveRight = true;
+                            movementScript.JumpDanger(movementScript.jumpBig);
+                        }
+                        else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                        {
+                            RUNLEFT = false;
+                            moveRight = false;
+                        }
+                    }
+                    else
+                    {
+                        RUNLEFT = true;
+                        moveRight = false;
+                    }
+                }
+                else
+                {
+                    RUNLEFT = true;
+                    moveRight = false;
+                }
+
+
+            } else
+            {
+           
+            if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
+            {
+                if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                {
+                    RUNLEFT = true;
+                    moveRight = false;
+                }
+                else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                {
+                    RUNLEFT = false;
+                    moveRight = true;
+                }
+            }
+            else
+            {
+                RUNLEFT = false;
+                moveRight = false;
+            
+    }
+            }
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmall"))
+
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("JumpDangerLeft"))
         {
-            movementScript.JumpSmall();
+            if (collision.gameObject.GetComponentInParent<PlayerAnimation>().isPCrawler)
+            {
+                if (movementScript.onGround)
+                {
+
+                        
+                        if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
+                        {
+                            if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                            {
+                                RUNLEFT = false;
+                                moveRight = false;
+                                movementScript.JumpDanger(movementScript.jumpMiddle * 1.35f);
+                            }
+                            
+                            else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                            {
+                                RUNLEFT = false;
+                                moveRight = false;
+                            }
+
+                        }
+
+                        else
+                        {
+                            RUNLEFT = true;
+                            moveRight = false;
+                        }
+
+                } else
+                {
+                    if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
+                    {
+                        if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                        {
+                            RUNLEFT = false;
+                            moveRight = false;
+                        }
+
+                        else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                        {
+                            RUNLEFT = false;
+                            moveRight = false;
+                        }
+
+                    }
+                    else if (collision.gameObject.GetComponentInParent<PlayerAnimation>().isMX)
+                    {
+                        if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
+                        {
+                            if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                            {
+                                RUNLEFT = true;
+                            }
+                            else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                            {
+                                RUNLEFT = true;
+                                moveRight = false;
+                            }
+                        }
+                        else
+                        {
+                            RUNLEFT = true;
+                            moveRight = false;
+                        }
+
+                    }
+
+                    
+                } 
+
+            }
+            
+        } else
+        {
+            RUNLEFT = true;
+            moveRight = false;
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmaller"))
-        {
-            movementScript.JumpSmaller();
-        }
+
+        if 
+            
+            (collision.gameObject.layer == LayerMask.NameToLayer("JumpBig"))
+            {
+                movementScript.JumpBig();
+            }
+
+            if (collision.gameObject.layer == LayerMask.NameToLayer("JumpMiddle"))
+            {
+                movementScript.JumpMiddle();
+            }
+
+            if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmall"))
+            {
+                movementScript.JumpSmall();
+            }
+
+            if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmaller"))
+            {
+                movementScript.JumpSmaller();
+            }
+        
+       
     }
 }

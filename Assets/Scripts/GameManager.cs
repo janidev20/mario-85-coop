@@ -76,8 +76,17 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
 
-        if (!isPaused)
+        if (SceneManager.GetActiveScene().name == "Intro")
         {
+            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                SceneManager.LoadScene("Story Mode");
+            }
+        }
+
+            if (!isPaused)
+        {
+            ReloadScene();
             DeathHandler();
         }
 
@@ -245,6 +254,17 @@ public class GameManager : MonoBehaviour
 
         // Basically reload the Scene
         SceneManager.LoadScene("Story Mode");
+    }
+
+    void ReloadScene()
+    {
+        if (SceneManager.GetActiveScene().name == "Story Mode")
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene("Story Mode");
+            }
+        }
     }
 
     public void UnPause()
