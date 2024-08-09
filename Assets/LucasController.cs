@@ -54,9 +54,6 @@ public class LucasController : MonoBehaviour
     [Header("Sprite")]
     [SerializeField] private bool facingRight = true;
 
-    [Header("Intro Movement")]
-    [SerializeField] public bool runLeft = false;
-
     [Header("Audio")]
     [SerializeField] private AudioSource audSRC;
     [SerializeField] private AudioClip jumpSound, bumpSound;
@@ -89,33 +86,30 @@ public class LucasController : MonoBehaviour
         /// Checking, Detection
         CheckGrounds();
         ChangeMaxSpeed();
+
+        if (GameManager.cutScenePlaying)
+            return;
+
         CheckForInput();
         // AI Control
 
 
         // (Quick Debugging)
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            JumpSmall();
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+       // {
+        //    JumpSmall();
 
-        }
+       // }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            JumpMiddle();
-        }
+       // if (Input.GetKeyDown(KeyCode.Alpha2))
+       // {
+       //     JumpMiddle();
+       // }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            JumpBig();
-        }
-
-
-        // Intro Movement
-        if (runLeft)
-        {
-            direction.x = -1;
-        }
+       // if (Input.GetKeyDown(KeyCode.Alpha3))
+      //  {
+       //     JumpBig();
+       // }
 
     }
 
@@ -165,6 +159,9 @@ public class LucasController : MonoBehaviour
 
     void Jump()
     {
+        if (!onGround)
+            didntPlay = false;
+
         if (!isControllable)
             return;
 
@@ -389,10 +386,7 @@ public class LucasController : MonoBehaviour
                 audSRC.PlayOneShot(jumpSound);
                 didntPlay = true;
             }
-        } else
-        {
-            didntPlay = false;
-        }
+        } 
 
     }
 
@@ -409,10 +403,6 @@ public class LucasController : MonoBehaviour
                 didntPlay = true;
             }
         }
-        else
-        {
-            didntPlay = false;
-        }
     }
     public void JumpSmall()
     {
@@ -426,10 +416,6 @@ public class LucasController : MonoBehaviour
                 audSRC.PlayOneShot(jumpSound);
                 didntPlay = true;
             }
-        }
-        else
-        {
-            didntPlay = false;
         }
     }
 
@@ -446,10 +432,6 @@ public class LucasController : MonoBehaviour
                 didntPlay = true;
             }
         }
-        else
-        {
-            didntPlay = false;
-        }
     }
 
     public void JumpDanger(float jumpPower)
@@ -464,10 +446,6 @@ public class LucasController : MonoBehaviour
                 audSRC.PlayOneShot(jumpSound);
                 didntPlay = true;
             }
-        }
-        else
-        {
-            didntPlay = false;
         }
     }
 

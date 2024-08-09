@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LucasDeathManager : MonoBehaviour
 {
@@ -17,8 +18,32 @@ public class LucasDeathManager : MonoBehaviour
    [SerializeField] private AudioSource SRC;
    [SerializeField] private AudioClip DeathSound;
 
+    [Header("Death Event")]
+    public static bool needToRestart;
+    public static bool diedOnce = false;
+    public static bool GameOver;
+    public static int LucasLife = 5;
+    public static int maxLife;
+
     private void Start()
     {
+        if (SceneManager.GetActiveScene().name == "Scores")
+        {
+            // Reset the values if on the "Scores" Screen.
+            needToRestart = false;
+            diedOnce = false;
+            GameOver = false;
+            LucasLife = 0;
+            maxLife = 0;
+        }
+
+        if (!diedOnce)
+        {
+            maxLife = LucasLife; 
+        }
+
+        needToRestart = false;
+
         animator = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
         cd = GetComponent<Collider2D>();
@@ -30,12 +55,34 @@ public class LucasDeathManager : MonoBehaviour
         {
             if (LucasController.LucasIsDead)
             {
+                if (!diedOnce)
+                {
+                    diedOnce = true;
+                }
+
                 animator.SetTrigger("dead");
                 sr.sortingLayerID = 0;
                 cd.enabled = false;
                 SRC.PlayOneShot(DeathSound);
+                LucasLife -= 1;
+                StartCoroutine(RestartGame());
                 didYouDieYet = true;
             }
         }
+
+        if ((maxLife - LucasLife) == maxLife)
+        {
+            GameOver = true;
+        } else
+        {
+            GameOver = false;
+        }
+    }
+
+    IEnumerator RestartGame()
+    {
+        yield return new WaitForEndOfFrame();
+
+        needToRestart = true;
     }
 }

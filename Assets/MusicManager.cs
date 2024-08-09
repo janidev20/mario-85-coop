@@ -19,10 +19,16 @@ public class MusicManager : MonoBehaviour
     private void Start()
     {
         SRC.clip = ScaryAmbient;
+        SRC.mute = false;
     }
 
     private void Update()
     {
+        if (LucasDeathManager.needToRestart)
+        {
+            SRC.mute = true;
+        } else
+
         CheckForInput(); // on pressing "M" > change music
         CheckState(); // Check if player is falling OR on the void (mute the music)
     }

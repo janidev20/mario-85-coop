@@ -8,12 +8,14 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [Header("Lucas AI")]
-    [SerializeField] LucasController LC;
+    [SerializeField] LucasAI LucasAI;
 
     [Header("Scene Stuff, Events")]
     public static bool isStoryMode;
     public static bool cutScenePlaying;
     [SerializeField] GameObject PressTText;
+    [SerializeField] GameObject pressYtoExitCastle;
+
 
     [Header("Dialogue")]
     [SerializeField] GameObject DialogueBox;
@@ -25,12 +27,19 @@ public class GameManager : MonoBehaviour
     [Header("Player/Void Stuff")]
     [Space(1)]
     [SerializeField] private PlayerMovement plyMoveScript;
+    [SerializeField] private MXController MXController;
     [SerializeField] private PlayerAnimation plyAnimScript;
     [SerializeField] private CameraMovement cameraScript;
     [SerializeField] private Rigidbody2D plyRB;
     [SerializeField] private GameObject VoidWarningTXT;
     [SerializeField] private Vector2 previousVelocity;
+    [SerializeField] private GameObject blackFadeCastle;
     private bool isDead;
+    public bool PreIntroPlayed = false;
+    public bool exitCastle = false;
+    public bool canBeginDialogue = false;
+    public bool dialogueDidntPlay = false;
+    public bool startLucas = false;
 
 
     [Header("Pause Menu")]
@@ -38,25 +47,50 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private GameObject FadeOut;
     [SerializeField] private GameObject FadeIn;
+    [SerializeField] private GameObject BlackScreen;
+    [SerializeField] private GameObject MXBody;
     [SerializeField] private AudioSource[] InGameSounds;
 
 
     [Header("Global Audio Source")]
     [SerializeField] private AudioSource SFXSource;
     [SerializeField] private AudioSource AmbientSource;
+    [SerializeField] private AudioSource PreIntroBGMusicSRC;
     [SerializeField] private AudioClip UnPauseSFX, DeathSound;
     [SerializeField] private AudioClip DialogueNext, DialogueSpeak;
+    [SerializeField] private AudioClip PreIntroBGMusic, PreIntroBGMusicFade;
+    [SerializeField] private AudioClip Voice_Lucas, Voice_OhLucas, Voice_LetTheGamesBegin;
+    [SerializeField] private AudioClip breakSound;
+
+    [Header("Story Mode")]
+    [SerializeField] private AudioClip LucasShout;
+    [SerializeField] private AudioSource ScaryAmbientIntro;
+    [SerializeField] private AudioSource ChaseMusicSource;
+    [SerializeField] private GameObject pressTtoBreakDisguise;
+    [SerializeField] private GameObject CastleBreaking;
+    [SerializeField] private Animator camAnim;
+    [SerializeField] int breakCount = 5; 
+    [SerializeField] bool Break = false;
+
+
+    public static bool gameStarted = false;
 
     public static bool isPaused = false;
 
-    private void Start()
+    private void Awake()
     {
+
         FadeIn.SetActive(true);
         FadeOut.SetActive(false);
         isPaused = false;
 
-        if (SceneManager.GetActiveScene().name == "Intro")
+     
+
+            if (SceneManager.GetActiveScene().name == "Intro")
         {
+            PreIntroPlayed = false;
+            gameStarted = false;
+            
             isStoryMode = true;
         }
         else
@@ -68,6 +102,15 @@ public class GameManager : MonoBehaviour
             cutScenePlaying = true;
         }
 
+        if (SceneManager.GetActiveScene().name == "Story Mode")
+        {
+            ChaseMusicSource.enabled = false;
+            ScaryAmbientIntro.enabled = false;
+            LucasAI.enabled = false;
+            AmbientSource.enabled = false;
+            gameStarted = false;
+        }
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Intro();
@@ -76,15 +119,87 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
 
+       
+
         if (SceneManager.GetActiveScene().name == "Intro")
         {
+           if (PreIntroPlayed && !canBeginDialogue)
+            {
+                StartCoroutine(IntroBeginIE());
+                IntroBegin();
+            }
+            else if (canBeginDialogue && !dialogueDidntPlay)
+            {
+                StartCoroutine(DialogueBegin());
+                dialogueDidntPlay = true;
+            }
+
             if (Input.GetKeyDown(KeyCode.KeypadEnter))
             {
                 SceneManager.LoadScene("Story Mode");
             }
+        
+            if (exitCastle)
+            {
+                pressYtoExitCastle.SetActive(false);
+            }
+
+            if (startLucas)
+            {
+                StartCoroutine(WaitForLucas());
+            }
         }
 
-            if (!isPaused)
+
+        if (SceneManager.GetActiveScene().name == "Story Mode")
+        {
+
+
+            ChangeBGState();
+
+
+            if (!gameStarted)
+            {
+                if (!Break)
+                {
+                    if (Input.GetKeyDown(KeyCode.T))
+                    {
+                        Break = true;
+                        BreakDisguise();
+                    }
+                }
+
+            }
+
+
+            if (LucasDeathManager.needToRestart)
+            {
+                if (LucasDeathManager.GameOver)
+                {
+                    ChaseMusicSource.enabled = false;
+
+                    FadeIn.SetActive(false);
+                    FadeOut.SetActive(false);
+                    FadeOut.SetActive(true);
+                    StartCoroutine(GoToScores());
+
+                } else
+                {
+                    ChaseMusicSource.enabled = false;
+
+                    FadeIn.SetActive(false);
+                    FadeOut.SetActive(false);
+                    FadeOut.SetActive(true);
+                    StartCoroutine(LucasDeathRestart());
+                }
+
+
+            }
+
+        }
+
+
+        if (!isPaused)
         {
             ReloadScene();
             DeathHandler();
@@ -123,15 +238,186 @@ public class GameManager : MonoBehaviour
     void Intro()
     {
         if (cutScenePlaying) { 
-        plyMoveScript.enabled = false;
         AmbientSource.enabled = false;
 
-        StartCoroutine(DialogueBegin());
+            if (!PreIntroPlayed)
+            {
+                StartCoroutine(PreIntroDialogue());
+            } 
         }
+    }
+
+    void ChangeBGState()
+    {
+        if (plyMoveScript.isFalling && !plyMoveScript.isJumping || plyMoveScript.onVoid)
+        {
+            camAnim.SetBool("chase", false);
+        } 
+        
+        if (gameStarted && !plyMoveScript.isFalling && !plyMoveScript.onVoid || plyMoveScript.isJumping || plyMoveScript.isWahooJumping)
+        {
+                camAnim.SetBool("chase", true);
+        }
+    }
+
+    void BreakDisguise()
+    {
+        if (breakCount > 0)
+        {
+            SFXSource.PlayOneShot(breakSound);
+            if (breakCount != 1)
+            {
+                StartCoroutine(resetCamShakeBool(1));
+                camAnim.SetBool("shake", true);
+            }
+            breakCount -= 1;
+            Break = false;
+
+            if (breakCount == 5)
+            {
+                ScaryAmbientIntro.enabled = true;
+            }
+
+            else if (breakCount <= 1)
+            {
+                StartCoroutine(plyAnimScript.ForceTransform());
+                camAnim.SetBool("shake", true);
+                camAnim.SetBool("chase", true);
+                StartCoroutine(resetCamShakeBool(3));
+                pressTtoBreakDisguise.SetActive(false);
+                LucasAI.enabled = true;
+                AmbientSource.enabled = true;
+                SFXSource.PlayOneShot(LucasShout);
+                //    CastleBreaking.SetActive(true);
+                ChaseMusicSource.enabled = true;
+                gameStarted = true;
+            }
+        }
+    }
+
+    IEnumerator resetCamShakeBool(float timeToReset)
+    {
+        yield return new WaitForSeconds(timeToReset);
+
+        camAnim.SetBool("shake", false);
+    }
+
+    IEnumerator IntroBeginIE()
+    {
+        FadeIn.SetActive(false);
+        FadeIn.SetActive(true);
+        BlackScreen.SetActive(false);
+        blackFadeCastle.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        if (!exitCastle)
+        {
+            pressYtoExitCastle.SetActive(true);
+        }
+        
+    }
+
+    void IntroBegin()
+    {
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            blackFadeCastle.SetActive(false);
+            exitCastle = true;
+        }
+
+        if (exitCastle)
+        {
+            blackFadeCastle.SetActive(false);
+            if (!plyMoveScript.cantMove)
+            {
+                plyMoveScript.direction.x = -1;
+            } else
+            {
+                plyMoveScript.direction.x = 0;
+                startLucas = true;
+                
+            }
+        }
+
+    }
+
+    IEnumerator WaitForLucas()
+    {   
+
+        yield return new WaitForSeconds(5f);
+
+
+        if (!LucasAI.stop)
+       {
+           LucasAI.moveRight = true;
+       } else
+        {
+          LucasAI.moveRight = false;
+           canBeginDialogue = true;
+        }
+       
+        
+    }
+
+    IEnumerator LucasDeathRestart()
+    {
+
+
+
+            yield return new WaitForSeconds(4.5f);
+
+            SceneManager.LoadScene("Story Mode");
+        
+    }
+
+    IEnumerator GoToScores()
+    {
+        yield return new WaitForSeconds(4.5f);
+
+        SceneManager.LoadScene("Scores");
+    }
+
+    IEnumerator PreIntroDialogue()
+    {
+        if (!PreIntroPlayed)
+        {
+            PreIntroBGMusicSRC.clip = PreIntroBGMusic;
+
+            yield return new WaitForSeconds(12f);
+
+            MXBody.SetActive(true);
+            SFXSource.PlayOneShot(Voice_Lucas);
+
+            yield return new WaitForSeconds(13.5f);
+
+
+            MXBody.GetComponent<Animator>().SetTrigger("change");
+
+            yield return new WaitForSeconds(3f);
+
+            SFXSource.PlayOneShot(Voice_LetTheGamesBegin);
+
+            yield return new WaitForSeconds(5.5f);
+            MXBody.SetActive(false);
+
+            PreIntroBGMusicSRC.enabled = false;
+
+            yield return new WaitForSeconds(5f);
+           
+            PreIntroPlayed = true;
+        }
+
+
     }
 
     IEnumerator DialogueBegin()
     {
+        BlackScreen.SetActive(false);
+        FadeIn.SetActive(false);
+        FadeIn.SetActive(true);
+
         yield return new WaitForSeconds(3f);
 
         DialogueBox.SetActive(true);
@@ -174,13 +460,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
 
 
-        LC.runLeft = true;
-
         yield return new WaitForSeconds(2.5f);
 
-        StartCoroutine(plyAnimScript.ForceTransform());
+        //StartCoroutine(plyAnimScript.ForceTransform());
         SFXSource.PlayOneShot(DialogueSpeak);
-        SFXSource.PlayOneShot(Laughter);
+        //SFXSource.PlayOneShot(Laughter);
         DialogueBox.SetActive(false);
         cutScenePlaying = false;
 
@@ -191,10 +475,12 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2.25f);
 
-        SceneManager.LoadScene("Story Mode");
 
+        SceneManager.LoadScene("Story Mode");
+        
         FadeIn.SetActive(false);
         FadeIn.SetActive(true);
+        
     }
     
     IEnumerator VoidWarning()

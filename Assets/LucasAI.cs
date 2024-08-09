@@ -24,10 +24,15 @@ public class LucasAI : MonoBehaviour
     public bool run;
     public bool RUNLEFT;
     public bool dodgedMX = false;
+    bool startedRunning = false;
+
+
+    [Header("Intro stuff")]
+    public bool canControlAI = true;
+    public bool stop = false;
 
     private void Start()
     {
-        RUNLEFT = !RUNLEFT;
 
         movementScript = GetComponent<LucasController>();
     }
@@ -37,9 +42,10 @@ public class LucasAI : MonoBehaviour
         if (LucasController.LucasIsDead)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!startedRunning && GameManager.gameStarted)
         {
-            RUNLEFT = !RUNLEFT;
+            RUNLEFT =! RUNLEFT;
+            startedRunning = true;
         }
 
         if (RUNLEFT)
@@ -119,6 +125,15 @@ public class LucasAI : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Stop"))
+        {
+            stop = true;
+        }
+
+
+        if (GameManager.cutScenePlaying)
+            return;
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("GoRight"))
         {
             moveRight = true;
@@ -130,47 +145,40 @@ public class LucasAI : MonoBehaviour
             if (movementScript.onGround)
             {
 
-
-                if (collision.gameObject.GetComponentInParent<PlayerAnimation>().isPCrawler)
+                if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
                 {
-                    if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
-                    {
-                        if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
-                        {
-                            RUNLEFT = false;
-                            moveRight = false;
-                            movementScript.JumpDanger(movementScript.jumpSmall * 1.35f);
-                        }
-                        else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
-                        {
-                            RUNLEFT = true;
-                            moveRight = false;
-                        }
-
-                    }
-                    else
+                    if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
                     {
                         RUNLEFT = false;
                         moveRight = false;
+                        movementScript.JumpDanger(movementScript.jumpMiddle);
                     }
-                }
-                else if (collision.gameObject.GetComponentInParent<PlayerAnimation>().isMX)
-                {
-                    if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
+                    else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
                     {
-                        if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
-                        {
-                            RUNLEFT = false;
-                            moveRight = true;
-                            movementScript.JumpDanger(movementScript.jumpBig);
-                        }
-                        else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
-                        {
-                            RUNLEFT = false;
-                            moveRight = false;
-                        }
+                        RUNLEFT = true;
+                        moveRight = false;
                     }
-                    else
+
+                }
+                else
+                {
+                    RUNLEFT = false;
+                    moveRight = false;
+                }
+
+
+            }
+            else
+            {
+
+                if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
+                {
+                    if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                    {
+                        RUNLEFT = true;
+                        moveRight = false;
+                    }
+                    else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
                     {
                         RUNLEFT = true;
                         moveRight = false;
@@ -178,33 +186,11 @@ public class LucasAI : MonoBehaviour
                 }
                 else
                 {
-                    RUNLEFT = true;
-                    moveRight = false;
-                }
-
-
-            } else
-            {
-           
-            if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
-            {
-                if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
-                {
-                    RUNLEFT = true;
-                    moveRight = false;
-                }
-                else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
-                {
                     RUNLEFT = false;
-                    moveRight = true;
+                    moveRight = false;
+
+
                 }
-            }
-            else
-            {
-                RUNLEFT = false;
-                moveRight = false;
-            
-    }
             }
         }
 
@@ -216,43 +202,44 @@ public class LucasAI : MonoBehaviour
                 if (movementScript.onGround)
                 {
 
-                        
-                        if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
-                        {
-                            if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
-                            {
-                                RUNLEFT = false;
-                                moveRight = false;
-                                movementScript.JumpDanger(movementScript.jumpMiddle * 1.35f);
-                            }
-                            
-                            else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
-                            {
-                                RUNLEFT = false;
-                                moveRight = false;
-                            }
 
-                        }
-
-                        else
-                        {
-                            RUNLEFT = true;
-                            moveRight = false;
-                        }
-
-                } else
-                {
                     if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
                     {
                         if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
                         {
                             RUNLEFT = false;
-                            moveRight = false;
+                            movementScript.JumpDanger(movementScript.jumpMiddle * 1.35f);
+                            moveRight = true;
                         }
 
                         else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
                         {
                             RUNLEFT = false;
+                            moveRight = false;
+                        }
+
+                    }
+
+                    else
+                    {
+                        RUNLEFT = true;
+                        moveRight = false;
+                    }
+
+                }
+                else
+                {
+                    if (collision.gameObject.GetComponentInParent<PlayerMovement>().isMoving)
+                    {
+                        if (!collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                        {
+                            RUNLEFT = true;
+                            moveRight = false;
+                        }
+
+                        else if (collision.gameObject.GetComponentInParent<PlayerMovement>().isJumping)
+                        {
+                            RUNLEFT = true;
                             moveRight = false;
                         }
 
@@ -279,40 +266,42 @@ public class LucasAI : MonoBehaviour
 
                     }
 
-                    
-                } 
+
+                }
 
             }
-            
-        } else
+
+
+        }
+        else
         {
             RUNLEFT = true;
             moveRight = false;
         }
 
 
-        if 
-            
+        if
+
             (collision.gameObject.layer == LayerMask.NameToLayer("JumpBig"))
-            {
-                movementScript.JumpBig();
-            }
+        {
+            movementScript.JumpBig();
+        }
 
-            if (collision.gameObject.layer == LayerMask.NameToLayer("JumpMiddle"))
-            {
-                movementScript.JumpMiddle();
-            }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpMiddle"))
+        {
+            movementScript.JumpMiddle();
+        }
 
-            if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmall"))
-            {
-                movementScript.JumpSmall();
-            }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmall"))
+        {
+            movementScript.JumpSmall();
+        }
 
-            if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmaller"))
-            {
-                movementScript.JumpSmaller();
-            }
-        
-       
+        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpSmaller"))
+        {
+            movementScript.JumpSmaller();
+        }
+
+
     }
 }

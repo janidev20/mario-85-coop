@@ -11,11 +11,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Horizontal Movement")]
     [SerializeField] private float slideSpeed;
-    [SerializeField] private Vector2 direction;
     [SerializeField] [HideInInspector] private float moveSpeed = 30f; // The acceleration speed.
     [SerializeField] [HideInInspector] private float defaultSpeed; // used for moveSpeed or smth idk.
     [SerializeField] [HideInInspector] private bool speedUp = false;
     [SerializeField] [HideInInspector] private bool facingRight = true;
+    public Vector2 direction;
     public bool isSprinting;
 
     [Header("Vertical Movement")]
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpSpeed;
     [SerializeField] private float fallSpeed;
     [SerializeField] [HideInInspector] private bool _isWahooJumping;
-    [SerializeField] [HideInInspector] private bool _isFalling;
+    public bool _isFalling;
 
     [Header("Components")]
     [SerializeField] private Rigidbody2D rb;
@@ -84,8 +84,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Enemy Script")]
     [SerializeField] private EnemyKill ek;
 
+    [Header("Intro")]
+    public bool cantMove = false;
+
     private void Start()
     {
+        Flip();
+        
         rb = GetComponent<Rigidbody2D>();
         ek = GetComponent<EnemyKill>();
         defaultSpeed = moveSpeed;
@@ -95,15 +100,20 @@ public class PlayerMovement : MonoBehaviour
 
      void Update()
     {
-        if (StunManager.isStunned)
-            return;
+       
 
         ChangeHeight();
         ChangeSpeed();
         CheckGrounds();
         HeadCollision();
-
+        SlidingManage();
+        CircleRadiusManagement();
+        VoiceHandler();
+        
         if (isCrouching && !isMoving && !AnimationScript.isPCrawler) // Can't move if crouching + if player isnt pcrawler (cause he doesnt have crouch anim lol)
+            return;
+
+        if (StunManager.isStunned || GameManager.cutScenePlaying || !   GameManager.gameStarted)
             return;
 
         // The default and WahooJump used as 2 seperate methods. Y input is in Jump() and V input is in WahooJump() ONLY. 
@@ -127,9 +137,7 @@ public class PlayerMovement : MonoBehaviour
             direction.x = 0;
         }
 
-        SlidingManage();
-        CircleRadiusManagement();
-        VoiceHandler();
+    
 
     }
      void FixedUpdate()
@@ -137,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
          modifyPhysics();
 
 
-        if (StunManager.isStunned)
+        if (StunManager.isStunned && GameManager.gameStarted)
         {
             direction.x = 0;
             if (rb.velocity.x > 0)
@@ -617,8 +625,18 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
         }
 
-     // Makes the 'CharacterHolder' Object literally squeeze when jumping and landing.
-     IEnumerator JumpSqueeze(float xSqueeze, float ySqueeze, float seconds)
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Stop")) {
+            cantMove = true;
+        } else
+        {
+            cantMove = false;
+        }
+    }
+
+    // Makes the 'CharacterHolder' Object literally squeeze when jumping and landing.
+    IEnumerator JumpSqueeze(float xSqueeze, float ySqueeze, float seconds)
         {
             Vector3 originalSize = Vector3.one;
             Vector3 newSize = new Vector3(xSqueeze, ySqueeze, originalSize.z);

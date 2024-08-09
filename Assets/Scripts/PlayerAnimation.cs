@@ -138,17 +138,19 @@ public class PlayerAnimation : MonoBehaviour
 
     void CharacterMethod()
     {
+       
+
         if (!GameManager.isPaused)
         {
 
-                if (isPCrawler && Input.GetKeyDown(KeyCode.T) || plyMovement.onVoid && isPCrawler) // Will also initiate if we're in the void as PCrawler
+                if (isPCrawler && Input.GetKeyDown(KeyCode.T) || plyMovement.onVoid && isPCrawler && GameManager.gameStarted) // Will also initiate if we're in the void as PCrawler
                 {
                     isMX = true;
                     isPCrawler = false;
                     isFH = false;
                     coolDownTimer = 0; // Resets the coolDownTimer
                 }
-                else if (isFH && Input.GetKeyDown(KeyCode.T) || forceTransform)
+                else if (isFH && Input.GetKeyDown(KeyCode.T) && GameManager.gameStarted || forceTransform)
                 {
                     forceTransform = false;
                     isPCrawler = true;
@@ -156,7 +158,7 @@ public class PlayerAnimation : MonoBehaviour
                     isFH = false;
                     coolDownTimer = 0; // Resets the coolDownTimer
                 }
-                else if (isMX && Input.GetKeyDown(KeyCode.T))
+                else if (isMX && Input.GetKeyDown(KeyCode.T) && GameManager.gameStarted)
                 {
                     isFH = true;
                     isMX = false;
