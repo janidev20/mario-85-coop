@@ -29,14 +29,20 @@ public class ScoresManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI lucasEscaped;
     [SerializeField] TextMeshProUGUI fellInVoidAmount;
 
+    bool showedScored = false;
+
     private void Start()
     {
-        
+       
     }
 
     private void Update()
     {
-        
+        if (!showedScored)
+        {
+            StartCoroutine(Scores());
+            showedScored = true;
+        }
     }
 
     IEnumerator Scores()
@@ -75,7 +81,9 @@ public class ScoresManager : MonoBehaviour
         brickBlockAmount.gameObject.SetActive(true);
         stoneBlockAmount.gameObject.SetActive(true);
         emptyBlockAmount.gameObject.SetActive(true);
-        pipe.gameObject.SetActive(true);
+        pipeAmount.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(1.5f);
 
         StartCoroutine(countDestroyedObstacles());
 
@@ -107,6 +115,12 @@ public class ScoresManager : MonoBehaviour
     // FINISH THIS
     IEnumerator countDestroyedObstacles()
     {
-        yield return new WaitForEndOfFrame(); 
+        for (int i = 0; i < BlocksCounter.QMBlock; i++)
+        {
+            qmBlockAmount.text = "x " + i;
+            yield return new WaitForSeconds(0.009f);
+        }
+
+        yield return new WaitForEndOfFrame();
     }
 }

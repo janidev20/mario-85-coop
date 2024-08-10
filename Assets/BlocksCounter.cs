@@ -16,14 +16,16 @@ public class BlocksCounter : MonoBehaviour
 
     private void Start()
     {
-        if (!LucasDeathManager.diedOnce)
-        {
-            BrickBlock = 0;
-            QMBlock = 0;
-            StoneBlock = 0;
-            EmptyBlock = 0;
-            Pipe = 0;
-        }
+        QMBlock = 54;
+
+        // if (!LucasDeathManager.diedOnce)
+        //{
+        //     BrickBlock = 0;
+        //     QMBlock = 0;
+        //    StoneBlock = 0;
+        //    EmptyBlock = 0;
+        //     Pipe = 0;
+        //   }
     }
 
     private void Update()
