@@ -13,15 +13,39 @@ public class BlockBreaking : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // If the object of the collision has a specific Layer:
-        if (collision.gameObject.layer == LayerMask.NameToLayer("BrickBlock") ||
-            collision.gameObject.layer == LayerMask.NameToLayer("StoneBlock") || 
-            collision.gameObject.layer == LayerMask.NameToLayer("EmptyBlock") || 
-            collision.gameObject.layer == LayerMask.NameToLayer("Pipe") || 
-            collision.gameObject.layer == LayerMask.NameToLayer("QMblock"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("BrickBlock"))
         {
             Instantiate(BlockBreakEffect, collision.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
+            BlocksCounter.BrickBlock += 1;
         }
-       
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("StoneBlock"))
+        {
+            Instantiate(BlockBreakEffect, collision.transform.position, Quaternion.identity);
+            Destroy(collision.gameObject);
+            BlocksCounter.StoneBlock += 1;
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("EmptyBlock"))
+        {
+            Instantiate(BlockBreakEffect, collision.transform.position, Quaternion.identity);
+            Destroy(collision.gameObject);
+            BlocksCounter.EmptyBlock += 1;
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Pipe"))
+        {
+            Instantiate(BlockBreakEffect, collision.transform.position, Quaternion.identity);
+            Destroy(collision.gameObject);
+            BlocksCounter.Pipe += 1;
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("QMblock"))
+        {
+            Instantiate(BlockBreakEffect, collision.transform.position, Quaternion.identity);
+            Destroy(collision.gameObject);
+            BlocksCounter.QMBlock += 1;
+        }
     }
 }
