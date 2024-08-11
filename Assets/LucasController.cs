@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class LucasController : MonoBehaviour
 {
     [Header("AI")]
@@ -75,7 +76,17 @@ public class LucasController : MonoBehaviour
     {
 
         if (LucasIsDead || GameManager.isPaused)
+        {
             return;
+        }
+
+        if (VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid)
+        {
+            audSRC.mute = true;
+            direction.x = 0;
+            rb.velocity = new Vector2(0, 0);
+            rb.isKinematic = true;
+        }
 
 
         /// Movement, Control
@@ -116,7 +127,7 @@ public class LucasController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (LucasIsDead || GameManager.isPaused)
+        if (LucasIsDead || GameManager.isPaused || VoidFallCounter.LucasFellInVoid || VoidFallCounter.fellInVoid)
             return;
 
         // Movement Logic
@@ -458,6 +469,21 @@ public class LucasController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Escape"))
+        {
+            LucasEscape.Escaped = true;
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("voidKiller"))
+        {
+            LucasController.LucasIsDead = true;
+            VoidFallCounter.LucasFellInVoid = true;
+        }
+
+        if (LucasEscape.Escaped)
+            return;
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && StunManager.isStunned)
         {
             Physics2D.IgnoreCollision(collision, GetComponent<Collider2D>());
@@ -469,6 +495,10 @@ public class LucasController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        if (LucasEscape.Escaped)
+            return;
+
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") && StunManager.isStunned)
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());

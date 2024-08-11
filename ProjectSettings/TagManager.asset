@@ -47,8 +47,8 @@ TagManager:
   - JumpDangerLeft
   - GoRight
   - Stop
-  - 
-  - 
+  - Escape
+  - voidKiller
   - 
   m_SortingLayers:
   - name: Default

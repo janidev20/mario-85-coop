@@ -100,7 +100,6 @@ public class PlayerMovement : MonoBehaviour
 
      void Update()
     {
-       
 
         ChangeHeight();
         ChangeSpeed();
@@ -108,13 +107,22 @@ public class PlayerMovement : MonoBehaviour
         HeadCollision();
         SlidingManage();
         CircleRadiusManagement();
-        VoiceHandler();
-        
+
+        if (VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid || LucasController.LucasIsDead)
+        {
+            jumpSrc.mute = true;
+            direction.x = 0;
+            rb.velocity = new Vector2(0, 0);
+            rb.isKinematic = true;
+        }
+
         if (isCrouching && !isMoving && !AnimationScript.isPCrawler) // Can't move if crouching + if player isnt pcrawler (cause he doesnt have crouch anim lol)
             return;
 
-        if (StunManager.isStunned || GameManager.cutScenePlaying || !   GameManager.gameStarted)
+        if (StunManager.isStunned || GameManager.cutScenePlaying || !   GameManager.gameStarted || LucasEscape.Escaped || VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid)
             return;
+
+        VoiceHandler();
 
         // The default and WahooJump used as 2 seperate methods. Y input is in Jump() and V input is in WahooJump() ONLY. 
         if (!AnimationScript.isTransforming)
@@ -352,10 +360,15 @@ public class PlayerMovement : MonoBehaviour
              }
             else if (!isCrouching)
             {
+                if (AnimationScript.isPCrawler)
+                {
+                    collider.offset = new Vector2(-0.007822976f, -0.229393f);
+                    collider.size = new Vector2(0.6913055f, 1.620345f);
+                }
 
-                 if (AnimationScript.isFH)
+            if (AnimationScript.isFH)
                  {
-                     collider.offset = new Vector2(0.0004490763f, -0.2520845f);
+                     collider.offset = new Vector2(-0.007822976f, -0.229393f);
                      collider.size = new Vector2(0.6913055f, 1.620345f);
 
                  }
@@ -627,6 +640,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("voidKiller"))
+        {
+            VoidFallCounter.fellInVoid = true;
+        } else
+        {
+            VoidFallCounter.fellInVoid = false;
+        }
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Stop")) {
             cantMove = true;
         } else

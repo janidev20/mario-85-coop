@@ -16,16 +16,14 @@ public class BlocksCounter : MonoBehaviour
 
     private void Start()
     {
-        QMBlock = 54;
-
-        // if (!LucasDeathManager.diedOnce)
-        //{
-        //     BrickBlock = 0;
-        //     QMBlock = 0;
-        //    StoneBlock = 0;
-        //    EmptyBlock = 0;
-        //     Pipe = 0;
-        //   }
+        if (!LucasDeathManager.diedOnce)
+        {
+             BrickBlock = 0;
+             QMBlock = 0;
+            StoneBlock = 0;
+            EmptyBlock = 0;
+             Pipe = 0;
+        }
     }
 
     private void Update()
@@ -36,14 +34,13 @@ public class BlocksCounter : MonoBehaviour
 
     void DontDestroyThisObject()
     {
-        if (SceneManager.GetActiveScene().name == "Story Mode")
+     if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        else if (SceneManager.GetActiveScene().name == "MainMenu")
-        {
-            Destroy(this.gameObject);
+            BrickBlock = 0;
+            QMBlock = 0;
+            StoneBlock = 0;
+            EmptyBlock = 0;
+            Pipe = 0;
         }
     }
 }

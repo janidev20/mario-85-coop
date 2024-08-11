@@ -7,8 +7,14 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Lucas AI")]
+    [Header("Fall Void Stuff")]
+    [SerializeField] GameObject voidFallText;
+    [SerializeField] GameObject voidLucasFallText;
+    bool lucasDeathPlayed = false;
+
+    [Header("Lucas")]
     [SerializeField] LucasAI LucasAI;
+    [SerializeField] AudioSource LucasAudio;
 
     [Header("Scene Stuff, Events")]
     public static bool isStoryMode;
@@ -118,7 +124,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
        
 
         if (SceneManager.GetActiveScene().name == "Intro")
@@ -171,12 +176,56 @@ public class GameManager : MonoBehaviour
 
             }
 
+               
+
+            if (LucasEscape.Escaped)
+            {
+                ChaseMusicSource.enabled = false;
+
+                FadeIn.SetActive(false);
+                FadeOut.SetActive(false);
+                FadeOut.SetActive(true);
+                StartCoroutine(GoToScores());
+            }
+
+            if (VoidFallCounter.fellInVoid)
+            {
+                plyMoveScript.enabled = false;
+                LucasAI.enabled = false;
+                ChaseMusicSource.enabled = false;
+
+                FadeIn.SetActive(false);
+                FadeOut.SetActive(false);
+                FadeOut.SetActive(true);
+                StartCoroutine(FellInVoidRestart());
+            }
+
+            if (VoidFallCounter.LucasFellInVoid)
+            {
+
+                plyMoveScript.enabled = false;
+                LucasAI.enabled = false;
+                ChaseMusicSource.enabled = false;
+                if (!lucasDeathPlayed)
+                {
+                    SFXSource.PlayOneShot(DeathSound);
+                    lucasDeathPlayed = true;
+                }
+
+                FadeIn.SetActive(false);
+                FadeOut.SetActive(false);
+                FadeOut.SetActive(true);
+                StartCoroutine(LucasFellInVoidRestart());
+
+            }
 
             if (LucasDeathManager.needToRestart)
             {
+
                 if (LucasDeathManager.GameOver)
                 {
                     ChaseMusicSource.enabled = false;
+
 
                     FadeIn.SetActive(false);
                     FadeOut.SetActive(false);
@@ -192,6 +241,7 @@ public class GameManager : MonoBehaviour
                     FadeOut.SetActive(true);
                     StartCoroutine(LucasDeathRestart());
                 }
+
 
 
             }
@@ -285,12 +335,13 @@ public class GameManager : MonoBehaviour
                 camAnim.SetBool("chase", true);
                 StartCoroutine(resetCamShakeBool(3));
                 pressTtoBreakDisguise.SetActive(false);
-                LucasAI.enabled = true;
                 AmbientSource.enabled = true;
                 SFXSource.PlayOneShot(LucasShout);
                 //    CastleBreaking.SetActive(true);
+                LucasAI.enabled = true;
                 ChaseMusicSource.enabled = true;
                 gameStarted = true;
+
             }
         }
     }
@@ -343,6 +394,39 @@ public class GameManager : MonoBehaviour
 
     }
 
+    IEnumerator FellInVoidRestart()
+    {
+        if (VoidFallCounter.fellInVoid)
+        {
+
+            voidFallText.SetActive(true);
+
+            yield return new WaitForSeconds(4.5f);
+
+            VoidFallCounter.fellInVoid = false;
+            VoidFallCounter.LucasFellInVoid = false;
+
+            SceneManager.LoadScene("Story Mode");
+        }
+    }
+
+    IEnumerator LucasFellInVoidRestart()
+    {
+        if (VoidFallCounter.LucasFellInVoid)
+        {
+
+            voidLucasFallText.SetActive(true);
+
+            yield return new WaitForSeconds(4.5f);
+
+
+            VoidFallCounter.fellInVoid = false;
+            VoidFallCounter.LucasFellInVoid = false;
+
+            SceneManager.LoadScene("Story Mode");
+        }
+    }
+
     IEnumerator WaitForLucas()
     {   
 
@@ -364,9 +448,12 @@ public class GameManager : MonoBehaviour
     IEnumerator LucasDeathRestart()
     {
 
+        yield return new WaitForSeconds(4.5f);
 
 
-            yield return new WaitForSeconds(4.5f);
+            VoidFallCounter.fellInVoid = false;
+            VoidFallCounter.LucasFellInVoid = false;
+
 
             SceneManager.LoadScene("Story Mode");
         
@@ -374,7 +461,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GoToScores()
     {
-        yield return new WaitForSeconds(4.5f);
+        yield return new WaitForSeconds(5.5f);
 
         SceneManager.LoadScene("Scores");
     }

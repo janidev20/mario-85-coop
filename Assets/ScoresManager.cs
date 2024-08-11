@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -12,7 +13,6 @@ public class ScoresManager : MonoBehaviour
     [SerializeField] GameObject QMBlock;
     [SerializeField] GameObject brickBlock;
     [SerializeField] GameObject stoneBlock;
-    [SerializeField] GameObject emptyBlock;
     [SerializeField] GameObject pipe;
     [SerializeField] GameObject timeSpent;
     [SerializeField] GameObject lucasStatusTitle;
@@ -22,18 +22,28 @@ public class ScoresManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI qmBlockAmount;
     [SerializeField] TextMeshProUGUI brickBlockAmount;
     [SerializeField] TextMeshProUGUI stoneBlockAmount;
-    [SerializeField] TextMeshProUGUI emptyBlockAmount;
     [SerializeField] TextMeshProUGUI pipeAmount;
     [SerializeField] TextMeshProUGUI timeAmount;
     [SerializeField] TextMeshProUGUI lucasDead;
     [SerializeField] TextMeshProUGUI lucasEscaped;
     [SerializeField] TextMeshProUGUI fellInVoidAmount;
+    [SerializeField] TextMeshProUGUI pressSpaceToReturn;
+
+    [Header("Audio")]
+    [SerializeField] AudioSource SRC;
+    [SerializeField] AudioClip woosh, beep, count, success, fail, returnSound, titleWoosh;
 
     bool showedScored = false;
 
     private void Start()
     {
-       
+        float time = 0;
+        int wholeMin = 0;
+        int seconds = 0;
+        time = TimeManager.gameTime / 60;
+        wholeMin = Mathf.FloorToInt(time);
+        seconds = Mathf.FloorToInt((time - wholeMin) * 60);
+        timeAmount.text = wholeMin + " m " + seconds + " s";
     }
 
     private void Update()
@@ -43,84 +53,164 @@ public class ScoresManager : MonoBehaviour
             StartCoroutine(Scores());
             showedScored = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     IEnumerator Scores()
     {
+        SRC.PlayOneShot(titleWoosh);
         yourScoresTitle.SetActive(true);
 
         yield return new WaitForSeconds(3f);
 
+        SRC.PlayOneShot(woosh);
         brokenObstacles.SetActive(true);
 
         yield return new WaitForSeconds(2f);
 
+
+        SRC.PlayOneShot(woosh);
         QMBlock.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
 
+
+        SRC.PlayOneShot(woosh);
         brickBlock.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
 
 
+        SRC.PlayOneShot(woosh);
         stoneBlock.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
 
 
-        emptyBlock.SetActive(true);
-
-        yield return new WaitForSeconds(1f);
-
+        SRC.PlayOneShot(woosh);
         pipe.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
+
+        SRC.PlayOneShot(beep);
         qmBlockAmount.gameObject.SetActive(true);
         brickBlockAmount.gameObject.SetActive(true);
         stoneBlockAmount.gameObject.SetActive(true);
-        emptyBlockAmount.gameObject.SetActive(true);
         pipeAmount.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
         StartCoroutine(countDestroyedObstacles());
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(0.5f);
 
+
+        SRC.PlayOneShot(woosh);
         timeSpent.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
+
+        SRC.PlayOneShot(beep);
         timeAmount.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
+
+        SRC.PlayOneShot(woosh);
         lucasStatusTitle.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
-        lucasDead.gameObject.SetActive(true); // PLACEHOLDER
+        if (LucasEscape.Escaped)
+        {
 
-        yield return new WaitForSeconds(2f);
+            SRC.PlayOneShot(fail);
+            lucasDead.gameObject.SetActive(false);
+            lucasEscaped.gameObject.SetActive(true);
+        } else
+        {
 
+            SRC.PlayOneShot(success);
+            lucasDead.gameObject.SetActive(true);
+            lucasEscaped.gameObject.SetActive(false);
+
+        }
+
+        yield return new WaitForSeconds(1f);
+
+
+        SRC.PlayOneShot(woosh);
         fellInVoidTitle.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
-        fellInVoidAmount.gameObject.SetActive(true); // PLACEHOLDER
+        SRC.PlayOneShot(beep);
+        fellInVoidAmount.gameObject.SetActive(true);
+        
+        fellInVoidAmount.text = "" + VoidFallCounter.fellInVoidAmount;
+
+        yield return new WaitForSeconds(1f);
+
+        SRC.PlayOneShot(returnSound); 
+        pressSpaceToReturn.gameObject.SetActive(true);
+
     }
 
     // FINISH THIS
     IEnumerator countDestroyedObstacles()
     {
-        for (int i = 0; i < BlocksCounter.QMBlock; i++)
-        {
-            qmBlockAmount.text = "x " + i;
-            yield return new WaitForSeconds(0.009f);
-        }
-
+        StartCoroutine(countQMBlock());
+        StartCoroutine(countBrickBlock());
+        StartCoroutine(countStoneBlock());
+        StartCoroutine(countPipe());
         yield return new WaitForEndOfFrame();
     }
+
+    IEnumerator countQMBlock()
+    {
+        for (int i = 0; i < BlocksCounter.QMBlock; i++)
+        {
+            SRC.PlayOneShot(count);
+            qmBlockAmount.text = "x " + i;
+            yield return new WaitForSeconds(0.005f);
+        }
+    }
+    IEnumerator countBrickBlock()
+    {
+        for (int i = 0; i < BlocksCounter.BrickBlock; i++)
+        {
+            SRC.PlayOneShot(count);
+            brickBlockAmount.text = "x " + i;
+            yield return new WaitForSeconds(0.005f);
+        }
+
+
+    }
+    IEnumerator countStoneBlock()
+    {
+        for (int i = 0; i < BlocksCounter.StoneBlock; i++)
+        {
+            SRC.PlayOneShot(count);
+            stoneBlockAmount.text = "x " + i;
+            yield return new WaitForSeconds(0.005f);
+        }
+
+    }
+    IEnumerator countPipe()
+    {
+        for (int i = 0; i < BlocksCounter.Pipe; i++)
+        {
+            SRC.PlayOneShot(count);
+            pipeAmount.text = "x " + i;
+            yield return new WaitForSeconds(0.005f);
+        }
+
+    }
+
 }

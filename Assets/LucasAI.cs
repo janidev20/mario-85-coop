@@ -39,14 +39,16 @@ public class LucasAI : MonoBehaviour
 
     private void Update()
     {
-        if (LucasController.LucasIsDead)
+
+        if (LucasController.LucasIsDead || VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid)
             return;
 
-        if (!startedRunning && GameManager.gameStarted)
-        {
-            RUNLEFT =! RUNLEFT;
-            startedRunning = true;
-        }
+
+            if (!startedRunning && GameManager.gameStarted)
+            {
+                RUNLEFT = !RUNLEFT;
+                startedRunning = true;
+            }
 
         if (RUNLEFT)
         {
@@ -62,6 +64,8 @@ public class LucasAI : MonoBehaviour
 
         ManageMovement();
         CheckForInput(testInput);
+    
+
     }
 
     void ManageMovement()
@@ -125,14 +129,18 @@ public class LucasAI : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+       
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Stop"))
         {
             stop = true;
         }
 
 
-        if (GameManager.cutScenePlaying)
-            return;
+        if (!GameManager.cutScenePlaying && !VoidFallCounter.LucasFellInVoid && !VoidFallCounter.fellInVoid)
+        {
+
+        
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("GoRight"))
         {
@@ -302,6 +310,6 @@ public class LucasAI : MonoBehaviour
             movementScript.JumpSmaller();
         }
 
-
+        }
     }
 }
