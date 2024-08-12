@@ -18,14 +18,16 @@ public class SettingsMenu : MonoBehaviour
 
     [Header("Settings Menu/GRAPHICS")]
     [Space(1)]
-    [SerializeField] private AmbientOcclusion AO;
+    [SerializeField] private LensDistortion lensDistortion;
+    [SerializeField] private Vignette vignette;
     [SerializeField] private MotionBlur motionBlur;
-    [SerializeField] private Bloom bloom;
-    [SerializeField] private Grain grain;
-    [SerializeField] private LensDistortion retroLook;
+    [SerializeField] private ColorGrading colorGrading;
+    [SerializeField] private DepthOfField dOf;
+    [SerializeField] private ChromaticAberration CA;
+    [SerializeField] private GameObject grid;
 
-    [SerializeField] private bool isAO, isMB, isB, isG, isRL, isFS;
-    [SerializeField] private Toggle AOToggle, MBToggle, BToggle, GToggle, RLToggle, FSToggle, VSyncToggle;
+    [SerializeField] private bool isRetroLook, isFS;
+    [SerializeField] private Toggle RLToggle, FSToggle, VSyncToggle;
 
     [Header("Settings Menu/GAME")]
     [Space(1)]
@@ -39,25 +41,47 @@ public class SettingsMenu : MonoBehaviour
     private float currentRefreshRate;
     private int currentResolutionIndex = 0;
 
+    private void Update()
+    {
+        if (grid == null)
+        {
+
+            grid = GameObject.FindGameObjectWithTag("grid").gameObject;
+        }
+
+        if (postProcessVolume == null)
+        {
+            postProcessVolume = GameObject.FindGameObjectWithTag("PP").GetComponent<PostProcessVolume>();
+
+            PlayerPrefs.SetInt("retroLook", isRetroLook ? 1 : 0);
+            lensDistortion.active = isRetroLook;
+            vignette.active = isRetroLook;
+            motionBlur.active = isRetroLook;
+            colorGrading.active = isRetroLook;
+            dOf.active = isRetroLook;
+            CA.active = isRetroLook;
+            grid.SetActive(isRetroLook);
+            RLToggle.isOn = isRetroLook;
+        }
+    }
+
     private void Start()
     {
         if (!PlayerPrefs.HasKey("ao"))
         {
-            isAO = true;
-            isMB = true;
-            isB = true;
-            isG = true;
-            isRL = true;
+            isRetroLook = true;
             isFS = true;
         }
-     
+
+
 
         // SETTINGS MENU/GAME
-        postProcessVolume.profile.TryGetSettings<AmbientOcclusion>(out AO);
+        postProcessVolume.profile.TryGetSettings<LensDistortion>(out lensDistortion);
+        postProcessVolume.profile.TryGetSettings<Vignette>(out vignette);
         postProcessVolume.profile.TryGetSettings<MotionBlur>(out motionBlur);
-        postProcessVolume.profile.TryGetSettings<Bloom>(out bloom);
-        postProcessVolume.profile.TryGetSettings<Grain>(out grain);
-        postProcessVolume.profile.TryGetSettings<LensDistortion>(out retroLook);
+        postProcessVolume.profile.TryGetSettings<ColorGrading>(out colorGrading);
+        postProcessVolume.profile.TryGetSettings<DepthOfField>(out dOf);
+        postProcessVolume.profile.TryGetSettings<ChromaticAberration>(out CA);
 
         resolutions = Screen.resolutions;
         filteredResolutions = new List<Resolution>();
@@ -88,26 +112,17 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+        grid = GameObject.FindGameObjectWithTag("grid").gameObject;
 
-        isAO = PlayerPrefs.GetInt("ao") == 1 ? true : false;
-        AO.active = isAO;
-        AOToggle.isOn = isAO;
-
-        isMB = PlayerPrefs.GetInt("motionBlur") == 1 ? true : false;
-        motionBlur.active = isMB;
-        MBToggle.isOn = isMB;
-
-        isB = PlayerPrefs.GetInt("bloom") == 1 ? true : false;
-        bloom.active = isB;
-        BToggle.isOn = isB;
-
-        isG = PlayerPrefs.GetInt("grain") == 1 ? true : false;
-        grain.active = isG;
-        GToggle.isOn = isG;
-
-        isRL = PlayerPrefs.GetInt("retroLook") == 1 ? true : false;
-        retroLook.active = isRL;
-        RLToggle.isOn = isRL;
+        isRetroLook = PlayerPrefs.GetInt("retroLook") == 1 ? true : false;
+        lensDistortion.active = isRetroLook;
+        vignette.active = isRetroLook;
+        motionBlur.active = isRetroLook;
+        colorGrading.active = isRetroLook;
+        dOf.active = isRetroLook;
+        CA.active = isRetroLook;
+        grid.SetActive(isRetroLook);
+        RLToggle.isOn = isRetroLook;
 
         isFS = PlayerPrefs.GetInt("fullscene") == 1 ? true : false;
         FSToggle.isOn = isFS;
@@ -153,38 +168,20 @@ public class SettingsMenu : MonoBehaviour
     } 
 
     //GRAPHICS//
-    public void AOSet(bool is_ao)
-    {
-        isAO = is_ao;
-        PlayerPrefs.SetInt("ao", isAO ? 1 : 0);
-        AO.active = isAO;
-    }
-    public void MotionBlur(bool is_motionBlur)
-    {
-        isMB = is_motionBlur;
-        PlayerPrefs.SetInt("motionBlur", isMB ? 1 : 0);
-        motionBlur.active = isMB;
-    }
-    public void Bloom(bool is_bloom)
-    {
 
-        isB = is_bloom;
-        PlayerPrefs.SetInt("bloom", isB ? 1 : 0);
-        bloom.active = isB;
-
-    }
-    public void Grain(bool is_grain)
-    {
-        isG = is_grain;
-        PlayerPrefs.SetInt("grain", isG ? 1 : 0);
-        grain.active = isG;
-
-    }
     public void RetroLook(bool is_retrolook)
     {
-        isRL = is_retrolook;
-        PlayerPrefs.SetInt("retroLook", isRL ? 1 : 0);
-        retroLook.active = isRL;
+        isRetroLook = is_retrolook;
+        PlayerPrefs.SetInt("retroLook", isRetroLook ? 1 : 0);
+        lensDistortion.active = isRetroLook;
+        vignette.active = isRetroLook;
+        motionBlur.active = isRetroLook;
+        colorGrading.active = isRetroLook;
+        dOf.active = isRetroLook;
+        CA.active = isRetroLook;
+        grid.SetActive(isRetroLook);
+        RLToggle.isOn = isRetroLook;
+
     }
 
     //GAME//

@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping;
     public bool isWahooJumping;
     public bool isSliding;
-    public bool isCrouching => Input.GetKey(KeyCode.DownArrow) && onGround && Input.GetAxis("Horizontal") <= 0.9f && Input.GetAxis("Horizontal") >= -0.9f && !_isJumping; // Is Crouchig Boolean depending on input and smoothing input. The horizontal input thingys here are crucial to smooth movement.
+    public bool isCrouching => UserInput.instance.Crouch && onGround && Input.GetAxis("Horizontal") <= 0.9f && Input.GetAxis("Horizontal") >= -0.9f && !_isJumping; // Is Crouchig Boolean depending on input and smoothing input. The horizontal input thingys here are crucial to smooth movement.
 
 
     [Header("Audio")]
@@ -134,10 +134,10 @@ public class PlayerMovement : MonoBehaviour
         // Direction Input Detection (observable in the Inspector)
         direction = new Vector2(direction.x, Input.GetAxisRaw("Vertical"));
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (UserInput.instance.MoveLeft)
         {
             direction.x = -1;
-        } else if (Input.GetKey(KeyCode.RightArrow))
+        } else if (UserInput.instance.MoveRight)
         {
             direction.x = 1;
         } else
@@ -216,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
                 _isFalling = true;
             }
 
-            if (onGround && Input.GetKeyDown(KeyCode.Y) && !onVoid)
+            if (onGround && UserInput.instance.JumpJustPressed && !onVoid)
             {
                
                 _isFalling = false;
@@ -247,7 +247,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            if (Input.GetKey(KeyCode.Y) && _isJumping == true)
+            if (UserInput.instance.JumpBeingHeld && _isJumping == true)
             {
                
                 if (jumpTime > 0)
@@ -275,7 +275,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // This prevents the bug that often makes mario skip a jump animation (DO NOT FUCKING TOUCH THIS TOOK ME HOURS TO FIX)
-            if (Input.GetKeyUp(KeyCode.Y))
+            if (UserInput.instance.JumpReleased)
             {
                 _isJumping = false;
                 jumpTime = 0;
@@ -299,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
                 _isFalling = true;
             }
 
-            if (onVoid && Input.GetKeyDown(KeyCode.V) && AnimationScript.isMX)
+            if (onVoid && UserInput.instance.SuperJump && AnimationScript.isMX)
             {
                 _isFalling = false;
                 _isJumping = true;
@@ -329,7 +329,7 @@ public class PlayerMovement : MonoBehaviour
      {
         if (ek.collidingEnemyHead)
         {
-            if (Input.GetKey(KeyCode.Y))
+            if (UserInput.instance.JumpBeingHeld)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(Vector2.up * (jumpSpeed * 0.6f), ForceMode2D.Impulse);
@@ -387,7 +387,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (onGround)
             {
-                if (Input.GetKey(KeyCode.X))
+                if (UserInput.instance.Run)
                 {
 
                     isSprinting = true;
@@ -537,7 +537,7 @@ public class PlayerMovement : MonoBehaviour
         }
      void VoiceHandler()
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (UserInput.instance.Talk)
             {
                 if (AnimationScript.isFH)
                 {

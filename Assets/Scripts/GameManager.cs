@@ -124,9 +124,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-       
+        SkipIntroFunction();
+    
 
-        if (SceneManager.GetActiveScene().name == "Intro")
+            if (SceneManager.GetActiveScene().name == "Intro")
         {
            if (PreIntroPlayed && !canBeginDialogue)
             {
@@ -139,11 +140,6 @@ public class GameManager : MonoBehaviour
                 dialogueDidntPlay = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.KeypadEnter))
-            {
-                SceneManager.LoadScene("Story Mode");
-            }
-        
             if (exitCastle)
             {
                 pressYtoExitCastle.SetActive(false);
@@ -167,7 +163,7 @@ public class GameManager : MonoBehaviour
             {
                 if (!Break)
                 {
-                    if (Input.GetKeyDown(KeyCode.T))
+                    if (UserInput.instance.Transform)
                     {
                         Break = true;
                         BreakDisguise();
@@ -251,11 +247,11 @@ public class GameManager : MonoBehaviour
 
         if (!isPaused)
         {
-            ReloadScene();
+           // ReloadScene();
             DeathHandler();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
+        if (UserInput.instance.Pause && !isPaused)
         {
             if (SceneManager.GetActiveScene().name != "Intro")
             Pause();
@@ -369,10 +365,30 @@ public class GameManager : MonoBehaviour
         
     }
 
+    void SkipIntroFunction()
+    {
+        if (IntroManager.skipped)
+        {
+            StartCoroutine(SkipIntro());
+        }
+    }
+
+    IEnumerator SkipIntro()
+    {
+
+        cutScenePlaying = false;
+        FadeIn.SetActive(false);
+        FadeIn.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("Story Mode");
+    }
+
     void IntroBegin()
     {
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (UserInput.instance.Talk)
         {
             blackFadeCastle.SetActive(false);
             exitCastle = true;

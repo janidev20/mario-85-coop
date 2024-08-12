@@ -101,7 +101,7 @@ public class LucasController : MonoBehaviour
         if (GameManager.cutScenePlaying)
             return;
 
-        CheckForInput();
+        //CheckForInput();
         // AI Control
 
 

@@ -63,7 +63,7 @@ public class LucasAI : MonoBehaviour
 
 
         ManageMovement();
-        CheckForInput(testInput);
+      //  CheckForInput(testInput);
     
 
     }

@@ -17,6 +17,8 @@ TagManager:
   - Interactable
   - QM
   - BodyBreak
+  - grid
+  - PP
   layers:
   - Default
   - TransparentFX

@@ -100,34 +100,6 @@ MonoBehaviour:
   opacity:
     overrideState: 1
     value: 1
---- !u!114 &-3812084789635466224
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
-  m_Name: Grain
-  m_EditorClassIdentifier: 
-  active: 0
-  enabled:
-    overrideState: 1
-    value: 1
-  colored:
-    overrideState: 1
-    value: 1
-  intensity:
-    overrideState: 1
-    value: 0.745
-  size:
-    overrideState: 1
-    value: 0.62
-  lumContrib:
-    overrideState: 1
-    value: 1
 --- !u!114 &-2684537391522339922
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -192,13 +164,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: PostProcessing 2
+  m_Name: good pp
   m_EditorClassIdentifier: 
   settings:
   - {fileID: -8892727920930754670}
   - {fileID: -4469252871548311970}
   - {fileID: -7615909863392955072}
-  - {fileID: -3812084789635466224}
   - {fileID: 8286304093468100875}
   - {fileID: -1258794932404569767}
   - {fileID: -2684537391522339922}
@@ -273,7 +244,7 @@ MonoBehaviour:
     value: 0
   postExposure:
     overrideState: 1
-    value: 3.76
+    value: 3.73
   contrast:
     overrideState: 1
     value: 32

@@ -171,7 +171,6 @@ public class MenuManager : MonoBehaviour
 
         yield return new WaitForSeconds(3.25f);
 
-        DontDestroyOnLoad(this);
         SceneManager.LoadScene("LoadingScene");
     }
 
