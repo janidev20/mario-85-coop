@@ -38,7 +38,7 @@ TagManager:
   - Enemy
   - Player
   - Kill
-  - 
+  - voidKillerForLucas
   - JumpBig
   - JumpMiddle
   - JumpSmall
@@ -51,7 +51,7 @@ TagManager:
   - Stop
   - Escape
   - voidKiller
-  - 
+  - cutsceneTrigger
   m_SortingLayers:
   - name: Default
     uniqueID: 0

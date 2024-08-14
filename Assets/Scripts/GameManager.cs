@@ -7,6 +7,10 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Cutscene")]
+    [SerializeField] GameObject Lucas;
+    [SerializeField] GameObject Player;
+
     [Header("Fall Void Stuff")]
     [SerializeField] GameObject voidFallText;
     [SerializeField] GameObject voidLucasFallText;
@@ -77,7 +81,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Animator camAnim;
     [SerializeField] int breakCount = 5; 
     [SerializeField] bool Break = false;
-
+    [SerializeField] bool didForceWahoo = false;
 
     public static bool gameStarted = false;
 
@@ -125,7 +129,6 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         SkipIntroFunction();
-    
 
             if (SceneManager.GetActiveScene().name == "Intro")
         {
@@ -154,10 +157,20 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Story Mode")
         {
-
+            if (MXCutsceneManager.firstTime)
+            {
+                if (MXCutsceneManager.getToWahoo && !didForceWahoo)
+                {
+                    camAnim.SetTrigger("wahoo");
+                    ChaseMusicSource.enabled = true;
+                    StartCoroutine(ForceWahoo());
+                    didForceWahoo = true;
+                }
+            }
 
             ChangeBGState();
 
+            PressTransformText();
 
             if (!gameStarted)
             {
@@ -172,7 +185,13 @@ public class GameManager : MonoBehaviour
 
             }
 
-               
+            if (MXCutsceneManager.pause)
+            {
+                ChaseMusicSource.enabled = false;
+                Debug.Log("Disabled");
+            }
+
+
 
             if (LucasEscape.Escaped)
             {
@@ -180,7 +199,7 @@ public class GameManager : MonoBehaviour
 
                 FadeIn.SetActive(false);
                 FadeOut.SetActive(false);
-                FadeOut.SetActive(true);
+                BlackScreen.SetActive(true);
                 StartCoroutine(GoToScores());
             }
 
@@ -192,7 +211,7 @@ public class GameManager : MonoBehaviour
 
                 FadeIn.SetActive(false);
                 FadeOut.SetActive(false);
-                FadeOut.SetActive(true);
+                BlackScreen.SetActive(true);
                 StartCoroutine(FellInVoidRestart());
             }
 
@@ -210,7 +229,7 @@ public class GameManager : MonoBehaviour
 
                 FadeIn.SetActive(false);
                 FadeOut.SetActive(false);
-                FadeOut.SetActive(true);
+                BlackScreen.SetActive(true);
                 StartCoroutine(LucasFellInVoidRestart());
 
             }
@@ -225,7 +244,7 @@ public class GameManager : MonoBehaviour
 
                     FadeIn.SetActive(false);
                     FadeOut.SetActive(false);
-                    FadeOut.SetActive(true);
+                    BlackScreen.SetActive(true);
                     StartCoroutine(GoToScores());
 
                 } else
@@ -234,7 +253,7 @@ public class GameManager : MonoBehaviour
 
                     FadeIn.SetActive(false);
                     FadeOut.SetActive(false);
-                    FadeOut.SetActive(true);
+                    BlackScreen.SetActive(true);
                     StartCoroutine(LucasDeathRestart());
                 }
 
@@ -281,6 +300,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void PressTransformText()
+    {
+        pressTtoBreakDisguise.GetComponentInChildren<TextMeshProUGUI>().text = "PRESS" + " '" + UserInput.instance.TransformButton + "' TO BREAK DISGUISE";
+    }
+
     void Intro()
     {
         if (cutScenePlaying) { 
@@ -295,17 +319,28 @@ public class GameManager : MonoBehaviour
 
     void ChangeBGState()
     {
-        if (plyMoveScript.isFalling && !plyMoveScript.isJumping || plyMoveScript.onVoid)
+        if (plyMoveScript.isFalling && !plyMoveScript.isJumping || plyMoveScript.onVoid || MXCutsceneManager.pause)
         {
             camAnim.SetBool("chase", false);
         } 
         
-        if (gameStarted && !plyMoveScript.isFalling && !plyMoveScript.onVoid || plyMoveScript.isJumping || plyMoveScript.isWahooJumping)
+        else if (gameStarted && !plyMoveScript.isFalling && !plyMoveScript.onVoid || plyMoveScript.isJumping || plyMoveScript.isWahooJumping)
         {
                 camAnim.SetBool("chase", true);
         }
     }
 
+    IEnumerator ForceWahoo()
+    {
+        camAnim.gameObject.transform.localPosition = new Vector3(transform.position.x, 0.8f, -1.91f);
+        ChaseMusicSource.enabled = true;
+        plyAnimScript.forceTransformMX = true;
+        Lucas.transform.position = new Vector3(-138.039993f, -0.579999983f, 183.578796f);
+        Player.transform.localPosition = new Vector3(-324.070007f, 1.92999995f, -0.0387334824f);
+
+        yield return new WaitForSeconds(0);
+    }
+    
     void BreakDisguise()
     {
         if (breakCount > 0)
@@ -360,6 +395,7 @@ public class GameManager : MonoBehaviour
 
         if (!exitCastle)
         {
+            pressYtoExitCastle.GetComponent<TextMeshProUGUI>().text = "Press '" + UserInput.instance.TalkButton + "' to exit castle";
             pressYtoExitCastle.SetActive(true);
         }
         
@@ -518,8 +554,6 @@ public class GameManager : MonoBehaviour
     IEnumerator DialogueBegin()
     {
         BlackScreen.SetActive(false);
-        FadeIn.SetActive(false);
-        FadeIn.SetActive(true);
 
         yield return new WaitForSeconds(3f);
 
@@ -680,6 +714,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator _quitToMenu()
     {
+        IntroManager.canShow = true;
         FadeOut.SetActive(true);
         isPaused = false; // This is to unfreeze the time, otherwise it won't change to 'MainMenu' Scene
     

@@ -40,7 +40,7 @@ public class LucasAI : MonoBehaviour
     private void Update()
     {
 
-        if (LucasController.LucasIsDead || VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid)
+        if (LucasController.LucasIsDead || VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid || MXCutsceneManager.pause)
             return;
 
 
@@ -137,7 +137,7 @@ public class LucasAI : MonoBehaviour
         }
 
 
-        if (!GameManager.cutScenePlaying && !VoidFallCounter.LucasFellInVoid && !VoidFallCounter.fellInVoid)
+        if (!GameManager.cutScenePlaying && !VoidFallCounter.LucasFellInVoid && !VoidFallCounter.fellInVoid || MXCutsceneManager.pause)
         {
 
         

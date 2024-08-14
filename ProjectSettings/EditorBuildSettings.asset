@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
+    path: Assets/Scenes/Warning.unity
+    guid: 2fd4bc30bb79843488fb518969a820ce
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 43ccb3ee5a655c6409b2750acf79d68b
   - enabled: 1

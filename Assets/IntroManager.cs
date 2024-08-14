@@ -24,8 +24,7 @@ public class IntroManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Scores")
         {
-            canShow = true;
-            Destroy(this.gameObject);
+            EnableSkippingIntro();
         }
 
         if (SceneManager.GetActiveScene().name == "Intro")
@@ -60,6 +59,13 @@ public class IntroManager : MonoBehaviour
 
     }
 
+    public void EnableSkippingIntro ()
+    {
+
+            canShow = true;
+            Destroy(this.gameObject);
+ 
+    }
     void DontDestroyThisObject()
     {
         if (SceneManager.GetActiveScene().name != "Scores")

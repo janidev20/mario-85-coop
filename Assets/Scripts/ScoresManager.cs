@@ -8,6 +8,7 @@ using TMPro;
 public class ScoresManager : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] GameObject lucasHead;
     [SerializeField] GameObject yourScoresTitle;
     [SerializeField] GameObject brokenObstacles;
     [SerializeField] GameObject QMBlock;
@@ -44,6 +45,14 @@ public class ScoresManager : MonoBehaviour
         wholeMin = Mathf.FloorToInt(time);
         seconds = Mathf.FloorToInt((time - wholeMin) * 60);
         timeAmount.text = wholeMin + " m " + seconds + " s";
+
+        if (LucasEscape.Escaped)
+        {
+            lucasHead.SetActive(false);
+        } else
+        {
+            lucasHead.SetActive(true);
+        }
     }
 
     private void Update()
@@ -54,7 +63,7 @@ public class ScoresManager : MonoBehaviour
             showedScored = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (UserInput.instance.Interact)
         {
             SceneManager.LoadScene("MainMenu");
         }
@@ -176,7 +185,6 @@ public class ScoresManager : MonoBehaviour
     {
         for (int i = 0; i < BlocksCounter.QMBlock; i++)
         {
-            SRC.PlayOneShot(count);
             qmBlockAmount.text = "x " + i;
             yield return new WaitForSeconds(0.005f);
         }
@@ -185,7 +193,6 @@ public class ScoresManager : MonoBehaviour
     {
         for (int i = 0; i < BlocksCounter.BrickBlock; i++)
         {
-            SRC.PlayOneShot(count);
             brickBlockAmount.text = "x " + i;
             yield return new WaitForSeconds(0.005f);
         }
@@ -196,7 +203,6 @@ public class ScoresManager : MonoBehaviour
     {
         for (int i = 0; i < BlocksCounter.StoneBlock; i++)
         {
-            SRC.PlayOneShot(count);
             stoneBlockAmount.text = "x " + i;
             yield return new WaitForSeconds(0.005f);
         }
@@ -206,7 +212,6 @@ public class ScoresManager : MonoBehaviour
     {
         for (int i = 0; i < BlocksCounter.Pipe; i++)
         {
-            SRC.PlayOneShot(count);
             pipeAmount.text = "x " + i;
             yield return new WaitForSeconds(0.005f);
         }

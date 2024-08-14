@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAnimation))]
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Cutscene")]
 
     [Header("Horizontal Movement")]
     [SerializeField] private float slideSpeed;
@@ -108,12 +109,17 @@ public class PlayerMovement : MonoBehaviour
         SlidingManage();
         CircleRadiusManagement();
 
-        if (VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid || LucasController.LucasIsDead)
+        if (VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid || LucasController.LucasIsDead || MXCutsceneManager.pause)
         {
             jumpSrc.mute = true;
             direction.x = 0;
             rb.velocity = new Vector2(0, 0);
             rb.isKinematic = true;
+        } else if (!MXCutsceneManager.pause)
+        {
+
+            jumpSrc.mute = false;
+            rb.isKinematic = false;
         }
 
         if (isCrouching && !isMoving && !AnimationScript.isPCrawler) // Can't move if crouching + if player isnt pcrawler (cause he doesnt have crouch anim lol)
@@ -132,8 +138,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Direction Input Detection (observable in the Inspector)
-        direction = new Vector2(direction.x, Input.GetAxisRaw("Vertical"));
-
+        
+            direction = new Vector2(direction.x, Input.GetAxisRaw("Vertical"));
+   
         if (UserInput.instance.MoveLeft)
         {
             direction.x = -1;
@@ -144,8 +151,7 @@ public class PlayerMovement : MonoBehaviour
         {
             direction.x = 0;
         }
-
-    
+        
 
     }
      void FixedUpdate()
@@ -310,8 +316,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(Vector2.up * (jumpSpeed * 2.95f), ForceMode2D.Impulse);
                 VM.WahooJump();
                 jumpSrc.PlayOneShot(mxJump);
-                 
-            
+
                 /////////////////////////////////
                 StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
             }
@@ -322,7 +327,7 @@ public class PlayerMovement : MonoBehaviour
                 isLanding = true;
             }
 
-        }
+    }
 
     // add extra force upwards when stomping on enemy's head
      void EnemyBump()
@@ -342,6 +347,15 @@ public class PlayerMovement : MonoBehaviour
             jumpTime = 0;
         }
      } 
+
+    IEnumerator forceWahooJumpSpeed()
+    {
+        jumpSpeed = jumpSpeedMX;
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.AddForce(Vector2.up * (jumpSpeed * 2.95f), ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(1f);
+    }
 
      void ChangeHeight()
         {
@@ -398,20 +412,28 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (AnimationScript.isPCrawler || AnimationScript.isMX)
+            if (onGround)
             {
-                maxDefaultSpeed = maxSpeedBigger;
-                maxSprintSpeed = maxSprintSpeedBigger;
-            }
-            if (AnimationScript.isFH)
-            {
-                maxDefaultSpeed = maxSpeedFH;
-                maxSprintSpeed = maxSprintSpeedFH;
+                if (AnimationScript.isPCrawler || AnimationScript.isMX)
+                {
+                    maxDefaultSpeed = maxSpeedBigger;
+                    maxSprintSpeed = maxSprintSpeedBigger;
+                }
+                if (AnimationScript.isFH)
+                {
+                    maxDefaultSpeed = maxSpeedFH;
+                    maxSprintSpeed = maxSprintSpeedFH;
 
-            }
+                }
 
-            //Run Animation boolean
-            isRunning = isSprinting;
+            }   else if (onVoid)
+        {
+            maxDefaultSpeed = 5.85f;
+            maxSprintSpeed = 6.20f;
+        }
+
+        //Run Animation boolean
+        isRunning = isSprinting;
 
             // Smoothly change the maxSpeed based on isSprinting boolean
             if (isSprinting)
@@ -640,6 +662,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("cutsceneTrigger"))
+        {
+            MXCutsceneManager.startCutscene = true;
+        }
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("voidKiller"))
         {
             VoidFallCounter.fellInVoid = true;

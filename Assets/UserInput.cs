@@ -18,6 +18,16 @@ public class UserInput : MonoBehaviour
     public bool Transform { get; private set; }
     public bool Talk { get; private set; }
     public bool Pause { get; private set; }
+    public string MoveLeftButton { get; private set; }
+    public string MoveRightButton { get; private set; }
+    public string JumpButton { get; private set; }
+    public string RunButton { get; private set; }
+    public string SuperJumpButton { get; private set; }
+    public string CrouchButton { get; private set; }
+    public string InteractButton { get; private set; }
+    public string TransformButton { get; private set; }
+    public string TalkButton { get; private set; }
+    public string PauseButton { get; private set; }
 
     private PlayerInput _playerInput;
 
@@ -77,5 +87,16 @@ public class UserInput : MonoBehaviour
         Transform = _transformAction.WasPressedThisFrame();
         Talk = _talkAction.WasPressedThisFrame();
         Pause = _pauseAction.WasPressedThisFrame();
+
+        MoveLeftButton = _moveLeftAction.GetBindingDisplayString();
+        MoveRightButton = _moveRightAction.GetBindingDisplayString();
+        JumpButton = _jumpAction.GetBindingDisplayString();
+        RunButton = _runAction.GetBindingDisplayString();
+        SuperJumpButton = _superJumpAction.GetBindingDisplayString();
+        CrouchButton = _crouchAction.GetBindingDisplayString();
+        InteractButton = _interactAction.GetBindingDisplayString();
+        TransformButton = _transformAction.GetBindingDisplayString();
+        TalkButton = _talkAction.GetBindingDisplayString();
+        PauseButton = _pauseAction.GetBindingDisplayString();
     }
 }

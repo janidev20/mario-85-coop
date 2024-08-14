@@ -75,18 +75,25 @@ public class LucasController : MonoBehaviour
     private void Update()
     {
 
+
         if (LucasIsDead || GameManager.isPaused)
         {
             return;
         }
 
-        if (VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid)
+
+        if (VoidFallCounter.fellInVoid || VoidFallCounter.LucasFellInVoid || MXCutsceneManager.pause)
         {
             audSRC.mute = true;
             direction.x = 0;
             rb.velocity = new Vector2(0, 0);
             rb.isKinematic = true;
+        } else if (!MXCutsceneManager.pause && !VoidFallCounter.fellInVoid && !VoidFallCounter.LucasFellInVoid)
+        {
+            audSRC.mute = false;
+            rb.isKinematic = false;
         }
+
 
 
         /// Movement, Control
@@ -475,7 +482,7 @@ public class LucasController : MonoBehaviour
             LucasEscape.Escaped = true;
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("voidKiller"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("voidKiller") || collision.gameObject.layer == LayerMask.NameToLayer("voidKillerForLucas"))
         {
             LucasController.LucasIsDead = true;
             VoidFallCounter.LucasFellInVoid = true;

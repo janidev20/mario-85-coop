@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        isTestingMode = false;
+     //   isTestingMode = false;
         isStoryMode = true;
         isFunMode = false;
         isSandboxMode = false;
@@ -75,24 +75,24 @@ public class MenuManager : MonoBehaviour
             PlayHolder.localPosition = Vector3.Lerp(PlayHolder.localPosition, sandboxPos, .1f);
         }
 
-        else if (isTestingMode)
-        {
-            PlayHolder.localPosition = Vector3.Lerp(PlayHolder.localPosition, testingPos, .1f);
-        }
+        //else if (isTestingMode)
+        //{
+        //    PlayHolder.localPosition = Vector3.Lerp(PlayHolder.localPosition, testingPos, .1f);
+        //}
     }
     public void SwapRight()
     {
-        if (isTestingMode)
-        {
-            isTestingMode = false;
-            isStoryMode = true;
-            isFunMode = false;
-            isSandboxMode = false;
-        }
+       // if (isTestingMode)
+       // {
+       //     isTestingMode = false;
+       //     isStoryMode = true;
+       //     isFunMode = false;
+       //     isSandboxMode = false;
+      //  }
         
-        else if (isStoryMode)
+        if (isStoryMode)
         {
-            isTestingMode = false;
+      //      isTestingMode = false;
             isStoryMode = false;
             isFunMode = true;
             isSandboxMode = false;
@@ -100,7 +100,7 @@ public class MenuManager : MonoBehaviour
         
        else if (isFunMode)
         {
-            isTestingMode = false;
+      //      isTestingMode = false;
             isStoryMode = false;
             isFunMode = false;
             isSandboxMode = true;
@@ -111,7 +111,7 @@ public class MenuManager : MonoBehaviour
     {
         if (isSandboxMode)
         {
-            isTestingMode = false;
+      //      isTestingMode = false;
             isStoryMode = false;
             isFunMode = true;
             isSandboxMode = false;
@@ -119,16 +119,8 @@ public class MenuManager : MonoBehaviour
         
        else if (isFunMode)
         {
-            isTestingMode = false;
+     //       isTestingMode = false;
             isStoryMode = true;
-            isFunMode = false;
-            isSandboxMode = false;
-        }
-        
-       else if (isStoryMode)
-        {
-            isTestingMode = true;
-            isStoryMode = false;
             isFunMode = false;
             isSandboxMode = false;
         }

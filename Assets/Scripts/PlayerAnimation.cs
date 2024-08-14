@@ -19,6 +19,7 @@ public class PlayerAnimation : MonoBehaviour
 
     [SerializeField] private float transformTime = 0.85f;
     [SerializeField] public bool forceTransform = false; // used at story mode intro
+    [SerializeField] public bool forceTransformMX = false; // used at story mode intro
     [SerializeField] public bool isTransforming; // If the transform animation is playing (based on time calculation)
 
     private void Awake()
@@ -143,11 +144,12 @@ public class PlayerAnimation : MonoBehaviour
         if (!GameManager.isPaused)
         {
 
-                if (isPCrawler && UserInput.instance.Transform || plyMovement.onVoid && isPCrawler && GameManager.gameStarted) // Will also initiate if we're in the void as PCrawler
+                if (isPCrawler && UserInput.instance.Transform && plyMovement.onVoid || plyMovement.onVoid && isPCrawler && GameManager.gameStarted || forceTransformMX) // Will also initiate if we're in the void as PCrawler
                 {
                     isMX = true;
                     isPCrawler = false;
                     isFH = false;
+                    forceTransformMX = false;
                     coolDownTimer = 0; // Resets the coolDownTimer
                 }
                 else if (isFH && UserInput.instance.Transform && GameManager.gameStarted || forceTransform)
@@ -158,15 +160,15 @@ public class PlayerAnimation : MonoBehaviour
                     isFH = false;
                     coolDownTimer = 0; // Resets the coolDownTimer
                 }
-                else if (isMX && UserInput.instance.Transform && GameManager.gameStarted)
-                {
-                    isFH = true;
-                    isMX = false;
-                    isPCrawler = false;
-                    FScrAnimator.gameObject.SetActive(false);
-                    FScrAnimator.gameObject.SetActive(true);
-                    coolDownTimer = 0; // Resets the coolDownTimer
-                }
+             //   else if (isMX && UserInput.instance.Transform && GameManager.gameStarted)
+              //  {
+              //      isFH = true;
+              //      isMX = false;
+              //      isPCrawler = false;
+             //       FScrAnimator.gameObject.SetActive(false);
+             //       FScrAnimator.gameObject.SetActive(true);
+              //      coolDownTimer = 0; // Resets the coolDownTimer
+              //  }
             
         
         }

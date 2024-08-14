@@ -27,15 +27,7 @@ public class LucasDeathManager : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Scores")
-        {
-            // Reset the values if on the "Scores" Screen.
-            needToRestart = false;
-            diedOnce = false;
-            GameOver = false;
-            LucasLife = 0;
-            maxLife = 0;
-        }
+       
 
         if (!diedOnce)
         {
@@ -51,6 +43,16 @@ public class LucasDeathManager : MonoBehaviour
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Scores")
+        {
+            // Reset the values if on the "Scores" Screen.
+            needToRestart = false;
+            diedOnce = false;
+            GameOver = false;
+            LucasLife = 5;
+            maxLife = 5;
+        }
+
         if (!didYouDieYet)
         {
             if (LucasController.LucasIsDead)
@@ -77,6 +79,8 @@ public class LucasDeathManager : MonoBehaviour
         {
             GameOver = false;
         }
+
+        DontDestroyThisObject();
     }
 
     IEnumerator RestartGame()
@@ -84,5 +88,13 @@ public class LucasDeathManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         needToRestart = true;
+    }
+
+    void DontDestroyThisObject()
+    {
+        if (SceneManager.GetActiveScene().name == "Story Mode")
+        {
+            DontDestroyOnLoad(this);
+        }
     }
 }

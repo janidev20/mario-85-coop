@@ -18,11 +18,11 @@ public class StunManager : MonoBehaviour
     private void Update()
     {
         IsNearStun(isStunned);
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-
-            Stun();
-        }
+       // if (Input.GetKeyDown(KeyCode.K))
+       // {
+       //
+       //     Stun();
+       // }
     }
 
 
