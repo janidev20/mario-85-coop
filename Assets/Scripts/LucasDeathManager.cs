@@ -51,6 +51,7 @@ public class LucasDeathManager : MonoBehaviour
             GameOver = false;
             LucasLife = 5;
             maxLife = 5;
+            Destroy(this.gameObject);
         }
 
         if (!didYouDieYet)
@@ -92,7 +93,7 @@ public class LucasDeathManager : MonoBehaviour
 
     void DontDestroyThisObject()
     {
-        if (SceneManager.GetActiveScene().name == "Story Mode")
+        if (SceneManager.GetActiveScene().name == "Story Mode" && LucasLife == 1 || SceneManager.GetActiveScene().name == "Story Mode" && LucasEscape.Escaped)
         {
             DontDestroyOnLoad(this);
         }
