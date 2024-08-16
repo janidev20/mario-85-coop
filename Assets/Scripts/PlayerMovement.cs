@@ -403,6 +403,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (UserInput.instance.Run)
                 {
+                    if (Application.isMobilePlatform)
+                    {
+                        isSprinting = !isSprinting;
+                    } else 
 
                     isSprinting = true;
                 }

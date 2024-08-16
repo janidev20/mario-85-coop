@@ -170,8 +170,6 @@ public class GameManager : MonoBehaviour
 
             ChangeBGState();
 
-            PressTransformText();
-
             if (!gameStarted)
             {
                 if (!Break)
@@ -183,7 +181,29 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
+                if (breakCount <= 1)
+                {
+                    SFXSource.PlayOneShot(breakSound);
+
+                    StartCoroutine(plyAnimScript.ForceTransform());
+                    camAnim.SetBool("shake", true);
+                    camAnim.SetBool("chase", true);
+                    StartCoroutine(resetCamShakeBool(3));
+                    pressTtoBreakDisguise.SetActive(false);
+                    AmbientSource.enabled = true;
+                    SFXSource.PlayOneShot(LucasShout);
+                    //    CastleBreaking.SetActive(true);
+                    LucasAI.enabled = true;
+                    ChaseMusicSource.enabled = true;
+                    gameStarted = true;
+
+                }
+
             }
+
+            PressTransformText();
+
+           
 
             if (MXCutsceneManager.pause)
             {
@@ -335,7 +355,7 @@ public class GameManager : MonoBehaviour
         camAnim.gameObject.transform.localPosition = new Vector3(transform.position.x, 0.8f, -1.91f);
         ChaseMusicSource.enabled = true;
         plyAnimScript.forceTransformMX = true;
-        Lucas.transform.position = new Vector3(-138.039993f, -0.579999983f, 183.578796f);
+        Lucas.transform.position = new Vector3(-136.009995F, -3.07999992f, 183.578796f);
         Player.transform.localPosition = new Vector3(-324.070007f, 1.92999995f, -0.0387334824f);
 
         yield return new WaitForSeconds(0);
@@ -346,7 +366,10 @@ public class GameManager : MonoBehaviour
         if (breakCount > 0)
         {
             SFXSource.PlayOneShot(breakSound);
-            if (breakCount != 1)
+
+
+
+            if (breakCount > 1)
             {
                 StartCoroutine(resetCamShakeBool(1));
                 camAnim.SetBool("shake", true);
@@ -354,26 +377,7 @@ public class GameManager : MonoBehaviour
             breakCount -= 1;
             Break = false;
 
-            if (breakCount == 5)
-            {
-                ScaryAmbientIntro.enabled = true;
-            }
 
-            else if (breakCount <= 1)
-            {
-                StartCoroutine(plyAnimScript.ForceTransform());
-                camAnim.SetBool("shake", true);
-                camAnim.SetBool("chase", true);
-                StartCoroutine(resetCamShakeBool(3));
-                pressTtoBreakDisguise.SetActive(false);
-                AmbientSource.enabled = true;
-                SFXSource.PlayOneShot(LucasShout);
-                //    CastleBreaking.SetActive(true);
-                LucasAI.enabled = true;
-                ChaseMusicSource.enabled = true;
-                gameStarted = true;
-
-            }
         }
     }
 
