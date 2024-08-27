@@ -12,6 +12,7 @@ public class UserInput : MonoBehaviour
     public bool JumpBeingHeld { get; private set; }
     public bool JumpReleased { get; private set; }
     public bool Run { get; private set; }
+    public bool RunPhone { get; private set; }
     public bool SuperJump { get; private set; }
     public bool Crouch { get; private set; }
     public bool Interact { get; private set; }
@@ -35,6 +36,7 @@ public class UserInput : MonoBehaviour
     private InputAction _moveRightAction;
     private InputAction _jumpAction;
     private InputAction _runAction;
+    private InputAction _runPhoneAction;
     private InputAction _superJumpAction;
     private InputAction _crouchAction;
     private InputAction _interactAction;
@@ -65,6 +67,7 @@ public class UserInput : MonoBehaviour
         _moveRightAction = _playerInput.actions["move right"];
         _jumpAction = _playerInput.actions["jump"];
         _runAction = _playerInput.actions["run"];
+        _runPhoneAction = _playerInput.actions["runPhone"];
         _superJumpAction = _playerInput.actions["super jump"];
         _crouchAction = _playerInput.actions["crouch"];
         _interactAction = _playerInput.actions["interact"];
@@ -81,6 +84,7 @@ public class UserInput : MonoBehaviour
         JumpBeingHeld = _jumpAction.IsPressed();
         JumpReleased = _jumpAction.WasReleasedThisFrame();
         Run = _runAction.IsPressed();
+        RunPhone = _runPhoneAction.WasReleasedThisFrame();
         SuperJump = _superJumpAction.WasPressedThisFrame();
         Crouch = _crouchAction.IsPressed();
         Interact = _interactAction.WasPressedThisFrame();

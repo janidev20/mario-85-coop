@@ -53,6 +53,11 @@ public class MXCutsceneManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Story Mode")
         {
+            if (Application.isMobilePlatform)
+            {
+                SpamVText.GetComponent<TextMeshProUGUI>().text = "spam screen to super jump";
+            } 
+
             if (!firstTime)
             {
                 Destroy(this.gameObject);
@@ -75,7 +80,7 @@ public class MXCutsceneManager : MonoBehaviour
 
             if (cutsceneIsPlaying)
             {
-                if (UserInput.instance.SuperJump)
+                if (UserInput.instance.SuperJump || UserInput.instance.Transform && Application.isMobilePlatform)
                 {
                     if (canStartSpamming)
                     {

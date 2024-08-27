@@ -34,7 +34,15 @@ public class IntroManager : MonoBehaviour
             {
                 SkipIntroParent.SetActive(true);
 
-                if (UserInput.instance.Interact)
+                if (Application.isMobilePlatform)
+                {
+                    SkipIntroText.text = "Tap screen to skip intro";
+                } else
+                {
+                    SkipIntroText.text = "press 'space' to skip intro";
+                }
+
+                if (UserInput.instance.Interact || UserInput.instance.Talk && Application.isMobilePlatform)
                 {
                     skipped = true;
                 }

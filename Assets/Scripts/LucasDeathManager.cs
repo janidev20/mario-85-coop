@@ -22,35 +22,26 @@ public class LucasDeathManager : MonoBehaviour
     public static bool needToRestart;
     public static bool diedOnce = false;
     public static bool GameOver;
-    public static int LucasLife = 5;
+    public static int LucasLife = 3;
     public static int maxLife;
 
     private void Start()
     {
        
 
-        if (!diedOnce)
-        {
-            maxLife = LucasLife; 
-        }
-
         needToRestart = false;
-
-        animator = GetComponentInChildren<Animator>();
-        sr = GetComponentInChildren<SpriteRenderer>();
-        cd = GetComponent<Collider2D>();
     }
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Scores")
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             // Reset the values if on the "Scores" Screen.
             needToRestart = false;
             diedOnce = false;
             GameOver = false;
-            LucasLife = 5;
-            maxLife = 5;
+            LucasLife = 3;
+            maxLife = 3;
             Destroy(this.gameObject);
         }
 
@@ -58,6 +49,15 @@ public class LucasDeathManager : MonoBehaviour
         {
             if (LucasController.LucasIsDead)
             {
+                if (LucasLife == 1)
+                {
+                    GameOver = true;
+                }
+                else
+                {
+                    GameOver = false;
+                }
+
                 if (!diedOnce)
                 {
                     diedOnce = true;
@@ -73,13 +73,7 @@ public class LucasDeathManager : MonoBehaviour
             }
         }
 
-        if ((maxLife - LucasLife) == maxLife)
-        {
-            GameOver = true;
-        } else
-        {
-            GameOver = false;
-        }
+       
 
         DontDestroyThisObject();
     }
@@ -89,11 +83,12 @@ public class LucasDeathManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         needToRestart = true;
+        Destroy(this.gameObject);
     }
 
     void DontDestroyThisObject()
     {
-        if (SceneManager.GetActiveScene().name == "Story Mode" && LucasLife == 1 || SceneManager.GetActiveScene().name == "Story Mode" && LucasEscape.Escaped)
+        if (SceneManager.GetActiveScene().name == "Story Mode" && LucasLife == 0 || SceneManager.GetActiveScene().name == "Story Mode" && LucasEscape.Escaped)
         {
             DontDestroyOnLoad(this);
         }

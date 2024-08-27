@@ -36,7 +36,7 @@ public class LucasEscape : MonoBehaviour
 
     void DontDestroyThisObject()
     {
-        if (SceneManager.GetActiveScene().name == "Story Mode")
+        if (SceneManager.GetActiveScene().name == "Story Mode" && LucasDeathManager.LucasLife == 0)
         {
             DontDestroyOnLoad(this.gameObject);
         }

@@ -19,6 +19,7 @@ TagManager:
   - BodyBreak
   - grid
   - PP
+  - MobileInputCanvas
   layers:
   - Default
   - TransparentFX

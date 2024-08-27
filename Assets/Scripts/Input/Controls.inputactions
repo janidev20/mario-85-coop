@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "runPhone",
+                    "type": "Button",
+                    "id": "6aab9855-cf7b-4931-a561-2f02693dc799",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -204,6 +213,17 @@
                     "processors": "",
                     "groups": "TestControlScheme",
                     "action": "transform",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e4e315ab-abe1-42a1-86b4-c851740ad735",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "TestControlScheme",
+                    "action": "runPhone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

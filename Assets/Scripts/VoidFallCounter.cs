@@ -32,7 +32,7 @@ public class VoidFallCounter : MonoBehaviour
 
     void DontDestroyThisObject()
     {
-        if (SceneManager.GetActiveScene().name == "Story Mode" && LucasDeathManager.LucasLife == 1 || SceneManager.GetActiveScene().name == "Story Mode" && LucasEscape.Escaped)
+        if (SceneManager.GetActiveScene().name == "Story Mode" && LucasDeathManager.LucasLife == 0 || SceneManager.GetActiveScene().name == "Story Mode" && LucasEscape.Escaped)
         {
             DontDestroyOnLoad(this.gameObject);
         }

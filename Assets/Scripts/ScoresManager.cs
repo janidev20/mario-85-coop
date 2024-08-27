@@ -57,13 +57,21 @@ public class ScoresManager : MonoBehaviour
 
     private void Update()
     {
+        if (Application.isMobilePlatform)
+        {
+            pressSpaceToReturn.text = "tap screen to return to menu";
+        } else
+        {
+            pressSpaceToReturn.text = "press 'space' to return to menu";
+        }
+
         if (!showedScored)
         {
             StartCoroutine(Scores());
             showedScored = true;
         }
 
-        if (UserInput.instance.Interact)
+        if (UserInput.instance.Interact || Application.isMobilePlatform && UserInput.instance.Talk)
         {
             SceneManager.LoadScene("MainMenu");
         }

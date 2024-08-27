@@ -223,37 +223,6 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(GoToScores());
             }
 
-            if (VoidFallCounter.fellInVoid)
-            {
-                plyMoveScript.enabled = false;
-                LucasAI.enabled = false;
-                ChaseMusicSource.enabled = false;
-
-                FadeIn.SetActive(false);
-                FadeOut.SetActive(false);
-                BlackScreen.SetActive(true);
-                StartCoroutine(FellInVoidRestart());
-            }
-
-            if (VoidFallCounter.LucasFellInVoid)
-            {
-
-                plyMoveScript.enabled = false;
-                LucasAI.enabled = false;
-                ChaseMusicSource.enabled = false;
-                if (!lucasDeathPlayed)
-                {
-                    SFXSource.PlayOneShot(DeathSound);
-                    lucasDeathPlayed = true;
-                }
-
-                FadeIn.SetActive(false);
-                FadeOut.SetActive(false);
-                BlackScreen.SetActive(true);
-                StartCoroutine(LucasFellInVoidRestart());
-
-            }
-
             if (LucasDeathManager.needToRestart)
             {
 
@@ -267,8 +236,30 @@ public class GameManager : MonoBehaviour
                     BlackScreen.SetActive(true);
                     StartCoroutine(GoToScores());
 
-                } else
+                }
+                else
                 {
+
+                    if (VoidFallCounter.LucasFellInVoid)
+                    {
+
+                        plyMoveScript.enabled = false;
+                        LucasAI.enabled = false;
+                        ChaseMusicSource.enabled = false;
+                        if (!lucasDeathPlayed)
+                        {
+                            SFXSource.PlayOneShot(DeathSound);
+                            lucasDeathPlayed = true;
+                        }
+
+                        FadeIn.SetActive(false);
+                        FadeOut.SetActive(false);
+                        BlackScreen.SetActive(true);
+                        StartCoroutine(LucasFellInVoidRestart());
+
+                    } else
+
+
                     ChaseMusicSource.enabled = false;
 
                     FadeIn.SetActive(false);
@@ -280,6 +271,22 @@ public class GameManager : MonoBehaviour
 
 
             }
+
+            if (VoidFallCounter.fellInVoid)
+            {
+                plyMoveScript.enabled = false;
+                LucasAI.enabled = false;
+                ChaseMusicSource.enabled = false;
+
+                FadeIn.SetActive(false);
+                FadeOut.SetActive(false);
+                BlackScreen.SetActive(true);
+                StartCoroutine(FellInVoidRestart());
+            }
+
+           
+
+            
 
         }
 
@@ -322,7 +329,13 @@ public class GameManager : MonoBehaviour
 
     void PressTransformText()
     {
-        pressTtoBreakDisguise.GetComponentInChildren<TextMeshProUGUI>().text = "PRESS" + " '" + UserInput.instance.TransformButton + "' TO BREAK DISGUISE";
+        if (Application.isMobilePlatform)
+        {
+            pressTtoBreakDisguise.GetComponentInChildren<TextMeshProUGUI>().text = "tap screen to break disguise";
+        } else
+        {
+            pressTtoBreakDisguise.GetComponentInChildren<TextMeshProUGUI>().text = "PRESS" + " '" + UserInput.instance.TransformButton + "' TO BREAK DISGUISE";
+        }
     }
 
     void Intro()
@@ -399,7 +412,14 @@ public class GameManager : MonoBehaviour
 
         if (!exitCastle)
         {
-            pressYtoExitCastle.GetComponent<TextMeshProUGUI>().text = "Press '" + UserInput.instance.TalkButton + "' to exit castle";
+            if (Application.isMobilePlatform)
+            {
+                pressYtoExitCastle.GetComponent<TextMeshProUGUI>().text = "Tap Screen to exit castle";
+            } else
+            {
+                pressYtoExitCastle.GetComponent<TextMeshProUGUI>().text = "Press '" + UserInput.instance.TalkButton + "' to exit castle";
+            }
+     
             pressYtoExitCastle.SetActive(true);
         }
         

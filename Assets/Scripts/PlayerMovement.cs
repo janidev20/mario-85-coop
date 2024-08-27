@@ -399,22 +399,32 @@ public class PlayerMovement : MonoBehaviour
         }
      void ChangeSpeed()
         {
+            bool isPressingButton = false;
+            bool canPress = true;
+
             if (onGround)
             {
-                if (UserInput.instance.Run)
+                if (Application.isMobilePlatform)
                 {
-                    if (Application.isMobilePlatform)
-                    {
-                        isSprinting = !isSprinting;
-                    } else 
-
-                    isSprinting = true;
+                if (UserInput.instance.RunPhone)
+                {
+                    isSprinting = !isSprinting;
                 }
+                }
+              
+                else if (!Application.isMobilePlatform)
+                {
+                    if (UserInput.instance.Run)
+                    {
+                        isSprinting = true;
+                    }
                 else
                 {
                     isSprinting = false;
                 }
+
             }
+        }
 
             if (onGround)
             {
