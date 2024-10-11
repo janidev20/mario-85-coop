@@ -267,7 +267,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -1096.6653, w: 0}
+  m_margin: {x: 0, y: 0, z: -420.22775, w: 0.000078201294}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1975,13 +1975,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tipTxt: {fileID: 85682189}
   tipList:
-  - 'pro tip : press ''v'' in the void'
+  - 'pro tip : press ''v'' in the void to super jump'
   - 'pro tip : don''t fall in the void'
   - 'pro tip : destroy obstacles'
   - 'pro tip : don''t let lucas escape'
   - 'pro tip : go take a break'
   - 'pro tip : mario is in your house'
-  - 'pro tip : press f2 for absolutely nothing'
   - 'pro tip : dont eat soup with a fork'
   - 'pro tip : dont trip'
   - 'pro tip : are you even reading this?'

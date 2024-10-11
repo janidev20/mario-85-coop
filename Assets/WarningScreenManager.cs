@@ -15,9 +15,6 @@ public class WarningScreenManager : MonoBehaviour
 
     bool canHitNext = false;
 
-    private float timer = 5;
-    private bool proceed = false;
-
     private void Awake()
     {
         canHitNext = false;
@@ -26,58 +23,7 @@ public class WarningScreenManager : MonoBehaviour
 
     private void Update()
     {
-        if (Application.isMobilePlatform)
-        {
-            if (!proceed)
-            {
-                timer -= Time.deltaTime;
-                if (timer<=0)
-                {
-                    proceed = true;
-                }
-            }
-
-            if (canHitNext)
-            {
-                if (proceed)
-                {
-                    if (Warning1.activeSelf)
-                    {
-                        StartCoroutine(Warning2Text());
-                        timer = 5;
-                        proceed = false;
-                    }
-
-                    else if (Warning2.activeSelf)
-                    {
-                        StartCoroutine(Warning3Text());
-                        timer = 5;
-                        proceed = false;
-                    }
-
-                    else if (Warning3.activeSelf)
-                    {
-                        StartCoroutine(Warning4Text());
-                        timer = 5;
-                        proceed = false;
-                    }
-
-                    else if (Warning4.activeSelf)
-                    {
-                        StartCoroutine(Warning5Text());
-                        timer = 5;
-                        proceed = false;
-                    }
-
-                    else if (Warning5.activeSelf)
-                    {
-                        SceneManager.LoadScene("MainMenu");
-                    }
-                }
-            }
-        }
-
-        if (canHitNext && !Application.isMobilePlatform)
+        if (canHitNext)
         {
             if (UserInput.instance.JumpJustPressed)
             {
@@ -125,7 +71,7 @@ public class WarningScreenManager : MonoBehaviour
         
         Warning1.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         PressZtoProceed.SetActive(!Application.isMobilePlatform);
         canHitNext = true;
@@ -139,7 +85,7 @@ public class WarningScreenManager : MonoBehaviour
 
         Warning2.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         PressZtoProceed.SetActive(!Application.isMobilePlatform);
         canHitNext = true;
@@ -152,7 +98,7 @@ public class WarningScreenManager : MonoBehaviour
 
         Warning3.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         PressZtoProceed.SetActive(!Application.isMobilePlatform);
         canHitNext = true;
@@ -165,7 +111,7 @@ public class WarningScreenManager : MonoBehaviour
 
         Warning4.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         PressZtoProceed.SetActive(!Application.isMobilePlatform);
         canHitNext = true;
@@ -179,7 +125,7 @@ public class WarningScreenManager : MonoBehaviour
 
         Warning5.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         PressZtoProceed.SetActive(!Application.isMobilePlatform);
         canHitNext = true;
